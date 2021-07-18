@@ -13,6 +13,9 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true
   },
+  location: {
+    type: String
+  },
   password: {
     type: String,
     required: [true, 'Le mot de passe est obligatoire.'],
