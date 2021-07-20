@@ -14,19 +14,10 @@ const scoreSchema = new Schema({
   object_three: {
     type: Number
   },
-  trophies_bronze: {
-    type: Number
-  },
-  trophies_argent: {
-    type: Number
-  },
-  trophies_or: {
-    type: Number
-  },
 }, {
   timestamps: true
 });
 
-const Score = mongoose.model('Score', userSchema);
+const Score = mongoose.model('Score', scoreSchema);
 
 module.exports = Score;
