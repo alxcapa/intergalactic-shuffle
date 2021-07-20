@@ -36,7 +36,7 @@ app.use(cookieParser());
 // const cors = require('cors');
 // app.use(cors({
 //   credentials: true,
-//   origin: ['*']
+//   origin: ['http://localhost:3000/']
 // }));
 
 
@@ -99,5 +99,11 @@ app.use((err, req, res, next) => {
 
   res.json(err);
 });
+
+const index = require('./routes/index');
+app.use('/', index);
+
+const authRouter = require('./routes/auth')
+app.use('/auth', authRouter)
 
 module.exports = app;
