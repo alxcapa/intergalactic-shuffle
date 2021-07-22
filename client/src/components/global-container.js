@@ -1,10 +1,9 @@
 import React from 'react';
 
-function globalContainer ()
-{
+function GlobalContainer() {
 
-return <div className="globalContainer"></div>
+  return <div className="globalContainer"></div>
 
 }
 
-export default globalContainer
+export default GlobalContainer

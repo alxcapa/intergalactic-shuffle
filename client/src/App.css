@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.globalContainer {
+
+  background: linear-gradient(180deg, rgba(4, 120, 255, 0.502031) 0%, rgba(255, 255, 255, 0.759459) 100%), linear-gradient(180deg, rgba(255, 255, 255, 0.759459) 0%, rgba(255, 255, 255, 0.502031) 100%);
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
