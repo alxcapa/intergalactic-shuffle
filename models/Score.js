@@ -14,9 +14,11 @@ const scoreSchema = new Schema({
   object_three: {
     type: Number
   },
+  user_ref: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
   timestamps: true
 });
+
 
 const Score = mongoose.model('Score', scoreSchema);
 

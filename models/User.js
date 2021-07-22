@@ -22,7 +22,6 @@ const userSchema = new Schema({
     minlength: 5,
     // maxlength: 16,
   },
-  score_ref: [{ type: Schema.Types.ObjectId, ref: 'Score' }]
 }, {
   timestamps: true
 });

@@ -3,17 +3,6 @@ const router = express.Router();
 const User = require("../models/User");
 const Score = require("../models/Score");
 
-function loopThruScores(array) {
-  const resultScore = [];
-  for (let i = 0; i < array.length; i++) {
-    if (!array[i].score_ref.length < 1 ) {
-      console.log('oi')
-      resultScore.push(array[i].score_ref[0]);
-    }
-  }
-  console.log("its the loop", resultScore);
-}
-
 function loopThruDates(array) {
   const resultDates = [];
   for (let i = 0; i < array.length; i++) {
@@ -37,14 +26,28 @@ router.get("/profile", (req, res) => {
     });
     return;
   }
-  User.findOne({
-    _id: req.user.id,
+  Score.findOne({
+    user_ref: req.user.id,
   })
-    .populate("score_ref")
+    .populate("user_ref")
     .then((user) => {
-      res.json({
-        user: user,
-      });
+      // res.json({
+      //   user: user,
+      // });
+      console.log("this user===>", user);
+    })
+    .catch((err) => next(err));
+});
+
+router.put("/profile", (req, res, next) => {
+  User.findByIdAndUpdate(req.user.id, {
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    location: req.body.location,
+  })
+    .then((user) => {
+      console.log(user);
     })
     .catch((err) => next(err));
 });
@@ -60,29 +63,19 @@ router.post("/game", (req, res) => {
   const object_one = req.body.object_one;
   const object_two = req.body.object_two;
   const object_three = req.body.object_three;
+  const user_ref = req.user.id;
 
   const newScore = new Score({
     high_score,
     object_one,
     object_two,
     object_three,
+    user_ref,
   });
   newScore
     .save()
     .then((scoreFromDB) => {
-      User.findOne({
-        _id: req.user.id,
-      }).then((user) => {
-        user.score_ref.push(scoreFromDB.id);
-        console.log(user.score_ref);
-        console.log(scoreFromDB.id);
-        user
-          .save()
-          .then(() => {
-            console.log(user);
-          })
-          .catch((err) => next(err));
-      });
+      console.log(scoreFromDB);
     })
     .catch((err) => next(err));
 });
@@ -102,12 +95,11 @@ router.get("/stats", (req, res, next) => {
 });
 
 router.get("/ranking-game", (req, res, next) => {
-  User.find({})
-    .populate("score_ref")
-    .then((usersFromDb) => {
-      // console.log("ici", usersFromDb)
-      // console.log("scores====>", usersFromDb[1].score_ref[0].high_score);
-      loopThruScores(usersFromDb);
+  Score.find({})
+    .sort({ high_score: -1 })
+    .populate("user_ref")
+    .then((scoresFromDb) => {
+      console.log("score====>", scoresFromDb);
     })
     .catch((err) => next(err));
 });
