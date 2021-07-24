@@ -9,11 +9,19 @@ import BlocLogin from "../auth/login/bloc-login"
 function Login() {
 
   return (<div className="globalContainer">
-    <Banner />
-    <Logout />
-    <Menu />
-    {/* <BlocLogin /> */}
-    <Assistant />
+    <div className="first">
+      <Banner />
+      <Logout />
+    </div>
+
+    <div className="second">
+      <Menu />
+      <BlocLogin />
+      <Assistant />
+    </div>
+
+
+
 
   </div>)
 

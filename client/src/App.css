@@ -263,12 +263,14 @@ bottom: -18px;
 }
 
 .bloc-login {
-  width: 1323px;
-  height: 695px;
+  width: 1034px;
+  height: 595px;
   background: #779add;
   display: flex;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 30px;
+  border-radius: 20px;
 }
 
 
