@@ -271,6 +271,7 @@ bottom: -18px;
   margin-right: auto;
   margin-top: 30px;
   border-radius: 20px;
+  overflow: scroll;
 }
 
 
@@ -286,7 +287,4 @@ bottom: -18px;
 
   display: flex;
  align-items: center;
-}
-.third{
-
 }
