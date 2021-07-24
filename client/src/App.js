@@ -2,6 +2,7 @@
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Game from "./components/pages/game"
+import Login from "./components/pages/login"
 
 
 
@@ -13,7 +14,7 @@ function App() {
         <Route exact path="/game" render={() => <Game />} />
         <Route exact path="/about" render={() => <div>ABOUT</div>} />
         <Route exact path="/signup" render={() => <div>SIGNUP</div>} />
-        <Route exact path="/login" render={() => <div>LOGIN</div>} />
+        <Route exact path="/login" render={() => <Login />} />
         <Route exact path="/logout" render={() => <div>LOGOUT</div>} />
         <Route exact path="/profile" render={() => <div>PROFILE</div>} />
         <Route exact path="/stats" render={() => <div>STATS</div>} />

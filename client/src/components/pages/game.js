@@ -10,12 +10,20 @@ import Logout from "../logout-btn"
 function Game() {
 
   return (<div className="globalContainer">
-    <Banner />
-    <Logout />
-    <Menu />
-    <GameArea />
-    <GameEvents />
-    <Assistant />
+
+    <div id="top">
+      <Banner />
+      <Logout />
+    </div>
+    <div id="middle">
+      <Menu />
+      <GameArea />
+      <GameEvents />
+    </div>
+    <div id="bottom">
+      <Assistant />
+    </div>
+
 
   </div>)
 

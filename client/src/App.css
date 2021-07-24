@@ -23,9 +23,7 @@ font-weight: normal;
     , rgba(4, 120, 255, 0.502031) 0%, rgba(255, 255, 255, 0.759459) 100%), linear-gradient(
     180deg
     , rgba(255, 255, 255, 0.759459) 0%, rgba(255, 255, 255, 0.502031) 100%);
-        display: flex;
        
-        align-items: center;
 }
 
 .banner {
@@ -142,6 +140,8 @@ background : #779ADD
 
 .menu {
   margin-top: -118px;
+
+  
 }
 
 .menu ul {
@@ -279,5 +279,22 @@ border-radius: 20px;
 .logout-btn:hover {
   background: #779ADD;
   cursor: pointer;
+
+}
+
+.bloc-login {
+
+
+  width: 1323px;
+height: 695px;
+background: #779ADD;
+display: flex;
+margin-left: auto;
+    margin-right: auto;
+}
+
+#top, #middle {
+
+display: flex;
 
 }
