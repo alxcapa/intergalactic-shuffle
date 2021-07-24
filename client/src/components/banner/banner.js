@@ -4,10 +4,10 @@ import Title from "./title"
 
 function Banner() {
 
-  return (<div className="banner">
+  return (<header className="banner">
     <Title />
     <Logo />
-  </div>)
+  </header>)
 
 }
 
