@@ -2,7 +2,7 @@ import React from 'react';
 
 function Character() {
 
-  return <canvas className="3d-assistant"></canvas>
+  return <canvas className="character-assistant"></canvas>
 
 }
 

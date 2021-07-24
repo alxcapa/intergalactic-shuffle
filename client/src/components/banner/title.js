@@ -2,7 +2,7 @@ import React from 'react';
 
 function Title() {
 
-  return <h1>INTERGALACTIC SHUFFLE</h1>
+  return (<div class="titles"><span class="jp">インタガァウチク　シュッフゥ</span><h1>INTERGALACTIC SHUFFLE</h1></div>)
 
 }
 
