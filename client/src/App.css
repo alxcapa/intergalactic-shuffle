@@ -1,117 +1,110 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
 
 * {
   font-family: Orbitron;
   font-style: normal;
-font-weight: normal;
+  font-weight: normal;
 }
 
 h1 {
-
-font-size: 32px;
-line-height: 45px;
-color: white;
-font-family: Orbitron;
-font-style: normal;
-font-weight: normal;
+  font-size: 32px;
+  line-height: 45px;
+  color: white;
+  font-family: Orbitron;
+  font-style: normal;
+  font-weight: normal;
 }
 
 .globalContainer {
-
+  /* background-color: blue; */
   background: linear-gradient(
-    180deg
-    , rgba(4, 120, 255, 0.502031) 0%, rgba(255, 255, 255, 0.759459) 100%), linear-gradient(
-    180deg
-    , rgba(255, 255, 255, 0.759459) 0%, rgba(255, 255, 255, 0.502031) 100%);
-       
+      180deg,
+      rgba(4, 120, 255, 0.502031) 0%,
+      rgba(255, 255, 255, 0.759459) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.759459) 0%,
+      rgba(255, 255, 255, 0.502031) 100%
+    );
+  /* border: 3px solid red; */
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .banner {
-
-  display: flex;
-  align-items: center;
-  position: absolute;
   width: 1157px;
   height: 130px;
-  left: 62px;
-  top: 52px;
-  background: #779ADD;
-  border: 4px solid #FFFFFF;
+  background: #779add;
+  border: 4px solid #ffffff;
   box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  /* box-shadow: 0px 4px 4px rgb(0 0 0 / 25%); */
   border-radius: 20px;
+  margin-left: 62px;
+  margin-top: 52px;
 }
 
 .game-area {
-
-  display:flex;
+  display: flex;
   align-items: center;
-width: 540px;
-height: 380px;
-margin-left:auto;
-margin-right:auto;
+  width: 540px;
+  height: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
 
   background: #000000;
-border: 1px solid #FFFFFF;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 20px;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
 }
 
 .start-btn {
   font-size: 18px;
   color: white;
   border-radius: 20px;
-  background: #6782B9;
-border: 4px solid #FFFFFF;
+  background: #6782b9;
+  border: 4px solid #ffffff;
   width: 195px;
-height: 48px;
-  margin-left:auto;
-  margin-right:auto;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .start-btn:hover {
-  
-
-cursor: pointer;
+  cursor: pointer;
 }
 
 .titles {
-
   display: flex;
   flex-direction: column;
   margin-left: 44px;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .jp {
   font-size: 32px;
- 
   color: white;
   font-family: Orbitron;
-  font-style: normal;
-  font-weight: normal;
-
 }
 
-.container-assistant{
-
+.container-assistant {
   position: absolute;
   left: 38px;
   display: flex;
   align-items: center;
-  
-  bottom: 30px;
-
+bottom: -18px;
+ 
 }
 
 .character-assistant {
-
   width: 202px;
   height: 160px;
   border-radius: 20px;
   background-color: white;
   z-index: 1;
-
 }
 
 .talk-area {
@@ -129,19 +122,15 @@ cursor: pointer;
   /* background: linear-gradient( 
 188deg
 , #779ADD 23.95%, rgba(0, 87, 255, 0) 100.96%); */
-background : #779ADD
+  background: #779add;
 }
 
 .talk-area span {
-
-  margin-left:180px;
+  margin-left: 180px;
 }
 
-
 .menu {
-  margin-top: -118px;
-
-  
+  margin-top: -139px;
 }
 
 .menu ul {
@@ -150,110 +139,103 @@ background : #779ADD
 
 .menu li {
   width: 304px;
-    height: 50px;
-    background: linear-gradient( 
-180deg
- , #779ADD -18.05%, rgba(0, 87, 255, 0) 100.96%);
-    border-radius: 12px;
-    line-height: 52px;
-    text-align: center;
-    margin-top: 34px;
-    border: 2px solid #FFFFFF;
-    color: white;
-    margin-left: 20px;
-    font-weight: 500;
-    background: #779ADD;
+  height: 50px;
+  background: linear-gradient(
+    180deg,
+    #779add -18.05%,
+    rgba(0, 87, 255, 0) 100.96%
+  );
+  border-radius: 12px;
+  line-height: 52px;
+  text-align: center;
+  margin-top: 34px;
+  border: 2px solid #ffffff;
+  color: white;
+  margin-left: 20px;
+  font-weight: 500;
+  background: #779add;
 }
 
 .menu li:hover {
-  
-    background: linear-gradient( 
-180deg
- , #779ADD -18.05%, rgba(0, 87, 255, 0) 100.96%);
+  background: linear-gradient(
+    180deg,
+    #779add -18.05%,
+    rgba(0, 87, 255, 0) 100.96%
+  );
 
- cursor: pointer;
+  cursor: pointer;
 }
 
 /* GAME EVENTS  */
 
 .game-events {
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 670px;
-  margin-right: 68px;
-  margin-top: 231px;
+  margin-right: 60px;
+
 }
 .time-remaining {
   width: 314px;
   height: 94px;
-  background: #779ADD;
-  border: 2px solid #FFFFFF;
+  background: #779add;
+  border: 2px solid #ffffff;
   border-radius: 20px;
- 
 }
 
 .score {
-
   width: 314px;
-height: 94px;
-background: #779ADD;
-border: 2px solid #FFFFFF;
-border-radius: 20px;
+  height: 94px;
+  background: #779add;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
 }
 
 .objects {
-
   width: 314px;
   height: 180px;
-  background: #779ADD;
-  border: 2px solid #FFFFFF;
+  background: #779add;
+  border: 2px solid #ffffff;
   border-radius: 20px;
   display: flex;
   justify-content: space-evenly;
   font-size: 28px;
   color: white;
-  
 }
 
 .object {
-
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .notice {
   width: 314px;
   height: 180px;
-  background: #779ADD;
-  border: 2px solid #FFFFFF;
+  background: #779add;
+  border: 2px solid #ffffff;
   border-radius: 20px;
   font-size: 16px;
   color: white;
   line-height: 34px;
   text-align: center;
   margin-top: 30px;
-
 }
 
 .titles-events {
-
   text-align: center;
   font-size: 28px;
   color: white;
   line-height: 46px;
-
 }
 
 .credits {
-
   position: absolute;
   width: 380px;
   height: 33px;
-  background: #779ADD;
+  background: #779add;
   border-radius: 20px;
   color: white;
   text-align: center;
@@ -263,7 +245,6 @@ border-radius: 20px;
 }
 
 .logout-btn {
-
   width: 140px;
   height: 34px;
   border-radius: 20px;
@@ -277,24 +258,33 @@ border-radius: 20px;
 }
 
 .logout-btn:hover {
-  background: #779ADD;
+  background: #779add;
   cursor: pointer;
-
 }
 
 .bloc-login {
-
-
   width: 1323px;
-height: 695px;
-background: #779ADD;
-display: flex;
-margin-left: auto;
-    margin-right: auto;
+  height: 695px;
+  background: #779add;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#top, #middle {
 
-display: flex;
+#middle {
+  display: flex;
+
+}
+
+.first {
+
+}
+.second {
+
+  display: flex;
+ align-items: center;
+}
+.third{
 
 }
