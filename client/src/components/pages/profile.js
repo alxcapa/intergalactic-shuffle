@@ -3,10 +3,10 @@ import Banner from '../banner/banner'
 import Assistant from "../assistant/assistant"
 import Menu from "../menu/menu"
 import Logout from "../logout-btn"
-import BlocLogin from "../auth/login/bloc-login"
+import BlocProfile from "../profile/bloc-profile"
 
 
-function Login() {
+function Profile() {
 
   return (<div className="globalContainer">
     <div className="first">
@@ -16,7 +16,7 @@ function Login() {
 
     <div className="second">
       <Menu />
-      <BlocLogin />
+      <BlocProfile />
 
     </div>
 
@@ -29,4 +29,4 @@ function Login() {
 
 }
 
-export default Login
+export default Profile
