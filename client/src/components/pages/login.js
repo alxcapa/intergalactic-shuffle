@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import Banner from '../banner/banner'
 import Assistant from "../assistant/assistant"
 import Menu from "../menu/menu"
@@ -6,27 +6,32 @@ import Logout from "../logout-btn"
 import BlocLogin from "../auth/login/bloc-login"
 
 
-function Login() {
+export default class Login extends Component {
 
-  return (<div className="globalContainer">
-    <div className="first">
-      <Banner />
-      <Logout />
-    </div>
+  render() {
+    return (
+      <div className="globalContainer">
+        <div className="first">
+          <Banner />
+          <Logout />
+        </div>
 
-    <div className="second">
-      <Menu />
-      <BlocLogin />
+        <div className="second">
+          <Menu />
+          <BlocLogin />
 
-    </div>
+        </div>
 
-    <div className="third">
-      <Assistant />
-    </div>
+        <div className="third">
+          <Assistant />
+        </div>
 
 
-  </div>)
-
+      </div>
+    )
+  }
 }
 
-export default Login
+
+
+

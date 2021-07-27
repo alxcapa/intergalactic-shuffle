@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Switch>
 
-        <Route exact path="/game" render={() => <Game />} />
+        <Route exact path="/" render={() => <Game />} />
         <Route exact path="/about" render={() => <About />} />
         <Route exact path="/signup" render={() => <div>SIGNUP</div>} />
         <Route exact path="/login" render={() => <Login />} />

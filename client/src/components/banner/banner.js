@@ -1,12 +1,15 @@
 import React from 'react';
 import Logo from "./logo"
 import Title from "./title"
+import { Link } from 'react-router-dom'
 
 function Banner() {
 
   return (<header className="banner">
-    <Title />
-    <Logo />
+    <Link to="/">
+      <Title />
+      <Logo />
+    </Link>
   </header>)
 
 }

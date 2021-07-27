@@ -40,11 +40,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // CORS
-// const cors = require('cors');
-// app.use(cors({
-//   credentials: true,
-//   origin: ['http://localhost:3000/']
-// }));
+const cors = require('cors');
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000/']
+}));
 
 // Enable authentication using session + passport
 app.use(
