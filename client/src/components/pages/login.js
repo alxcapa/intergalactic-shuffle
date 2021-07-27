@@ -17,8 +17,9 @@ function Login() {
     <div className="second">
       <Menu />
       <BlocLogin />
-      <Assistant />
+   
     </div>
+    <div className='third'>   <Assistant /></div>
 
 
 

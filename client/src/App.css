@@ -27,6 +27,7 @@ h1 {
       rgba(255, 255, 255, 0.759459) 0%,
       rgba(255, 255, 255, 0.502031) 100%
     );
+    position: relative;
   /* border: 3px solid red; */
 
   min-height: 100vh;
@@ -91,11 +92,11 @@ h1 {
 }
 
 .container-assistant {
-  position: absolute;
-  left: 38px;
+  /* position: absolute; */
+  margin-left: 38px;
   display: flex;
   align-items: center;
-bottom: -18px;
+bottom: 0;
  
 }
 
@@ -266,12 +267,40 @@ bottom: -18px;
   width: 1034px;
   height: 595px;
   background: #779add;
-  display: flex;
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
   border-radius: 20px;
   overflow: auto;
+  border: 4px solid #ffffff;
+
+}
+.bloc-login > marquee {
+  text-align: center;
+  color: white;
+}
+
+.bloc-login > div {
+  color: white;
+  text-align: center;
+  padding-left: 27%;
+  padding-right: 27%;
+}
+
+.bloc-login > table, th, td {
+  color: white;
+  text-align: center;
+  /* border: 4px solid white; */
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+}
+.bloc-login > table {
+  width: 90%;
+  /* border-collapse: collapse; */
+  margin-left: auto;
+  margin-right: auto;
+ 
 }
 
 
@@ -281,14 +310,18 @@ bottom: -18px;
 }
 
 .first {
-
 }
 .second {
 
   display: flex;
+  flex: 1;
  align-items: center;
 }
 
+.third {
+  margin-top: -200px;
+
+}
 
 /* CSS ADAM  */
 

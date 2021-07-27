@@ -1,29 +1,27 @@
 import React from "react";
 import Banner from "../banner/banner";
-import GameArea from "../game-area/gameArea";
 import Assistant from "../assistant/assistant";
 import Menu from "../menu/menu";
-import GameEvents from "../game-events/game-events";
 import Logout from "../logout-btn";
+import BlocRanking from "../ranking/bloc-ranking";
 
-function Game() {
+function Ranking() {
   return (
     <div className="globalContainer">
       <div className="first">
         <Banner />
         <Logout />
       </div>
+
       <div className="second">
         <Menu />
-        <GameArea />
-        <GameEvents />
-      </div>
 
-      <div className="third">
-        <Assistant />
+        <BlocRanking/>
+
       </div>
+      <div className="third"> <Assistant /></div>
     </div>
   );
 }
 
-export default Game;
+export default Ranking;
