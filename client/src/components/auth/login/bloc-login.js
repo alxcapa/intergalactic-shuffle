@@ -21,8 +21,8 @@ export default class BlocLogin extends Component {
       .then(response => {
         this.setState({ error: "" });
         console.log("api reponse", response)
-        // this.props.updateUser(response);
-        // this.props.history.push('/');
+
+        // this.history.push('/');
       })
       .catch(err => this.setState({ error: err.response }))
       ;
