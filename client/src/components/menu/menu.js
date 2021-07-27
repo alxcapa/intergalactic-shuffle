@@ -5,10 +5,10 @@ function Menu() {
 
   return (<nav className="menu">
     <ul>
-      <li> <Link to="/profile">Profile</Link> </li>
-      <li> <Link to="/stats">Stats</Link></li>
-      <li> <Link to="/ranking">Leaderboard</Link></li>
-      <li> <Link to="/about">About</Link></li>
+      <Link to="/profile"><li> Profile</li></Link>
+      <Link to="/stats"><li> Stats</li></Link>
+      <Link to="/ranking"><li> Leaderboard</li></Link>
+      <Link to="/about"><li> About</li></Link>
     </ul>
   </nav>)
 
