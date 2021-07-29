@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
-import Banner from '../banner/banner'
-import Assistant from "../assistant/assistant"
-import Menu from "../menu/menu"
-import Logout from "../logout-btn"
-import BlocLogin from "../auth/login/bloc-login"
-
+import React, { Component } from "react";
+import Banner from "../banner/banner";
+import Assistant from "../assistant/assistant";
+import Menu from "../menu/menu";
+import Logout from "../logout-btn";
+import BlocLogin from "../auth/login/bloc-login";
 
 export default class Login extends Component {
-
   render() {
     return (
       <div className="globalContainer">
@@ -19,19 +17,12 @@ export default class Login extends Component {
         <div className="second">
           <Menu />
           <BlocLogin />
-
         </div>
 
         <div className="third">
           <Assistant />
         </div>
-
-
       </div>
-    )
+    );
   }
 }
-
-
-
-
