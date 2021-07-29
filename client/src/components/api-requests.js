@@ -7,7 +7,9 @@ export default {
   }),
   profile() {
     return this.service.get('/profile')
-      .then(response => response.data)
+      .then((response => {
+        return response.data
+      }))
       .catch((err) => {
         console.error("Error connecting to mongo", err);
       });

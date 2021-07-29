@@ -8,23 +8,26 @@ import apiRequests from "../api-requests"
 
 export default class Profile extends Component {
 
-  // componentDidMount() {
+  state = { data: null };
 
-  //   apiRequests.profile()
-  //     .then(response => {
+  componentDidMount() {
 
-  //       console.log("data", response)
+    // const object = []
+    apiRequests
+      .profile()
+      .then(response => {
+        this.setState({ data: response })
+        console.log("data-prof", response)
+        console.log("state", this.state.data)
+      })
+      .catch(err => { console.log("err", err) });
 
-  //     })
-  //     .catch(err => this.setState({ error: err.response.data.message }))
-  //     ;
-
-  // }
+  }
 
 
 
   render() {
-    console.log("props===>", this.props.userInSession);
+    // console.log("props===>", object);
     return (
       <div className="globalContainer">
         <div className="first">
@@ -34,7 +37,7 @@ export default class Profile extends Component {
 
         <div className="second">
           <Menu />
-          <BlocProfile userInSession = {this.props.userInSession} />
+          <BlocProfile dataProfile={this.state.data} />
 
         </div>
 

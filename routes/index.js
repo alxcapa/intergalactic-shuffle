@@ -31,9 +31,7 @@ router.get("/profile", (req, res) => {
   })
     .populate("user_ref")
     .then((user) => {
-      // res.json({
-      //   user: user,
-      // });
+      res.json(user);
       console.log("this user===>", user);
     })
     .catch((err) => next(err));
