@@ -46,11 +46,11 @@ export default class App extends Component {
         <Switch>
           {/* <Route exact path="/" render={(props) => <Game user = {this.state.user} userInSession ={this.updateLoggedInUser} />} /> */}
           <Route exact path="/" render={() => <Game userInSession = {this.state.user} />} />
-          <Route exact path="/about" render={() => <About />} />
+          <Route exact path="/about" render={() => <About  />} />
           <Route exact path="/signup" render={() => <div>SIGNUP</div>} />
           <Route exact path="/login" render={() => <Login  />} />
           <Route exact path="/logout" render={() => <div>LOGOUT</div>} />
-          <Route exact path="/profile" render={() => <Profile/>} />
+          <Route exact path="/profile" render={() => <Profile userInSession = {this.state.user}/>} />
           <Route exact path="/stats" render={() => <div>STATS</div>} />
           <Route exact path="/ranking" render={() => <Ranking />} />
         </Switch>

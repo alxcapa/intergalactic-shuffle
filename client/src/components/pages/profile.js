@@ -8,22 +8,23 @@ import apiRequests from "../api-requests"
 
 export default class Profile extends Component {
 
-  componentDidMount() {
+  // componentDidMount() {
 
-    apiRequests.profile()
-      .then(response => {
+  //   apiRequests.profile()
+  //     .then(response => {
 
-        console.log("data", response)
+  //       console.log("data", response)
 
-      })
-      .catch(err => this.setState({ error: err.response.data.message }))
-      ;
+  //     })
+  //     .catch(err => this.setState({ error: err.response.data.message }))
+  //     ;
 
-  }
+  // }
 
 
 
   render() {
+    console.log("props===>", this.props.userInSession);
     return (
       <div className="globalContainer">
         <div className="first">
@@ -33,7 +34,7 @@ export default class Profile extends Component {
 
         <div className="second">
           <Menu />
-          <BlocProfile />
+          <BlocProfile userInSession = {this.props.userInSession} />
 
         </div>
 
