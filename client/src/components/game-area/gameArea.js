@@ -62,10 +62,6 @@ function GameArea() {
   };
 
 
-
-
-
-
   runPosenet();
 
   return (

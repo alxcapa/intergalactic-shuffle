@@ -10,9 +10,11 @@ export default {
     return this.service.post('/auth/login', { email, password })
       .then(response => { console.log("data", response.data) })
   },
-  signup(username, password) {
+  signup(username, email, location, password) {
     return this.service.post('/auth/signup', {
       username,
+      email,
+      location,
       password
     })
       .then(response => response.data)

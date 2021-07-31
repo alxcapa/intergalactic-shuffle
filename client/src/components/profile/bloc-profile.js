@@ -5,11 +5,14 @@ import React, { Component } from "react";
 export default class BlocProfile extends Component {
   render() {
     console.log(this.props.dataProfile, 'props')
+
+    if (!this.props.dataProfile) return 'loqding'
+
     return (
       <div className="bloc-profile">
         <h2>PROFILE</h2>
-        {/* <p>USERNAME: {this.props.dataProfile.user_ref.username}</p>
-        <p>EMAIL: {this.props.dataProfile.user_ref.email}</p> */}
+        <p>USERNAME: {this.props.dataProfile.user_ref.username}</p>
+        <p>EMAIL: {this.props.dataProfile.user_ref.email}</p> 
         <h3>GAMES HISTORIC</h3>
         <ul>
           <li>17.07.2021 - 1000000000 - 59 - XXX</li>

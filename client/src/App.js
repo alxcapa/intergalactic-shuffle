@@ -2,6 +2,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Game from "./components/pages/game";
 import Login from "./components/pages/login";
+import Signup from "./components/pages/signup"
 import About from "./components/pages/about";
 import Ranking from "./components/pages/ranking";
 import Profile from "./components/pages/profile";
@@ -52,7 +53,7 @@ export default class App extends Component {
           {/* <Route exact path="/" render={(props) => <Game user = {this.state.user} userInSession ={this.updateLoggedInUser} />} /> */}
           <Route exact path="/" render={() => <Game userInSession={this.state.user} />} />
           <Route exact path="/about" render={() => <About />} />
-          <Route exact path="/signup" render={() => <div>SIGNUP</div>} />
+          <Route exact path="/signup" render={() => <Signup />} />
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/logout" render={() => <div>LOGOUT</div>} />
           <Route exact path="/profile" render={() => <Profile userInSession={this.state.user} />} />
