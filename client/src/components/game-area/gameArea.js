@@ -7,6 +7,13 @@ import * as posenet from "@tensorflow-models/posenet";
 // import { from } from "node-fetch/node_modules/form-data";
 import { drawKeypoints, drawSkeleton } from "./utilities";
 
+
+
+
+
+
+
+
 function GameArea() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -53,6 +60,11 @@ function GameArea() {
     drawKeypoints(pose["keypoints"], 0.5, ctx);
     drawSkeleton(pose["keypoints"], 0.5, ctx);
   };
+
+
+
+
+
 
   runPosenet();
 
