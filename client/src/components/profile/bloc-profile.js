@@ -4,6 +4,7 @@ import React, { Component } from "react";
 
 export default class BlocProfile extends Component {
   render() {
+    console.log(this.props.dataProfile, 'props')
     return (
       <div className="bloc-profile">
         <h2>PROFILE</h2>

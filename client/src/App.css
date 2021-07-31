@@ -431,3 +431,20 @@ bottom: 0;
   border: 2px solid #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+.bloc-stats {
+  width: 1034px;
+  height: 595px;
+  background: #779add;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  border-radius: 20px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  border: 2px solid #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
