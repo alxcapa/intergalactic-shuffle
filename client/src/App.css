@@ -52,13 +52,13 @@ li {
 }
 
 #defaultCanvas0 {
-  display: flex;
-  position: relative;
-  align-items: center;
+  /* display: flex;  */
+  /* position: relative;
+  align-items: center; */
   width: 540px;
-  height: 380px;
-  margin-right: auto;
-  margin-bottom: 100px;
+  height: 380px; 
+  /* margin-right: auto;
+  margin-bottom: 100px; */
 
   background: white;
   border: 1px solid #ffffff;

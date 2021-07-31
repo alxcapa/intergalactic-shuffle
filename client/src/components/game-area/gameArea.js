@@ -8,6 +8,7 @@ function GameArea() {
   let poseNet;
   let pose;
   let skeleton;
+  let bg;
 
   let setup = (p5, canvasParentRef) => {
     let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
@@ -18,6 +19,7 @@ function GameArea() {
     video.hide();
     poseNet = ml5.poseNet(video);
     poseNet.on("pose", gotPoses);
+    bg = p5.loadImage("images/future-of-work.jpeg");
   };
 
   let gotPoses = (poses) => {
@@ -30,15 +32,14 @@ function GameArea() {
 
   let drawCanvas = (p5, canvasParentRef) => {
     p5.image(video, 0, 0);
+    p5.background(bg);
 
-    p5.background(255, 130, 20)
-    p5.ellipse(100, 100, 100)
-    p5.ellipse(300, 100, 100)
 
     if (pose) {
       let eyeR = pose.rightEye;
       let eyeL = pose.leftEye;
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
+
       p5.fill(255, 0, 0);
       p5.ellipse(pose.nose.x, pose.nose.y, d);
       p5.fill(0, 0, 255);
@@ -62,7 +63,7 @@ function GameArea() {
     }
   };
 
-  let draw
+
 
   return (
     <div>
