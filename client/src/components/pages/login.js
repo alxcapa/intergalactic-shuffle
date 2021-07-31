@@ -7,6 +7,7 @@ import BlocLogin from "../auth/login/bloc-login";
 
 export default class Login extends Component {
   render() {
+    console.log("props history", this.props.history)
     return (
       <div className="globalContainer">
         <div className="first">
@@ -16,7 +17,7 @@ export default class Login extends Component {
 
         <div className="second">
           <Menu />
-          <BlocLogin />
+          <BlocLogin history={this.props.history} />
         </div>
 
         <div className="third">

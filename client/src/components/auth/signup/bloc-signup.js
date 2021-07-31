@@ -23,7 +23,7 @@ export default class BlocSignup extends Component {
         this.setState({ error: "" });
         console.log("api reponse", response)
 
-        // this.history.push('/');
+        this.props.history.push('/login');
       })
       .catch(err => this.setState({ error: err.response }))
       ;

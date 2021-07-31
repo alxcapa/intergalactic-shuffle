@@ -1,6 +1,9 @@
 
 import React, { Component } from 'react';
+
 import authService from '../auth-service'
+
+
 
 export default class BlocLogin extends Component {
 
@@ -15,6 +18,7 @@ export default class BlocLogin extends Component {
   }
 
   handleSubmit = (event) => {
+
     event.preventDefault();
 
     authService.login(this.state.email, this.state.password)
@@ -22,7 +26,7 @@ export default class BlocLogin extends Component {
         this.setState({ error: "" });
         console.log("api reponse", response)
 
-        // this.history.push('/');
+        this.props.history.push('/');
       })
       .catch(err => this.setState({ error: err.response }))
       ;

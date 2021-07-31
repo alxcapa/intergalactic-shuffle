@@ -9,6 +9,7 @@ import BlocSignup from "../auth/signup/bloc-signup";
 
 export default class Signup extends Component {
   render() {
+    console.log("props history", this.props.history)
     return (
       <div className="globalContainer">
         <div className="first">
@@ -18,7 +19,7 @@ export default class Signup extends Component {
 
         <div className="second">
           <Menu />
-          <BlocSignup />
+          <BlocSignup history={this.props.history} />
         </div>
 
         <div className="third">
