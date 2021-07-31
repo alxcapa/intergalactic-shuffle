@@ -11,9 +11,7 @@ import Stats from "./components/pages/statistiques"
 
 import React, { Component } from "react";
 
-import * as tf from "@tensorflow/tfjs"
-import * as posenet from "@tensorflow-models/posenet"
-import Webcam from 'react-webcam'
+
 
 export default class App extends Component {
   state = { user: null };
