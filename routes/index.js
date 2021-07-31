@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Score = require("../models/Score");
+const ObjectId = require('mongoose').Types.ObjectId;
 
 function loopThruDates(array) {
   const resultDates = [];
@@ -26,13 +27,31 @@ router.get("/profile", (req, res) => {
     });
     return;
   }
+
+
   Score.findOne({
     user_ref: req.user.id,
   })
     .populate("user_ref")
     .then((user) => {
-      res.json(user);
+      // res.json(user);
       console.log("this user===>", user);
+
+      Score.find({ user_ref: new ObjectId(req.user.id) }).sort({ high_score: -1 }).limit(8)
+        .then((scores) => {
+
+          res.json({
+            scores: scores,
+            user: user
+
+          })
+
+          console.log("scores", scores);
+
+        })
+        .catch((err) => next(err));
+
+
     })
     .catch((err) => next(err));
 });

@@ -4,23 +4,36 @@ import React, { Component } from "react";
 
 export default class BlocProfile extends Component {
   render() {
-    console.log(this.props.dataProfile, 'props')
 
-    if (!this.props.dataProfile) return 'loqding'
+    function formatDate(date) {
 
+      let strDate = JSON.stringify(date)
+      let cutDate = strDate.slice(1, 11)
+
+      let arrDate = cutDate.split('-')
+      arrDate.reverse()
+
+      return arrDate.join('/')
+    }
+
+
+    if (!this.props.dataProfile) return 'loading'
+    console.log(this.props.dataProfile.user, 'props')
     return (
       <div className="bloc-profile">
         <h2>PROFILE</h2>
-        <p>USERNAME: {this.props.dataProfile.user_ref.username}</p>
-        <p>EMAIL: {this.props.dataProfile.user_ref.email}</p> 
-        <h3>GAMES HISTORIC</h3>
+        <p>USERNAME: {this.props.dataProfile.user.user_ref.username}</p>
+        <p>EMAIL: {this.props.dataProfile.user.user_ref.email}</p>
+        <h3>BEST GAMES</h3>
         <ul>
-          <li>17.07.2021 - 1000000000 - 59 - XXX</li>
-          <li>16.07.2021 - 1000000000 - 59 - XXX</li>
-          <li>15.07.2021 - 1000000000 - 59 - XXX</li>
+          {this.props.dataProfile.scores.map((item) => {
+            return (
+              <li key={item.id}> {formatDate(item.createdAt)} - {item.high_score} - [{item.object_one}, {item.object_two}, {item.object_three} ]</li>
+            )
+          })}
+
         </ul>
-        <h3>BEST GAME</h3>
-        <span>14.07.2021 - 5000000000 - 99 - XXXXX</span>
+
       </div>
     );
   }

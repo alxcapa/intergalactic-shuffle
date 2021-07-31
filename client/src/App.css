@@ -15,6 +15,10 @@ h1 {
   font-weight: normal;
 }
 
+li {
+  list-style: none;
+}
+
 .globalContainer {
   /* background-color: blue; */
   background: linear-gradient(
