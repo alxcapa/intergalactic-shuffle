@@ -29,9 +29,12 @@ function GameArea() {
     xyz.position(x, y);
     video = p5.createCapture();
     video.hide();
+
+
     poseNet = ml5.poseNet(video);
     poseNet.on("pose", gotPoses);
-    bg = p5.loadImage("images/future-of-work.jpeg");
+    bg = p5.loadImage("https://media.giphy.com/media/Zf7L4QMWo3RkI/giphy-downsized.gif");
+    // p5.tint(255, 127);
   };
 
   let gotPoses = (poses) => {
@@ -79,12 +82,13 @@ function GameArea() {
 
   return (
     <div>
-      <Sketch setup={setup} draw={drawCanvas} className="defaultCanvas0" />
-      <Lottie
+      {/* <Lottie
         options={defaultOptions}
         height={400}
-        width={400}
-      />
+        width={550}
+      /> */}
+      <Sketch setup={setup} draw={drawCanvas} className="defaultCanvas0" />
+
     </div>
   );
 }
