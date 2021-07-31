@@ -49,6 +49,7 @@ h1 {
 
 .game-area {
   display: flex;
+  position: relative;
   align-items: center;
   width: 540px;
   height: 380px;
@@ -56,7 +57,38 @@ h1 {
   margin-right: auto;
   margin-bottom: 100px;
 
-  background: #000000;
+  background: white;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+.game-area-webcam {
+  
+  position: absolute;
+  z-index: 9;
+  /* align-items: center; */
+  width: 540px;
+  height: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-bottom: 100px; */
+  /* background: #000000; */
+  border: 1px solid #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.game-area-canvas{
+  position: absolute;
+  background-color:rgb(244 0 0 / 25%);
+  z-index: 9;
+  /* align-items: center; */
+  width: 540px;
+  height: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-bottom: 100px; */
+  /* background: #000000; */
   border: 1px solid #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;

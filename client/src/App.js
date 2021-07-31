@@ -9,6 +9,10 @@ import authService from "./components/auth/auth-service";
 
 import React, { Component } from "react";
 
+import * as tf from "@tensorflow/tfjs"
+import * as posenet from "@tensorflow-models/posenet"
+import Webcam from 'react-webcam'
+
 export default class App extends Component {
   state = { user: null };
 
@@ -52,7 +56,7 @@ export default class App extends Component {
           <Route exact path="/logout" render={() => <div>LOGOUT</div>} />
           <Route exact path="/profile" render={() => <Profile userInSession = {this.state.user}/>} />
           <Route exact path="/stats" render={() => <div>STATS</div>} />
-          <Route exact path="/ranking" render={() => <Ranking />} />
+          <Route exact path="/ranking-game" render={() => <Ranking userInSession = {this.state.user} />} />
         </Switch>
       </div>
     );
