@@ -49,12 +49,10 @@ export default class App extends Component {
       <Route render={props => (
         <div className="App" data-route={props.location.pathname}>
           <Switch>
-            {/* <Route exact path="/" render={(props) => <Game user = {this.state.user} userInSession ={this.updateLoggedInUser} />} /> */}
             <Route exact path="/" render={(props) => <Game userInSession={this.state.user} history={props.history} />} />
             <Route exact path="/about" render={(props) => <About history={props.history} />} />
             <Route exact path="/signup" render={(props) => <Signup history={props.history} />} />
             <Route exact path="/login" render={(props) => <Login history={props.history} />} />
-            <Route exact path="/logout" render={() => <div>LOGOUT</div>} />
             <Route exact path="/profile" render={(props) => <Profile userInSession={this.state.user} history={props.history} />} />
             <Route exact path="/stats" render={(props) => <Stats history={props.history} />} />
             <Route exact path="/ranking-game" render={(props) => <Ranking userInSession={this.state.user} history={props.history} />} />

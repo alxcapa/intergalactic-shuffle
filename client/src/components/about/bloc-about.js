@@ -3,12 +3,11 @@ import React from "react";
 function BlocAbout() {
   return (
     <div className="bloc-login">
-      <br /> <br /> <br /> 
-      <marquee>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</marquee>
-      <br />
-      <br />
-      <br />
+      <br /> <br /> <br />
+
+
       <div>
+        <h2>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</h2>
         Join Robo-san on space station shuffle and make enough moves to keep the
         crew and passengers entertained.{" "}
       </div>

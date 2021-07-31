@@ -15,7 +15,7 @@ export default class Game extends Component {
 
     if (!this.props.userInSession) {
       if (this.props.userInSession === false) {
-        return <Redirect to="/login"/>;
+        return <Redirect to="/login" />;
       } else {
         return "loading";
       }

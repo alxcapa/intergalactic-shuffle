@@ -5,6 +5,7 @@ import Menu from "../menu/menu";
 import Logout from "../logout-btn";
 import BlocProfile from "../profile/bloc-profile";
 import apiRequests from "../api-requests";
+import { Redirect } from "react-router-dom"
 
 export default class Profile extends Component {
   state = { data: null };
@@ -22,10 +23,18 @@ export default class Profile extends Component {
 
   componentDidMount() {
     this.getData();
-    
+
   }
 
   render() {
+    if (!this.props.userInSession) {
+      if (this.props.userInSession === false) {
+        return <Redirect to="/login" />;
+      } else {
+        return "loading";
+      }
+    }
+
     console.log("state===>", this.state.data);
     return (
       <div className="globalContainer">

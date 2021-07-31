@@ -39,7 +39,9 @@ export default class BlocLogin extends Component {
   render() {
     return (
       <div className="bloc-login">
+
         <form onSubmit={this.handleSubmit} className="login-form">
+          <h2>Login</h2>
           <label>
             EMAIL
         </label>
