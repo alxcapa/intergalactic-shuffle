@@ -80,7 +80,6 @@ h1 {
 
 .game-area-canvas{
   position: absolute;
-  background-color:rgb(244 0 0 / 25%);
   z-index: 9;
   /* align-items: center; */
   width: 540px;
