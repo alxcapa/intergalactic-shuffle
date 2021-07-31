@@ -1,97 +1,66 @@
-import React, { useRef } from "react";
-import Player from "./player";
-import Start from "./start-btn";
-import Webcam from "react-webcam";
-// import { async } from "regenerator-runtime";
-import * as posenet from "@tensorflow-models/posenet";
-import { drawKeypoints, drawSkeleton } from "./utilities";
-
+import React, { Component } from 'react';
+import P5Wrapper from 'react-p5-wrapper';
+import Sketch from 'react-p5'
 
 
 function GameArea() {
 
-
-
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-
-  const runPosenet = async () => {
-    const net = await posenet.load({
-      inputResolution: { width: 320, height: 240 },
-      scale: 0.5,
-    });
-    setInterval(() => {
-      detect(net);
-    }, 100);
+  
+  let a = 300;
+  let b = 300;
+  let a1 = 100;
+  let b1 = 300;
+  let speed = 3;
+  let setup = (p5, canvasParentRef) => {
+    let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
+    let x = (p5.windowWidth - p5.width) / 2;
+    let y = (p5.windowHeight - p5.height) / 2;
+    xyz.position(x, y);
   };
 
-  const detect = async (net) => {
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      //VIDEO PROPERTIES ICI
-      const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
 
-      //WIDTH ET HEIGHT DE LA CAM
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
 
-      //LOG DES MOUVEMENTS ET PARTIES DU CORPS
-      const pose = await net.estimateSinglePose(video);
+  let draw = (p5) => {
+    p5.background("rgb(100%,100%,100%)");
+    p5.stroke(1);
+    p5.strokeWeight(4);
+    p5.noFill();
+    p5.ellipse(a, b, 100, 100);
+    p5.ellipse(a, b, 50, 100);
+    p5.ellipse(a, b, 100, 50);
 
-      console.log("full position ===>", pose);
-      console.log("score====>", pose.score);
+    
 
-      console.log("nose====>", pose.keypoints[0]);
-      console.log("wrist====>", pose.keypoints[9].score);
-      if (pose.keypoints[9].score > 0.6) {
-        console.log("i see ur wrist");
-      }
-      if (pose.keypoints[11].score > 0.6) {
-        console.log("i see ur left hip");
-      }
-      if (pose.keypoints[12].score > 0.6) {
-        console.log("i see ur right hip");
-      }
-      if (pose.keypoints[13].score > 0.6) {
-        console.log("i see ur left knee");
-      }
-
-      drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+    if (a >= p5.width) {
+      speed = -3;
     }
+    if (a === 30) {
+      speed = 3;
+    }
+    a = a + speed;
   };
-
- 
-  const drawCanvas = (pose, video, videoWidth, videoHeight, canvas) => {
-    const ctx = canvas.current.getContext("2d");
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
-
-    //OBJECTS DEMO
-    // ctx.fillRect(25, 25, 50, 50);
-    // ctx.fillRect(100, 100, 50, 50);
-
-
-    drawKeypoints(pose["keypoints"], 0.5, ctx);
-    drawSkeleton(pose["keypoints"], 0.5, ctx);
-
-  }
-
-  runPosenet();
 
   return (
-    <div className="game-area">
-      <Webcam ref={webcamRef} className="game-area-webcam" />
-      <canvas ref={canvasRef} className="game-area-canvas" />
-
-      <Player />
-      <Start />
+    <div>
+      <Sketch setup={setup} draw={draw}  className='defaultCanvas0'  />
     </div>
   );
 }
 
-export default GameArea;
+
+
+
+
+export default GameArea
+
+
+
+
+
+
+
+
+
+
+
+
