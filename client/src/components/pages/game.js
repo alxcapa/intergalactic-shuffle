@@ -8,7 +8,7 @@ import GameEvents from "../game-events/game-events";
 import Logout from "../logout-btn";
 
 
-
+///  TIME THING 
 export default class Game extends Component {
   render() {
     console.log("props", this.props.userInSession);

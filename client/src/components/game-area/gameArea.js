@@ -5,8 +5,8 @@ import * as ml5 from "ml5";
 
 class Ball {
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this.x = x
+    this.y = y
   }
 
   draw(p5) {
@@ -24,6 +24,7 @@ class GameArea extends Component {
     this.bg = undefined;
     this.gameStart = false;
     this.frame = 0;
+    this.ball = undefined
     this.balls = [];
   }
 
@@ -68,11 +69,6 @@ class GameArea extends Component {
     p5.background(this.bg);
     // console.log(gameStart)
 
-    // TASK LIST FOR TODAY ??
-    // SET TIMEOUT FOR GAME START AND COUNTER
-    // HAVE GAME BE TRUE AND THEN DRAW
-    // INNER HTML FOR TIMER CHANGE? ?
-    // IF WERE ON SCREEN ...
     if (this.pose) {
       // ESTABLISHING THE DISTANCE
       let eyeR = this.pose.rightEye;
@@ -80,8 +76,6 @@ class GameArea extends Component {
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
       // console.log('this is distance===>',d)
       // console.log(pose)
-
-      // DRAWING ROBOT
 
       // NEZ
       p5.fill(255, 0, 0);
@@ -124,26 +118,64 @@ class GameArea extends Component {
     // DRAW OBJECT
 
     if (this.gameStart === true) {
-      if (this.frame > 200) {
+      if (this.frame > 300) {
         console.log("it works");
-      }
+          // TRACER L'OBJET
+        let ball = new Ball(140,50)
+        ball.draw(p5)
 
-
-      // TRACER L'OBJET
-      // INSERER DANS LE TABLEAU 
+      // INSERER DANS LE TABLEAU
       // A QUELLE FREQUENCE
 
+        // DETECTER COLLISION
+      // ENLEVER OBJET DU TABLEAU
 
-      // DETECTER COLLISION 
-      // ENLEVER OBJET DU TABLEAU 
 
+       // POINTS ET TEMPS !!!!
+
+
+
+
+
+
+
+
+
+
+
+
+        // const ballsGame = [new Ball()];
+   
+        // ballsGame.forEach(function (ball, i) {
+        //   ball.draw();
+        //   ballsGame.push(new Ball)
+        // })
+
+
+        // const balls = [
+        //   new Ball(120, 40),
+    
+
+        // ]
+
+        // balls.forEach(function (ball) {
+        //   ball.draw();
+        // })
+
+        // let ball = new Ball(120, 40)
+        // ball.draw()
+    
+
+
+
+
+    
 
       // POINTS ET TEMPS !!!!
 
-
-      let xBall = 120;
-      let yBall = 40;
-      let speed = 3;
+      // let xBall = 120;
+      // let yBall = 40;
+      // let speed = 3;
 
       // if (xBall >= 620) {
       //   speed = -5;
@@ -162,10 +194,12 @@ class GameArea extends Component {
       //   // hit = true;
       //   console.log("its collided");
       // }
+      }
     }
     this.frame++;
     console.log(this.frame);
   };
+
 
   //PRE GAME SCREEN IS SAME
 
