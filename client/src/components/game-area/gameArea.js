@@ -2,95 +2,193 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
-import Lottie from 'react-lottie';
-import animationData from '../lotties/background.json';
 
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: animationData,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice"
+class Ball {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
   }
-};
 
+  draw(p5) {
+    p5.ellipse(this.x, this.y, 50, 50);
+  }
+}
 
-function GameArea() {
-  let video;
-  let poseNet;
-  let pose;
-  let skeleton;
-  let bg;
+class GameArea extends Component {
+  constructor(props) {
+    super(props);
+    this.video = undefined;
+    this.poseNet = undefined;
+    this.pose = undefined;
+    this.skeleton = undefined;
+    this.bg = undefined;
+    this.gameStart = false;
+    this.frame = 0;
+    this.balls = [];
+  }
 
-  let setup = (p5, canvasParentRef) => {
+  setup = (p5, canvasParentRef) => {
+    //SKETCH APPEL SETUP ??
+    // DEFINING CANVAS
     let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
     let x = (p5.windowWidth - p5.width) / 2;
     let y = (p5.windowHeight - p5.height) / 2;
     xyz.position(x, y);
-    video = p5.createCapture();
-    video.hide();
 
+    // SETTINGS
+    this.video = p5.createCapture();
+    this.video.hide();
+    this.poseNet = ml5.poseNet(this.video);
+    this.poseNet.on("pose", (poses) => {
+      // CHECKING ITS ALL GOOD
+      console.log(poses);
+      if (poses.length > 0) {
+        this.pose = poses[0].pose;
+        this.skeleton = poses[0].skeleton;
+      }
+    });
 
-    poseNet = ml5.poseNet(video);
-    poseNet.on("pose", gotPoses);
-    bg = p5.loadImage("https://media.giphy.com/media/Zf7L4QMWo3RkI/giphy-downsized.gif");
-    // p5.tint(255, 127);
+    //BACKGROUND
+    this.bg = p5.loadImage(
+      "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
+    );
   };
 
-  let gotPoses = (poses) => {
-    console.log(poses);
-    if (poses.length > 0) {
-      pose = poses[0].pose;
-      skeleton = poses[0].skeleton;
-    }
-  };
+  drawCanvas = (p5, canvasParentRef) => {
+    //
+    // toute les 16ms !!!!
+    //
 
-  let drawCanvas = (p5, canvasParentRef) => {
-    p5.image(video, 0, 0);
-    p5.background(bg);
+    // Miror CAM
+    p5.translate(this.video.width, 0);
+    p5.scale(-1, 1);
+    p5.image(this.video, 0, 0);
 
+    //BACKGROUND
+    p5.background(this.bg);
+    // console.log(gameStart)
 
-    if (pose) {
-      let eyeR = pose.rightEye;
-      let eyeL = pose.leftEye;
+    // TASK LIST FOR TODAY ??
+    // SET TIMEOUT FOR GAME START AND COUNTER
+    // HAVE GAME BE TRUE AND THEN DRAW
+    // INNER HTML FOR TIMER CHANGE? ?
+    // IF WERE ON SCREEN ...
+    if (this.pose) {
+      // ESTABLISHING THE DISTANCE
+      let eyeR = this.pose.rightEye;
+      let eyeL = this.pose.leftEye;
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
+      // console.log('this is distance===>',d)
+      // console.log(pose)
 
+      // DRAWING ROBOT
+
+      // NEZ
       p5.fill(255, 0, 0);
-      p5.ellipse(pose.nose.x, pose.nose.y, d);
-      p5.fill(0, 0, 255);
-      p5.ellipse(pose.rightWrist.x, pose.rightWrist.y, 32);
-      p5.ellipse(pose.leftWrist.x, pose.leftWrist.y, 32);
+      p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
 
-      for (let i = 0; i < pose.keypoints.length; i++) {
-        let x = pose.keypoints[i].position.x;
-        let y = pose.keypoints[i].position.y;
+      // 2 BRAS
+      p5.fill(0, 0, 255);
+      p5.ellipse(this.pose.rightWrist.x, this.pose.rightWrist.y, 32);
+      p5.ellipse(this.pose.leftWrist.x, this.pose.leftWrist.y, 32);
+
+      // corps
+      for (let i = 0; i < this.pose.keypoints.length; i++) {
+        let x = this.pose.keypoints[i].position.x;
+        let y = this.pose.keypoints[i].position.y;
         p5.fill(0, 255, 0);
         p5.ellipse(x, y, 16, 16);
       }
 
-      for (let i = 0; i < skeleton.length; i++) {
-        let a = skeleton[i][0];
-        let b = skeleton[i][1];
+      // edges du corps
+      for (let i = 0; i < this.skeleton.length; i++) {
+        let a = this.skeleton[i][0];
+        let b = this.skeleton[i][1];
         p5.strokeWeight(2);
         p5.stroke(255);
         p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
       }
+
+      // STARTGAME
+      if (
+        this.gameStart === false &&
+        d < 23 &&
+        this.pose.leftHip.confidence > 0.9 &&
+        this.pose.rightHip.confidence > 0.9
+      ) {
+        this.gameStart = true;
+        console.log("start===>>>", this.gameStart);
+      }
     }
+
+    // DRAW OBJECT
+
+    if (this.gameStart === true) {
+      if (this.frame > 200) {
+        console.log("it works");
+      }
+
+
+      // TRACER L'OBJET
+      // INSERER DANS LE TABLEAU 
+      // A QUELLE FREQUENCE
+
+
+      // DETECTER COLLISION 
+      // ENLEVER OBJET DU TABLEAU 
+
+
+      // POINTS ET TEMPS !!!!
+
+
+      let xBall = 120;
+      let yBall = 40;
+      let speed = 3;
+
+      // if (xBall >= 620) {
+      //   speed = -5;
+      // }
+      // if (xBall === 120) {
+      //   speed = 5;
+      // }
+      // xBall = xBall + speed;
+
+      // if (
+      //   (xBall === Math.round(pose.rightWrist.x) &&
+      //     xBall === Math.round(pose.rightWrist.x)) ||
+      //   (xBall === Math.round(pose.leftWrist.x) &&
+      //     yBall === Math.round(pose.leftWrist.y))
+      // ) {
+      //   // hit = true;
+      //   console.log("its collided");
+      // }
+    }
+    this.frame++;
+    console.log(this.frame);
   };
 
+  //PRE GAME SCREEN IS SAME
 
+  // console.log("x ball",xBall)
+  // console.log("x left wrist",Math.round(pose.leftWrist.x))
+  // console.log("x right wrist",pose.rightWrist.x)
 
-  return (
-    <div>
-      {/* <Lottie
-        options={defaultOptions}
-        height={400}
-        width={550}
-      /> */}
-      <Sketch setup={setup} draw={drawCanvas} className="defaultCanvas0" />
+  // p5.ellipse(200, 50, 50)
+  // };
 
-    </div>
-  );
+  render() {
+    //DRAW CANVAS
+
+    return (
+      <div>
+        <Sketch
+          setup={this.setup}
+          draw={this.drawCanvas}
+          className="defaultCanvas0"
+        />
+      </div>
+    );
+  }
 }
 
 export default GameArea;
