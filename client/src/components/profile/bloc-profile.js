@@ -22,8 +22,6 @@ export default class BlocProfile extends Component {
     return (
       <div className="bloc-profile">
         <h2>PROFILE</h2>
-        <p>USERNAME: {this.props.dataProfile.user.user_ref.username}</p>
-        <p>EMAIL: {this.props.dataProfile.user.user_ref.email}</p>
         <h3>BEST GAMES</h3>
         <ul>
           {this.props.dataProfile.scores.map((item) => {
@@ -33,6 +31,11 @@ export default class BlocProfile extends Component {
           })}
 
         </ul>
+        <h3>PERSONNAL INFORMATIONS</h3>
+        <p>USERNAME: {this.props.dataProfile.user.user_ref.username}</p>
+        <p>EMAIL: {this.props.dataProfile.user.user_ref.email}</p>
+        <p>LOCATION: {this.props.dataProfile.user.user_ref.location}</p>
+
 
       </div>
     );

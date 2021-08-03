@@ -21,7 +21,6 @@ export default class Logout extends Component {
   }
 
   render() {
-    console.log("props history", this.props.history)
     return (
       <div className="logout-btn" onClick={this.handleLogout}>Logout</div>
     )

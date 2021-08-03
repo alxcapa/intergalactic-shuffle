@@ -12,11 +12,33 @@ function loopThruDates(array) {
   return resultDates;
 }
 
+
+// Résultat = tableau d'objets avec pays définis 
+// 
+
+const strFrequency = function (stringArr) {
+  return stringArr.reduce((count, word) => {
+    count[word] = (count[word] || 0) + 1;
+    return count;
+  }, {})
+}
+
+
+
 function loopThruLocations(array) {
   const resultLocations = [];
+
+
+
   for (let i = 0; i < array.length; i++) {
+
     resultLocations.push(array[i].location);
+
   }
+
+
+
+  console.log("result", resultLocations)
   return resultLocations;
 }
 
@@ -100,13 +122,21 @@ router.post("/game", (req, res) => {
 router.get("/stats", (req, res, next) => {
   User.find({})
     .then((usersFromDb) => {
-      console.log(usersFromDb);
-      const number_entries = usersFromDb.length;
-      console.log(number_entries);
-      const date_sign_up = loopThruDates(usersFromDb);
-      console.log("date====>", date_sign_up);
+
+      // const number_entries = usersFromDb.length;
+      // const date_sign_up = loopThruDates(usersFromDb);
       const locations = loopThruLocations(usersFromDb);
-      console.log("locations====>", locations);
+      const locationsresult = strFrequency(locations);
+
+      [...locations]
+      // console.log("date====>", date_sign_up);
+      // console.log("locations====>", locations);
+      // console.log(usersFromDb);
+      // console.log(number_entries);
+
+      res.json(locationsresult)
+
+
     })
     .catch((err) => next(err));
 });

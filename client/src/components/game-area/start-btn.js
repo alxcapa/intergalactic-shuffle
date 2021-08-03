@@ -2,7 +2,7 @@ import React from 'react';
 
 function StartBtn() {
 
-  return <button class="start-btn">Game Start</button>
+  return <button class="start-btn" onClick={} >Game Start</button>
 
 }
 

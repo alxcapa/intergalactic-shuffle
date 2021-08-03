@@ -11,33 +11,53 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const byCountries = [
-  {
-    name: 'France',
-    usersByCountries: 400
-  },
-  {
-    name: 'England',
-    usersByCountries: 230
-  },
-  {
-    name: 'Japan',
-    usersByCountries: 70
-  },
-  {
-    name: 'Russia',
-    usersByCountries: 600
-  },
-  {
-    name: 'USA',
-    usersByCountries: 400
-  }
-];
-
-
 
 export default class BlocStats extends PureComponent {
   render() {
+    const byCountries = [
+      {
+        name: 'France',
+        usersByCountries: 400
+      },
+      {
+        name: 'England',
+        usersByCountries: 230
+      },
+      {
+        name: 'Japan',
+        usersByCountries: 70
+      },
+      {
+        name: 'Russia',
+        usersByCountries: 600
+      },
+      {
+        name: 'USA',
+        usersByCountries: 400
+      }
+    ];
+    if (!this.props.dataStats) return 'loading'
+
+
+    function countries() {
+
+      let countries = this.props.dataStats.data.locations
+      let france = 0
+
+      for (let i = 0; i < countries; i++) {
+
+        if (countries[i] === france) {
+          france = + 1
+        }
+
+      }
+
+      console.log("france", france)
+    }
+
+
+
+    console.log("props stats", this.props.dataStats.data.locations)
     return (
       <div className="bloc-stats">
         <h2>Users by Countries</h2>

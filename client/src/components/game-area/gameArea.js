@@ -120,18 +120,18 @@ class GameArea extends Component {
     if (this.gameStart === true) {
       if (this.frame > 300) {
         console.log("it works");
-          // TRACER L'OBJET
-        let ball = new Ball(140,50)
+        // TRACER L'OBJET
+        let ball = new Ball(140, 50)
         ball.draw(p5)
 
-      // INSERER DANS LE TABLEAU
-      // A QUELLE FREQUENCE
+        // INSERER DANS LE TABLEAU
+        // A QUELLE FREQUENCE
 
         // DETECTER COLLISION
-      // ENLEVER OBJET DU TABLEAU
+        // ENLEVER OBJET DU TABLEAU
 
 
-       // POINTS ET TEMPS !!!!
+        // POINTS ET TEMPS !!!!
 
 
 
@@ -145,7 +145,7 @@ class GameArea extends Component {
 
 
         // const ballsGame = [new Ball()];
-   
+
         // ballsGame.forEach(function (ball, i) {
         //   ball.draw();
         //   ballsGame.push(new Ball)
@@ -154,7 +154,7 @@ class GameArea extends Component {
 
         // const balls = [
         //   new Ball(120, 40),
-    
+
 
         // ]
 
@@ -164,36 +164,36 @@ class GameArea extends Component {
 
         // let ball = new Ball(120, 40)
         // ball.draw()
-    
 
 
 
 
-    
 
-      // POINTS ET TEMPS !!!!
 
-      // let xBall = 120;
-      // let yBall = 40;
-      // let speed = 3;
 
-      // if (xBall >= 620) {
-      //   speed = -5;
-      // }
-      // if (xBall === 120) {
-      //   speed = 5;
-      // }
-      // xBall = xBall + speed;
+        // POINTS ET TEMPS !!!!
 
-      // if (
-      //   (xBall === Math.round(pose.rightWrist.x) &&
-      //     xBall === Math.round(pose.rightWrist.x)) ||
-      //   (xBall === Math.round(pose.leftWrist.x) &&
-      //     yBall === Math.round(pose.leftWrist.y))
-      // ) {
-      //   // hit = true;
-      //   console.log("its collided");
-      // }
+        // let xBall = 120;
+        // let yBall = 40;
+        // let speed = 3;
+
+        // if (xBall >= 620) {
+        //   speed = -5;
+        // }
+        // if (xBall === 120) {
+        //   speed = 5;
+        // }
+        // xBall = xBall + speed;
+
+        // if (
+        //   (xBall === Math.round(pose.rightWrist.x) &&
+        //     xBall === Math.round(pose.rightWrist.x)) ||
+        //   (xBall === Math.round(pose.leftWrist.x) &&
+        //     yBall === Math.round(pose.leftWrist.y))
+        // ) {
+        //   // hit = true;
+        //   console.log("its collided");
+        // }
       }
     }
     this.frame++;

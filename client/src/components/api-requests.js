@@ -27,4 +27,20 @@ export default {
         console.error("Error connecting to mongo", err);
       });
   },
+
+  stats() {
+    return this.service
+      .get("/stats")
+      .then((resp) => {
+        console.log(resp)
+        return resp;
+      })
+      .catch((err) => {
+        console.error("Error connecting to mongo", err);
+      });
+  },
+
+
+
+
 };
