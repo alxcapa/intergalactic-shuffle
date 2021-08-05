@@ -14,50 +14,59 @@ import {
 
 export default class BlocStats extends PureComponent {
   render() {
-    const byCountries = [
-      {
-        name: 'France',
-        usersByCountries: 400
-      },
-      {
-        name: 'England',
-        usersByCountries: 230
-      },
-      {
-        name: 'Japan',
-        usersByCountries: 70
-      },
-      {
-        name: 'Russia',
-        usersByCountries: 600
-      },
-      {
-        name: 'USA',
-        usersByCountries: 400
-      }
-    ];
+
     if (!this.props.dataStats) return 'loading'
 
+    console.log(Object.keys(this.props.dataStats.data));
+    let [one, two, three, four] = Object.keys(this.props.dataStats.data);
+    let [v1, v2, v3, v4] = Object.values(this.props.dataStats.data)
+    console.log("number", this.props.dataStats.data)
 
-    function countries() {
 
-      let countries = this.props.dataStats.data.locations
-      let france = 0
 
-      for (let i = 0; i < countries; i++) {
-
-        if (countries[i] === france) {
-          france = + 1
-        }
-
+    const byCountries = [
+      {
+        name: one,
+        usersByCountries: v1
+      },
+      {
+        name: two,
+        usersByCountries: v2
+      },
+      {
+        name: three,
+        usersByCountries: v3
+      },
+      {
+        name: four,
+        usersByCountries: v4
       }
-
-      console.log("france", france)
-    }
+    ];
 
 
 
-    console.log("props stats", this.props.dataStats.data.locations)
+    // function countries() {
+
+    //   let countries = this.props.dataStats.data.locations
+    //   let france = 0
+
+    //   for (let i = 0; i < countries; i++) {
+
+    //     if (countries[i] === france) {
+    //       france = + 1
+    //     }
+
+    //   }
+
+    //   console.log("france", france)
+    // }
+
+
+
+
+    console.log("props stats", this.props.dataStats.data)
+
+
     return (
       <div className="bloc-stats">
         <h2>Users by Countries</h2>

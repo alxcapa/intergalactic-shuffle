@@ -42,7 +42,7 @@ class GameArea extends Component {
     this.poseNet = ml5.poseNet(this.video);
     this.poseNet.on("pose", (poses) => {
       // CHECKING ITS ALL GOOD
-      console.log(poses);
+      // console.log(poses);
       if (poses.length > 0) {
         this.pose = poses[0].pose;
         this.skeleton = poses[0].skeleton;
@@ -111,7 +111,7 @@ class GameArea extends Component {
         this.pose.rightHip.confidence > 0.9
       ) {
         this.gameStart = true;
-        console.log("start===>>>", this.gameStart);
+        // console.log("start===>>>", this.gameStart);
       }
     }
 
@@ -119,15 +119,48 @@ class GameArea extends Component {
 
     if (this.gameStart === true) {
       if (this.frame > 300) {
-        console.log("it works");
+        // console.log("it works");
         // TRACER L'OBJET
         let ball = new Ball(140, 50)
         ball.draw(p5)
 
         // INSERER DANS LE TABLEAU
+        this.balls.push(ball)
+
         // A QUELLE FREQUENCE
 
         // DETECTER COLLISION
+
+        // if (this.pose.rightWrist.x < rect2.x + rect2.width &&
+        //   this.pose.rightWrist.x + rect1.width > rect2.x &&
+        //   this.pose.rightWrist.y < rect2.y + rect2.height &&
+        //   this.pose.rightWrist.y + rect1.height > rect2.y) {
+
+        //   // collision detected!
+        //     console.log("victoire ?!!")
+
+
+        // }
+
+        function crashWith(a, b) {
+          return (
+            a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+          );
+        }
+
+        if (crashWith(this.pose.rightWrist, ball)) {
+
+          console.log("victoire ?!!")
+
+        }
+
+        if (crashWith(this.pose.leftWrist, ball)) {
+
+          console.log("victoire ?!!")
+
+        }
+
+
         // ENLEVER OBJET DU TABLEAU
 
 
@@ -197,7 +230,7 @@ class GameArea extends Component {
       }
     }
     this.frame++;
-    console.log(this.frame);
+    // console.log(this.frame);
   };
 
 

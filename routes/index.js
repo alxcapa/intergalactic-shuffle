@@ -128,7 +128,9 @@ router.get("/stats", (req, res, next) => {
       const locations = loopThruLocations(usersFromDb);
       const locationsresult = strFrequency(locations);
 
-      [...locations]
+
+
+
       // console.log("date====>", date_sign_up);
       // console.log("locations====>", locations);
       // console.log(usersFromDb);
