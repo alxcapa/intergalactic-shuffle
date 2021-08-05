@@ -2,15 +2,37 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
-let wRightWrist = 80
-let hRightWrist = 80
 
 class Ball {
   constructor(x, y, w, h) {
-    this.x = x
-    this.y = y
-    this.w = w
-    this.h = h
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.speed = 5;
+  }
+
+  draw(p5) {
+    p5.ellipse(this.x, this.y, this.w, this.h);
+  }
+  mouvement(ball) {
+    if (ball.x >= 620) {
+      this.speed = -5;
+    }
+    if (ball.x === 120) {
+      this.speed = 5;
+    }
+    ball.x = ball.x + this.speed;
+    // console.log("ca bouge"
+  }
+}
+
+class Hand {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
 
   draw(p5) {
@@ -28,8 +50,11 @@ class GameArea extends Component {
     this.bg = undefined;
     this.gameStart = false;
     this.frame = 0;
-    this.ball = undefined
+    this.ball = undefined;
     this.balls = [];
+    this.handLeft = undefined;
+    this.handRight = undefined;
+    this.seconds = 0;
   }
 
   setup = (p5, canvasParentRef) => {
@@ -85,14 +110,6 @@ class GameArea extends Component {
       p5.fill(255, 0, 0);
       p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
 
-
-      // 2 BRAS
-
-
-      p5.fill(0, 0, 255);
-      p5.ellipse(this.pose.rightWrist.x, this.pose.rightWrist.y, wRightWrist, hRightWrist);
-      p5.ellipse(this.pose.leftWrist.x, this.pose.leftWrist.y, 80, 80);
-
       // corps
       for (let i = 0; i < this.pose.keypoints.length; i++) {
         let x = this.pose.keypoints[i].position.x;
@@ -122,98 +139,61 @@ class GameArea extends Component {
       }
     }
 
-    // DRAW OBJECT
-
     if (this.gameStart === true) {
-      if (this.frame > 300) {
-        // console.log("it works");
-        // TRACER L'OBJET
-        let ball = new Ball(140, 50, 50, 50)
-        ball.draw(p5)
+      p5.fill(0, 0, 255);
+      let handRight = new Hand(
+        this.pose.rightWrist.x,
+        this.pose.rightWrist.y,
+        80,
+        80
+      );
+      let handLeft = new Hand(
+        this.pose.leftWrist.x,
+        this.pose.leftWrist.y,
+        80,
+        80
+      );
+      handRight.draw(p5);
+      handLeft.draw(p5);
 
-        // INSERER DANS LE TABLEAU
-        this.balls.push(ball)
+      console.log("seconds =>>>>", this.seconds);
 
-        console.log("poing", wRightWrist)
-        // A QUELLE FREQUENCE
+      // JEUX QUI DEMARRE
 
-        // DETECTER COLLISION
+      // INSERTION D'OBJET A 5 SECONDES APRES ?
 
-        // if (this.pose.rightWrist.x < rect2.x + rect2.width &&
-        //   this.pose.rightWrist.x + rect1.width > rect2.x &&
-        //   this.pose.rightWrist.y < rect2.y + rect2.height &&
-        //   this.pose.rightWrist.y + rect1.height > rect2.y) {
+      // DRAW OBJECT
 
-        //   // collision detected!
-        //     console.log("victoire ?!!")
+      // AJOUT D'OBJET ELEMENT EN TABLEAU
 
+      if (this.seconds > 3) {
+        let ball = new Ball(140, 50, 50, 50);
+        ball.draw(p5);
+        ball.mouvement(ball)
+        console.log(ball.x)
 
-        // }
-        // console.log("poing", this.pose.rightWrist)
-
-        function crashWith() {
-          return (
-            ball.x < this.pose.rightWrist.x + wRightWrist && ball.x + ball.w > this.pose.rightWrist.x && ball.y < this.pose.rightWrist.y + hRightWrist && ball.y + ball.h > this.pose.rightWrist.y
-          );
-        }
-
-        if (crashWith()) {
-
-          console.log("victoire ?!!")
-
-        }
-
-        if (crashWith(ball, this.pose.leftWrist)) {
-
-          console.log("victoire ?!!")
-
-        }
-
+    
 
         // ENLEVER OBJET DU TABLEAU
 
-
         // POINTS ET TEMPS !!!!
 
+        //  let xBall = 120;
+        // let yBall = 40;
+        // let speed = 3;
 
+        // if (xBall >= 620) {
+        //   speed = -5;
+        // }
+        // if (xBall === 120) {
+        //   speed = 5;
+        // }
+        // xBall = xBall + speed;
+        // console.log("it works");
+        // TRACER L'OBJET
 
-
-
-
-
-
-
-
-
-
-        // const ballsGame = [new Ball()];
-
-        // ballsGame.forEach(function (ball, i) {
-        //   ball.draw();
-        //   ballsGame.push(new Ball)
-        // })
-
-
-        // const balls = [
-        //   new Ball(120, 40),
-
-
-        // ]
-
-        // balls.forEach(function (ball) {
-        //   ball.draw();
-        // })
-
-        // let ball = new Ball(120, 40)
-        // ball.draw()
-
-
-
-
-
-
-
-        // POINTS ET TEMPS !!!!
+        // console.log("lefthand x===>",handLeft.x)
+        // console.log("lefthand===>", handLeft)
 
         // let xBall = 120;
         // let yBall = 40;
@@ -227,30 +207,39 @@ class GameArea extends Component {
         // }
         // xBall = xBall + speed;
 
-        // if (
-        //   (xBall === Math.round(pose.rightWrist.x) &&
-        //     xBall === Math.round(pose.rightWrist.x)) ||
-        //   (xBall === Math.round(pose.leftWrist.x) &&
-        //     yBall === Math.round(pose.leftWrist.y))
-        // ) {
-        //   // hit = true;
-        //   console.log("its collided");
-        // }
+        // INSERER DANS LE TABLEAU
+        // this.balls.push(ball)
+
+        // console.log(this.balls)
+
+        // A QUELLE FREQUENCE
+
+        // DETECTER COLLISION
+
+        function crashWith(a, b) {
+          return (
+            a.x < b.x + b.w &&
+            a.x + a.w > b.x &&
+            a.y < b.y + b.h &&
+            a.y + a.h > b.y
+          );
+        }
+
+        if (crashWith(ball, handLeft)) {
+          console.log("victoire ?!!");
+        }
+
+        if (crashWith(ball, handRight)) {
+          console.log("victoire ?!!");
+        }
       }
+
+
+
     }
     this.frame++;
-    // console.log(this.frame);
+    this.seconds = Math.floor(this.frame / 60);
   };
-
-
-  //PRE GAME SCREEN IS SAME
-
-  // console.log("x ball",xBall)
-  // console.log("x left wrist",Math.round(pose.leftWrist.x))
-  // console.log("x right wrist",pose.rightWrist.x)
-
-  // p5.ellipse(200, 50, 50)
-  // };
 
   render() {
     //DRAW CANVAS
