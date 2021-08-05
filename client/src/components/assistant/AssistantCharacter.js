@@ -13,7 +13,7 @@ export default function Model(props) {
   useEffect(() => {
     console.log(actions);
 
-    // actions.danceRobot.play();
+    actions.danceRobot.play();
   });
 
   return (

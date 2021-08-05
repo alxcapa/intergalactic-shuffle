@@ -28,6 +28,7 @@ export default class Stats extends Component {
 
 
   render() {
+
     return (
       <div className="globalContainer">
         <div className="first">

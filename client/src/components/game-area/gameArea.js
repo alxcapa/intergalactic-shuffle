@@ -2,15 +2,19 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
+let wRightWrist = 80
+let hRightWrist = 80
 
 class Ball {
-  constructor(x, y) {
+  constructor(x, y, w, h) {
     this.x = x
     this.y = y
+    this.w = w
+    this.h = h
   }
 
   draw(p5) {
-    p5.ellipse(this.x, this.y, 50, 50);
+    p5.ellipse(this.x, this.y, this.w, this.h);
   }
 }
 
@@ -81,10 +85,13 @@ class GameArea extends Component {
       p5.fill(255, 0, 0);
       p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
 
+
       // 2 BRAS
+
+
       p5.fill(0, 0, 255);
-      p5.ellipse(this.pose.rightWrist.x, this.pose.rightWrist.y, 32);
-      p5.ellipse(this.pose.leftWrist.x, this.pose.leftWrist.y, 32);
+      p5.ellipse(this.pose.rightWrist.x, this.pose.rightWrist.y, wRightWrist, hRightWrist);
+      p5.ellipse(this.pose.leftWrist.x, this.pose.leftWrist.y, 80, 80);
 
       // corps
       for (let i = 0; i < this.pose.keypoints.length; i++) {
@@ -121,12 +128,13 @@ class GameArea extends Component {
       if (this.frame > 300) {
         // console.log("it works");
         // TRACER L'OBJET
-        let ball = new Ball(140, 50)
+        let ball = new Ball(140, 50, 50, 50)
         ball.draw(p5)
 
         // INSERER DANS LE TABLEAU
         this.balls.push(ball)
 
+        console.log("poing", wRightWrist)
         // A QUELLE FREQUENCE
 
         // DETECTER COLLISION
@@ -141,20 +149,21 @@ class GameArea extends Component {
 
 
         // }
+        // console.log("poing", this.pose.rightWrist)
 
-        function crashWith(a, b) {
+        function crashWith() {
           return (
-            a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+            ball.x < this.pose.rightWrist.x + wRightWrist && ball.x + ball.w > this.pose.rightWrist.x && ball.y < this.pose.rightWrist.y + hRightWrist && ball.y + ball.h > this.pose.rightWrist.y
           );
         }
 
-        if (crashWith(this.pose.rightWrist, ball)) {
+        if (crashWith()) {
 
           console.log("victoire ?!!")
 
         }
 
-        if (crashWith(this.pose.leftWrist, ball)) {
+        if (crashWith(ball, this.pose.leftWrist)) {
 
           console.log("victoire ?!!")
 

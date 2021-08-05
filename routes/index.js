@@ -149,6 +149,9 @@ router.get("/ranking-game", (req, res, next) => {
     .populate("user_ref")
     .then((scoresFromDb) => {
       console.log("score====>", scoresFromDb);
+
+      res.json(scoresFromDb)
+
     })
     .catch((err) => next(err));
 });

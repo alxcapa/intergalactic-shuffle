@@ -8,17 +8,23 @@ import apiRequests from "../api-requests";
 
 export default class Ranking extends Component {
 
-  
+  state = { rank: null };
+
+  getData() {
+
+    apiRequests.ranking()
+      .then((response) => {
+        this.setState({ rank: response });
+      })
+
+  }
+
+  componentDidMount() {
+    this.getData();
+
+  }
 
   render() {
-    console.log('this===>')
-    apiRequests.ranking()
-    .then((score)=>{
-      console.log('this===>', score)
-    })
-    .catch((err)=>{
-      console.error(err);
-    })
 
     return (
       <div className="globalContainer">
@@ -28,10 +34,9 @@ export default class Ranking extends Component {
         </div>
         <div className="second">
           <Menu />
-          <BlocRanking />
+          <BlocRanking dataRank={this.state.rank} />
         </div>
         <div className="third">
-          {" "}
           <Assistant />
         </div>
       </div>
