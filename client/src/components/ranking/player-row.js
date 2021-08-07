@@ -5,10 +5,11 @@ class PlayerRow extends Component {
 
 
   render() {
-    return (<div>
+    return (<>
       <td>{this.props.position}</td>
       <td>{this.props.username}</td>
-    </div>)
+      <td>{this.props.score}</td>
+    </>)
   }
 }
 

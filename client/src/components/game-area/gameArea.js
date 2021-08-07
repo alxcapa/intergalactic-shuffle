@@ -3,17 +3,23 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 
+
+
 // FIRST WE ESTABLISH CLASSES
 class Ball {
   constructor() {
+
     this.x = randomNum(140, 600);
     this.y = randomNum(50, 300);
     this.w = 50;
     this.h = 50;
   }
 
-  draw(p5) {
+  draw = (p5) => {
+    // let img = p5.loadImage('images/venus.png');
     p5.ellipse(this.x, this.y, this.w, this.h);
+
+
   }
 }
 
@@ -34,36 +40,47 @@ class Hand {
 }
 
 // CRASH WITH FUNCTION
-function crashWith(a, b) {
+let crashWith = (a, b) => {
   return (
     a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
   );
-}
+};
+
 
 // GENERATE RANDOM COORDINATES
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don't want it to be an integer
 }
 
+
+
 // THEN INITIATE THE GAME AREA
 class GameArea extends Component {
   constructor(props) {
     // WE DEFINE THE GLOBAL VARIABLES HERE
     super(props);
+
+    // this.state = { time: 0 }
+
     this.video = undefined;
     this.poseNet = undefined;
     this.pose = undefined;
     this.skeleton = undefined;
     this.bg = undefined;
+    // this.img = undefined;
     this.gameStart = false;
     this.frame = 0;
     this.handLeft = undefined;
     this.handRight = undefined;
     this.seconds = 0;
     this.timer = 60;
+    this.score = 0
+
   }
 
   setup = (p5, canvasParentRef) => {
+
+
     // WE DEFINE AND CALL THE CANVAS WITH P5
     let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
     let x = (p5.windowWidth - p5.width) / 2;
@@ -84,6 +101,10 @@ class GameArea extends Component {
     this.bg = p5.loadImage(
       "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
     );
+
+    // this.img = p5.loadImage(
+    //   "images/planet.png");
+
   };
 
   drawCanvas = (p5, canvasParentRef) => {
@@ -93,6 +114,9 @@ class GameArea extends Component {
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
+
+
+
 
     // DETECTION DE LA POSE TOUTES LES 16 MS
 
@@ -136,12 +160,17 @@ class GameArea extends Component {
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
+      console.log("this score", this.score)
       // END GAME CONDITIONS
       let timeGame = this.timer - this.seconds;
+
+      // this.setState({ time: timeGame })
+
       console.log(timeGame);
       if (timeGame === 0) {
         this.gameStart = false;
         this.timer = 60;
+
       }
 
       p5.fill(0, 0, 255);
@@ -164,8 +193,11 @@ class GameArea extends Component {
         // WE ITERATE THROUGH THE SECONDS
         // AT 3 SECONDS WE CREATE THE BALL
         // RENTRER DANS FOR EACH
-        balls.forEach(function (ball, i) {
+
+
+        balls.forEach((ball, i) => {
           ball.draw(p5);
+          console.log("ball", ball)
 
           function toFinish() {
             // TO FINISH FOR LEVELS ? ?
@@ -213,15 +245,29 @@ class GameArea extends Component {
             // ball.x = ball.x + speed;
           }
 
+
           if (crashWith(ball, handLeft)) {
+
+
+
             p5.fill(255, 0, 0);
             balls.splice(i, 1);
+
+            this.score += 100
+            console.log("score", this.score)
+
             balls.push(new Ball());
+
           }
           if (crashWith(ball, handRight)) {
+
+            this.score += 100
+            console.log("score", this.score)
+
             p5.fill(255, 0, 0);
             balls.splice(i, 1);
             balls.push(new Ball());
+
           }
         });
       }

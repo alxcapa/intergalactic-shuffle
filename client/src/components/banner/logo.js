@@ -2,7 +2,7 @@ import React from 'react';
 
 function Logo() {
 
-  return <img src=""></img>
+  return <img className="logo-pos" src="/images/logo.png"></img>
 
 }
 

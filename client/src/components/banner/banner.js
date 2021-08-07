@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function Banner() {
 
   return (<header className="banner">
-    <Link to="/">
+    <Link className="banner-flex" to="/">
       <Title />
       <Logo />
     </Link>
