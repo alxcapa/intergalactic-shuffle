@@ -3,43 +3,22 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 
+// FIRST WE ESTABLISH CLASSES
 class Ball {
-  constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.speed = 5;
+  constructor() {
+    this.x = randomNum(140, 600);
+    this.y = randomNum(50, 300);
+    this.w = 50;
+    this.h = 50;
   }
 
   draw(p5) {
     p5.ellipse(this.x, this.y, this.w, this.h);
-
-    if (this.x >= p5.width) {
-      console.log("it works p5 width")
-      this.speed = -5;
-    }
-    if (this.x === 120) {
-      console.log("120")
-      this.speed = 5;
-    }
-    this.x = this.x + this.speed;
-    // console.log("ca bouge"
   }
-
 }
 
-// mouvement(ball) {
-//   if (ball.x >= 620) {
-//     this.speed = -5;
-//   }
-//   if (ball.x === 120) {
-//     this.speed = 5;
-//   }
-//   ball.x = ball.x + this.speed;
-//   // console.log("ca bouge"
-// }
-
+// CREATE ARRAY FOR THE OBJECTS
+const balls = [new Ball()];
 
 class Hand {
   constructor(x, y, w, h) {
@@ -54,8 +33,22 @@ class Hand {
   }
 }
 
+// CRASH WITH FUNCTION
+function crashWith(a, b) {
+  return (
+    a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+  );
+}
+
+// GENERATE RANDOM COORDINATES
+function randomNum(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don't want it to be an integer
+}
+
+// THEN INITIATE THE GAME AREA
 class GameArea extends Component {
   constructor(props) {
+    // WE DEFINE THE GLOBAL VARIABLES HERE
     super(props);
     this.video = undefined;
     this.poseNet = undefined;
@@ -64,67 +57,56 @@ class GameArea extends Component {
     this.bg = undefined;
     this.gameStart = false;
     this.frame = 0;
-    this.ball = undefined;
-    this.balls = [];
     this.handLeft = undefined;
     this.handRight = undefined;
     this.seconds = 0;
+    this.timer = 60;
   }
 
   setup = (p5, canvasParentRef) => {
-    //SKETCH APPEL SETUP ??
-    // DEFINING CANVAS
+    // WE DEFINE AND CALL THE CANVAS WITH P5
     let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
     let x = (p5.windowWidth - p5.width) / 2;
     let y = (p5.windowHeight - p5.height) / 2;
     xyz.position(x, y);
 
-    // SETTINGS
+    // VIDEO SETTINGS
     this.video = p5.createCapture();
     this.video.hide();
     this.poseNet = ml5.poseNet(this.video);
     this.poseNet.on("pose", (poses) => {
-      // CHECKING ITS ALL GOOD
-      // console.log(poses);
+      // WITH CONSOLE LOG OF POSES WE CHECK ALL THE PIN POINTS OF THE BODY ARE FOUND
       if (poses.length > 0) {
         this.pose = poses[0].pose;
         this.skeleton = poses[0].skeleton;
       }
     });
-
-    //BACKGROUND
     this.bg = p5.loadImage(
       "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
     );
   };
 
   drawCanvas = (p5, canvasParentRef) => {
-    //
-    // toute les 16ms !!!!
-    //
-
-    // Miror CAM
+    // THE DRAW REFRESHES EVERY 16MS
+    // WE MIRROR THE CAM HERE
     p5.translate(this.video.width, 0);
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
-
-    //BACKGROUND
     p5.background(this.bg);
-    // console.log(gameStart)
+
+    // DETECTION DE LA POSE TOUTES LES 16 MS
 
     if (this.pose) {
-      // ESTABLISHING THE DISTANCE
+      // WE DEFINE A VARIABLE FOR THE DISTANCE
       let eyeR = this.pose.rightEye;
       let eyeL = this.pose.leftEye;
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
-      // console.log('this is distance===>',d)
-      // console.log(pose)
 
-      // NEZ
+      // NOSE IS HERE
       p5.fill(255, 0, 0);
       p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
 
-      // corps
+      // AND THE OTHER BODY POINTS
       for (let i = 0; i < this.pose.keypoints.length; i++) {
         let x = this.pose.keypoints[i].position.x;
         let y = this.pose.keypoints[i].position.y;
@@ -132,7 +114,7 @@ class GameArea extends Component {
         p5.ellipse(x, y, 16, 16);
       }
 
-      // edges du corps
+      // THE EDGES OF THE SKELETON ARE DRAWN
       for (let i = 0; i < this.skeleton.length; i++) {
         let a = this.skeleton[i][0];
         let b = this.skeleton[i][1];
@@ -141,7 +123,7 @@ class GameArea extends Component {
         p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
       }
 
-      // STARTGAME
+      // WE INITIATE THE START OF THE GAME
       if (
         this.gameStart === false &&
         d < 23 &&
@@ -149,32 +131,18 @@ class GameArea extends Component {
         this.pose.rightHip.confidence > 0.9
       ) {
         this.gameStart = true;
-        // console.log("start===>>>", this.gameStart);
       }
     }
 
-
-
-
-
-
+    // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-
-
-      // function mouvement(ball) {
-      //   let speed = 5
-
-      //   if (ball.x <= 620) {
-      //     speed = -5;
-
-      //   }
-      //   if (ball.x === 145) {
-      //     speed = 5;
-      //   }
-      //   ball.x = ball.x + speed;
-      //   // console.log("ca bouge"
-      // }
-
+      // END GAME CONDITIONS
+      let timeGame = this.timer - this.seconds;
+      console.log(timeGame);
+      if (timeGame === 0) {
+        this.gameStart = false;
+        this.timer = 60;
+      }
 
       p5.fill(0, 0, 255);
       let handRight = new Hand(
@@ -191,97 +159,81 @@ class GameArea extends Component {
       );
       handRight.draw(p5);
       handLeft.draw(p5);
+      // GAME STARTS AFTER THREE SECONDS !!!
+      if (this.seconds > 3) {
+        // WE ITERATE THROUGH THE SECONDS
+        // AT 3 SECONDS WE CREATE THE BALL
+        // RENTRER DANS FOR EACH
+        balls.forEach(function (ball, i) {
+          ball.draw(p5);
 
-      console.log("seconds =>>>>", this.seconds);
+          function toFinish() {
+            // TO FINISH FOR LEVELS ? ?
+            // let speed = 3;
+            // if (ball.x === 140) {
+            //   speed = 3;
+            // }
+            // ball.x = ball.x + speed;
+            // if (ball.x >= 700) {
+            //   setTimeout(function () {
+            //     balls.splice(i, 1);
+            //     balls.push(new Ball());
+            //   }, 1000);
+            //   // LOSE POINTS
+            // }
+            // //   if (ball.x === 140) {
+            // //     speed = randomNum(3,7);
+            // //   }
+            // //   ball.x = ball.x + speed;
+            // if (ball.y >= 400) {
+            //   balls.splice(i, 1);
+            //   balls.push(new Ball());
+            // }
+            // const randomXorY = randomNum(0,2)
+            // console.log(randomXorY)
+            // if(randomXorY === 1){
+            //   let speed = randomNum(3,7);
+            //   if (ball.x === 140) {
+            //     speed = randomNum(3,7);
+            //   }
+            //   ball.x = ball.x + speed;
+            // } else {
+            //   let speed = randomNum(3,7);
+            //   if (ball.y === 50) {
+            //     speed = randomNum(3,7);
+            //   }
+            //   ball.y = ball.y + speed;
+            // }
+            // MATH RANDOM
+            // SI ON EST < 0,5 ALTERER AXE X ET A L'INVERSE AXE DES Y
+            // let speed = randomNum(3,7);
+            // if (ball.x === 140) {
+            //   speed = randomNum(3,7);
+            // }
+            // ball.x = ball.x + speed;
+          }
 
-      // JEUX QUI DEMARRE
-
-      // INSERTION D'OBJET A 5 SECONDES APRES ?
-
-      // DRAW OBJECT
-
-      // AJOUT D'OBJET ELEMENT EN TABLEAU
-
-      if (this.seconds >= 0) {
-        let ball = new Ball(140, 50, 50, 50);
-
-        ball.draw(p5)
-
-        // mouvement(ball)
-        console.log(ball.x)
-
-
-        // ENLEVER OBJET DU TABLEAU
-
-        // POINTS ET TEMPS !!!!
-
-        //  let xBall = 120;
-        // let yBall = 40;
-        // let speed = 3;
-
-        // if (xBall >= 620) {
-        //   speed = -5;
-        // }
-        // if (xBall === 120) {
-        //   speed = 5;
-        // }
-        // xBall = xBall + speed;
-        // console.log("it works");
-        // TRACER L'OBJET
-
-        // console.log("lefthand x===>",handLeft.x)
-        // console.log("lefthand===>", handLeft)
-
-        // let xBall = 120;
-        // let yBall = 40;
-        // let speed = 3;
-
-        // if (xBall >= 620) {
-        //   speed = -5;
-        // }
-        // if (xBall === 120) {
-        //   speed = 5;
-        // }
-        // xBall = xBall + speed;
-
-        // INSERER DANS LE TABLEAU
-        // this.balls.push(ball)
-
-        // console.log(this.balls)
-
-        // A QUELLE FREQUENCE
-
-        // DETECTER COLLISION
-
-        function crashWith(a, b) {
-          return (
-            a.x < b.x + b.w &&
-            a.x + a.w > b.x &&
-            a.y < b.y + b.h &&
-            a.y + a.h > b.y
-          );
-        }
-
-        if (crashWith(ball, handLeft)) {
-          console.log("victoire ?!!");
-        }
-
-        if (crashWith(ball, handRight)) {
-          console.log("victoire ?!!");
-        }
+          if (crashWith(ball, handLeft)) {
+            p5.fill(255, 0, 0);
+            balls.splice(i, 1);
+            balls.push(new Ball());
+          }
+          if (crashWith(ball, handRight)) {
+            p5.fill(255, 0, 0);
+            balls.splice(i, 1);
+            balls.push(new Ball());
+          }
+        });
       }
-
-
-
     }
 
+    // INCREMENTATION OF THE FRAMES
     this.frame++;
     this.seconds = Math.floor(this.frame / 60);
   };
 
+  // WE RENDER THE GAME CANVAS AND VOIIIILA
   render() {
-    //DRAW CANVAS
-
     return (
       <div>
         <Sketch
@@ -295,3 +247,18 @@ class GameArea extends Component {
 }
 
 export default GameArea;
+
+/////// TASK LIST ///////
+
+// SATURDAY
+// POINTS SYSTEM
+// INITIAITE TIMER
+// AFTER SIXTY SECONDS END GAME
+// API SCORE
+// HEROKU
+
+// SUNDAY
+// AFTER COLLISION OR OUTSIDE OF SCREEN, SEND BALL INTO ARRAY
+// ADD IMAGES TO CIRCLES
+// TIME OUT FOR COLLISION EFFECTS
+// DETERMINE MOUVMENT
