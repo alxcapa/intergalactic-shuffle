@@ -4,17 +4,17 @@ function Objects() {
 
   return (<div className="objects">
     <div className="object">
-      <img src="/object.png" alt="object" />
+      <img src="images/lune.png" alt="object" />
       <div>0</div>
     </div>
 
     <div className="object">
-      <img src="/object.png" alt="object" />
+      <img src="images/planet.png" alt="object" />
       <div>0</div>
     </div>
 
     <div className="object">
-      <img src="/object.png" alt="object" />
+      <img src="images/sun.png" alt="object" />
       <div>0</div>
     </div>
 

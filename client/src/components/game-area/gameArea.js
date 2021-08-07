@@ -9,23 +9,37 @@ class Ball {
     this.y = y;
     this.w = w;
     this.h = h;
-    // this.speed = 5;
+    this.speed = 5;
   }
 
   draw(p5) {
     p5.ellipse(this.x, this.y, this.w, this.h);
+
+    if (this.x >= p5.width) {
+      console.log("it works p5 width")
+      this.speed = -5;
+    }
+    if (this.x === 120) {
+      console.log("120")
+      this.speed = 5;
+    }
+    this.x = this.x + this.speed;
+    // console.log("ca bouge"
   }
-  // mouvement(ball) {
-  //   if (ball.x >= 620) {
-  //     this.speed = -5;
-  //   }
-  //   if (ball.x === 120) {
-  //     this.speed = 5;
-  //   }
-  //   ball.x = ball.x + this.speed;
-  //   // console.log("ca bouge"
-  // }
+
 }
+
+// mouvement(ball) {
+//   if (ball.x >= 620) {
+//     this.speed = -5;
+//   }
+//   if (ball.x === 120) {
+//     this.speed = 5;
+//   }
+//   ball.x = ball.x + this.speed;
+//   // console.log("ca bouge"
+// }
+
 
 class Hand {
   constructor(x, y, w, h) {
@@ -190,15 +204,12 @@ class GameArea extends Component {
 
       if (this.seconds >= 0) {
         let ball = new Ball(140, 50, 50, 50);
-        ball.draw(p5);
+
+        ball.draw(p5)
 
         // mouvement(ball)
         console.log(ball.x)
 
-        ball.x += 5;
-        if (ball.x > 640) {
-          ball.x -= 600;
-        }
 
         // ENLEVER OBJET DU TABLEAU
 
