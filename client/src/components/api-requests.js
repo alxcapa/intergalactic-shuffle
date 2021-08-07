@@ -7,7 +7,7 @@ export default {
   }),
   profile() {
     return this.service
-      .get("/profile")
+      .get("/game/profile")
       .then((response) => {
         return response.data;
       })
@@ -18,7 +18,7 @@ export default {
 
   ranking() {
     return this.service
-      .get("/ranking-game")
+      .get("/game/ranking-game")
       .then((score) => {
         console.log(score)
         return score;
@@ -30,7 +30,7 @@ export default {
 
   stats() {
     return this.service
-      .get("/stats")
+      .get("/game/stats")
       .then((resp) => {
         console.log(resp)
         return resp;

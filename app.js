@@ -60,7 +60,7 @@ app.use(
 require("./passport")(app);
 
 const index = require("./routes/index");
-app.use("/", index);
+app.use("/game", index);
 
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
