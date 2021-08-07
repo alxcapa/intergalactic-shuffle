@@ -10,6 +10,29 @@ import Logout from "../logout-btn";
 
 ///  TIME THING 
 export default class Game extends Component {
+
+  state = {
+    times: 0,
+    score: 0
+  }
+
+  recoverGameTime = (time) => {
+
+    console.log("time", time)
+
+    // let newTime = time
+    this.setState({ times: time });
+  }
+
+
+  // recoverScore(score) {
+
+  //   console.log("score", score)
+  //   // this.setState({ time: time });
+  // }
+
+
+
   render() {
     console.log("props", this.props.userInSession);
 
@@ -21,6 +44,10 @@ export default class Game extends Component {
       }
     }
 
+
+
+
+
     return (
       <div className="globalContainer">
         <div className="first">
@@ -29,8 +56,8 @@ export default class Game extends Component {
         </div>
         <div className="second">
           <Menu />
-          <GameArea />
-          <GameEvents />
+          <GameArea gameTime={this.recoverGameTime} score={this.recoverScore} />
+          <GameEvents time={this.state.times} />
         </div>
 
         <div className="third">

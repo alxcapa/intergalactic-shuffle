@@ -60,7 +60,10 @@ class GameArea extends Component {
     // WE DEFINE THE GLOBAL VARIABLES HERE
     super(props);
 
-    // this.state = { time: 0 }
+    // this.state = {
+    //   times: 0,
+    //   score: 0
+    // }
 
     this.video = undefined;
     this.poseNet = undefined;
@@ -163,6 +166,8 @@ class GameArea extends Component {
       console.log("this score", this.score)
       // END GAME CONDITIONS
       let timeGame = this.timer - this.seconds;
+
+      this.props.gameTime(timeGame)
 
       // this.setState({ time: timeGame })
 
