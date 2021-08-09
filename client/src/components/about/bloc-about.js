@@ -21,7 +21,10 @@ function BlocAbout() {
         Ghaoul
       </div>
       <br />
-      <div>links....</div>
+      <div>
+        <img src="images/alex-linkedin.jpeg"></img><img src="images/lnkdin.png"></img>
+
+      </div>
       <br />
       <div>ありがとうございます</div>
     </div>

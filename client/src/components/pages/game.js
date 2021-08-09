@@ -13,7 +13,7 @@ export default class Game extends Component {
 
   state = {
     times: 0,
-    score: 0
+    scores: 0
   }
 
   recoverGameTime = (time) => {
@@ -25,11 +25,11 @@ export default class Game extends Component {
   }
 
 
-  // recoverScore(score) {
+  recoverScore = (score) => {
 
-  //   console.log("score", score)
-  //   // this.setState({ time: time });
-  // }
+    console.log("score", score)
+    this.setState({ scores: score });
+  }
 
 
 
@@ -47,7 +47,7 @@ export default class Game extends Component {
 
 
 
-
+    console.log("yooooo", this.state.scores)
     return (
       <div className="globalContainer">
         <div className="first">
@@ -57,7 +57,7 @@ export default class Game extends Component {
         <div className="second">
           <Menu />
           <GameArea gameTime={this.recoverGameTime} score={this.recoverScore} />
-          <GameEvents time={this.state.times} />
+          <GameEvents time={this.state.times} scorePlayer={this.state.scores} />
         </div>
 
         <div className="third">

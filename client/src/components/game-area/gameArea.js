@@ -167,7 +167,11 @@ class GameArea extends Component {
       // END GAME CONDITIONS
       let timeGame = this.timer - this.seconds;
 
+
+      //RECOVER TIME 
       this.props.gameTime(timeGame)
+
+
 
       // this.setState({ time: timeGame })
 
@@ -193,31 +197,88 @@ class GameArea extends Component {
       );
       handRight.draw(p5);
       handLeft.draw(p5);
-      // / GAME STARTS AFTER THREE SECONDS !!!
+      // GAME STARTS AFTER THREE SECONDS !!!
       if (this.seconds > 3) {
         // WE ITERATE THROUGH THE SECONDS
         // AT 3 SECONDS WE CREATE THE BALL
         // RENTRER DANS FOR EACH
+
+
         balls.forEach((ball, i) => {
           ball.draw(p5);
-          if (ball.y === 50) {
-            this.speed = 5 + this.score / 500;
+          console.log("ball", ball)
+
+          function toFinish() {
+            // TO FINISH FOR LEVELS ? ?
+            // let speed = 3;
+            // if (ball.x === 140) {
+            //   speed = 3;
+            // }
+            // ball.x = ball.x + speed;
+            // if (ball.x >= 700) {
+            //   setTimeout(function () {
+            //     balls.splice(i, 1);
+            //     balls.push(new Ball());
+            //   }, 1000);
+            //   // LOSE POINTS
+            // }
+            // //   if (ball.x === 140) {
+            // //     speed = randomNum(3,7);
+            // //   }
+            // //   ball.x = ball.x + speed;
+            // if (ball.y >= 400) {
+            //   balls.splice(i, 1);
+            //   balls.push(new Ball());
+            // }
+            // const randomXorY = randomNum(0,2)
+            // console.log(randomXorY)
+            // if(randomXorY === 1){
+            //   let speed = randomNum(3,7);
+            //   if (ball.x === 140) {
+            //     speed = randomNum(3,7);
+            //   }
+            //   ball.x = ball.x + speed;
+            // } else {
+            //   let speed = randomNum(3,7);
+            //   if (ball.y === 50) {
+            //     speed = randomNum(3,7);
+            //   }
+            //   ball.y = ball.y + speed;
+            // }
+            // MATH RANDOM
+            // SI ON EST < 0,5 ALTERER AXE X ET A L'INVERSE AXE DES Y
+            // let speed = randomNum(3,7);
+            // if (ball.x === 140) {
+            //   speed = randomNum(3,7);
+            // }
+            // ball.x = ball.x + speed;
           }
-          ball.y = ball.y + this.speed;
+
+
           if (crashWith(ball, handLeft)) {
+
+
+
+            p5.fill(255, 0, 0);
             balls.splice(i, 1);
-            this.score += 100;
+
+            this.score += 100
+            console.log("score", this.score)
+
             balls.push(new Ball());
+            this.props.score(this.score)
+
           }
           if (crashWith(ball, handRight)) {
+
+            this.score += 100
+            console.log("score", this.score)
+
+            p5.fill(255, 0, 0);
             balls.splice(i, 1);
-            this.score += 100;
             balls.push(new Ball());
-          }
-          if (ball.y >= 400) {
-            balls.splice(i, 1);
-            this.score -= 500;
-            balls.push(new Ball());
+            this.props.score(this.score)
+
           }
         });
       }

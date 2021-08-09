@@ -15,7 +15,7 @@ import {
 export default class BlocStats extends PureComponent {
   render() {
 
-    if (!this.props.dataStats) return 'loading'
+    if (!this.props.dataStats) return <div class="loader"> <p>LOADING</p> </div>
 
     console.log(Object.keys(this.props.dataStats.data));
     let [one, two, three, four] = Object.keys(this.props.dataStats.data);

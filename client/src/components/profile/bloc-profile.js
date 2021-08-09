@@ -17,7 +17,7 @@ export default class BlocProfile extends Component {
     }
 
 
-    if (!this.props.dataProfile) return 'loading'
+    if (!this.props.dataProfile) return <div class="loader"><p>LOADING</p> </div>
     console.log(this.props.dataProfile.user, 'props')
     return (
       <div className="bloc-profile">
