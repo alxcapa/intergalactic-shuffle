@@ -6,7 +6,7 @@ import * as ml5 from "ml5";
 class Ball {
   constructor() {
     this.x = randomNum(140, 600);
-    this.y = randomNum(50, 300);
+    this.y = 50;
     this.w = 50;
     this.h = 50;
     // this.r = 0;
@@ -115,6 +115,10 @@ class GameArea extends Component {
     // his.img = p5.loadImage(
     //   //   “images/planet.png”);
   };
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   drawCanvas = (p5) => {
     // THE DRAW REFRESHES EVERY 16MS
     // WE MIRROR THE CAM HERE
@@ -186,6 +190,7 @@ class GameArea extends Component {
         // AT 3 SECONDS WE CREATE THE BALL
         // RENTRER DANS FOR EACH
         balls.forEach((ball, i) => {
+<<<<<<< Updated upstream
           
           function toFinish() {
             // TO FINISH FOR LEVELS ? ?
@@ -231,7 +236,14 @@ class GameArea extends Component {
             //   speed = randomNum(3,7);
             // }
             // ball.x = ball.x + speed;
+=======
+          ball.draw(p5);
+
+          if (ball.y === 50) {
+            this.speed = 5 + this.score / 500;
+>>>>>>> Stashed changes
           }
+          ball.y = ball.y + this.speed;
 
           ball.draw(p5);
           if (ball.y === 50) {
@@ -241,12 +253,26 @@ class GameArea extends Component {
           if (crashWith(ball, handLeft)) {
             balls.splice(i, 1);
             this.score += 100;
+<<<<<<< Updated upstream
             randomBall();
+=======
+            balls.push(new Ball());
+>>>>>>> Stashed changes
           }
           if (crashWith(ball, handRight)) {
             balls.splice(i, 1);
             this.score += 100;
+<<<<<<< Updated upstream
             randomBall();
+=======
+            balls.push(new Ball());
+          }
+
+          if (ball.y >= 400) {
+            balls.splice(i, 1);
+            this.score -= 500;
+            balls.push(new Ball());
+>>>>>>> Stashed changes
           }
           // if (ball.y >= 400) {
           //   balls.splice(i, 1);
@@ -277,7 +303,19 @@ export default GameArea;
 
 /////// TASK LIST ///////
 
+<<<<<<< Updated upstream
 // SELECT RANDOM BALL
+=======
+// SATURDAY
+// PASS SCORE AND TIMER AS PROPS
+// API SCORE
+
+// SUNDAY
+
+// SELECT RANDOM BALL
+// SELECT SPEED DEPENDING ON LEVEL
+// AFTER COLLISION OR OUTSIDE OF SCREEN, SEND BALL INTO ARRAY
+>>>>>>> Stashed changes
 // ADD IMAGES TO CIRCLES
 
 // API SCORE
@@ -285,6 +323,7 @@ export default GameArea;
 // TIME OUT FOR COLLISION EFFECTS
 // DETERMINE MOUVMENT
 // ROUTES
+<<<<<<< Updated upstream
 // FULL SCREEN
 // MUSIC ? ? ?
 // GROS CSS CHECK
@@ -310,3 +349,5 @@ export default GameArea;
 // if (randomColour > 3) {
 //   p5.fill(0, 255, 0);
 // }
+=======
+>>>>>>> Stashed changes
