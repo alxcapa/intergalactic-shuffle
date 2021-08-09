@@ -4,7 +4,7 @@ import PlayerRow from "./player-row"
 export default class BlocRanking extends Component {
   render() {
 
-    if (!this.props.dataRank) return 'loading'
+    if (!this.props.dataRank) return <div class="loader"> <p>LOADING</p> </div>
 
     console.log("rank", this.props.dataRank.data)
 
