@@ -9,8 +9,8 @@ import Notice from "../game-events/notice"
 
 export default class GameEvents extends Component {
   render() {
-    console.log("props", this.props.time)
-    console.log("props score", this.props.score)
+    // console.log("props", this.props.time)
+    // console.log("props score", this.props.score)
     return (
       <div className="game-events">
         <TimeRemaining timeRemaining={this.props.time} />

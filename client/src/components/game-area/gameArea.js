@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
+
 // FIRST WE ESTABLISH CLASSES
 class Ball {
   constructor() {
@@ -9,47 +10,44 @@ class Ball {
     this.y = randomNum(50, 300);
     this.w = 50;
     this.h = 50;
-    // this.r = 0;
-    // this.g = 255;
-    // this.b = 0;
   }
   draw(p5) {
-    p5.ellipse(this.x, this.y, this.w, this.h);
-    // p5.fill(this.r, this.g, this.b);
+    this.img = p5.loadImage("images/lune.png", (img) => {
+      p5.image(img, this.x, this.y, this.w, this.h);
+    });
   }
 }
 class BallOne extends Ball {
-  constructor(x, y, w, h) {
-    super(x, y, w, h);
+  constructor(img, x, y, w, h) {
+    super(img, x, y, w, h);
   }
 }
 class BallTwo extends Ball {
-  constructor(x, y, w, h) {
-    super(x, y, w, h);
+  constructor(img, x, y, w, h) {
+    super(img, x, y, w, h);
   }
 }
 class BallThree extends Ball {
-  constructor(x, y, w, h) {
-    super(x, y, w, h);
+  constructor(img, x, y, w, h) {
+    super(img, x, y, w, h);
   }
 }
 
 // CREATE ARRAY FOR THE OBJECTS
-const balls = [new BallTwo()];
+const balls = [new Ball()];
 
 // GENERATE RANDOM BALL
 function randomBall() {
-  let selector = randomNum(0, 5);
-  if (selector === 0) {
-    balls.push(new BallOne());
-    console.log(balls);
-  }
-  if (selector >= 1 && selector <= 3) {
-    balls.push(new BallTwo());
-  }
-  if (selector === 4) {
-    balls.push(new BallThree());
-  }
+  // let selector = randomNum(0, 5);
+  // if (selector === 0) {
+  balls.push(new Ball());
+  // }
+  // if (selector >= 1 && selector <= 3) {
+  //   balls.push(new BallTwo());
+  // }
+  // if (selector === 4) {
+  //   balls.push(new BallThree());
+  // }
 }
 
 class Hand {
@@ -112,8 +110,6 @@ class GameArea extends Component {
     this.bg = p5.loadImage(
       "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
     );
-    // his.img = p5.loadImage(
-    //   //   “images/planet.png”);
   };
   drawCanvas = (p5) => {
     // THE DRAW REFRESHES EVERY 16MS
@@ -122,6 +118,7 @@ class GameArea extends Component {
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
+
     // DETECTION DE LA POSE TOUTES LES 16 MS
     if (this.pose) {
       // WE DEFINE A VARIABLE FOR THE DISTANCE
@@ -159,16 +156,14 @@ class GameArea extends Component {
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
       // END GAME CONDITIONS
-
       let timeGame = this.timer - this.seconds;
-
+      // console.log(timeGame);
+      if (timeGame <= 0) {
+        this.gameStart = false;
+        timeGame = 60;
+      }
       // RECOVER TIME
       this.props.gameTime(timeGame);
-      // console.log(timeGame);
-      if (timeGame === 0) {
-        this.gameStart = false;
-        this.timer = 60;
-      }
       p5.fill(0, 0, 255);
       let handRight = new Hand(
         this.pose.rightWrist.x,
@@ -190,7 +185,8 @@ class GameArea extends Component {
         // AT 3 SECONDS WE CREATE THE BALL
         // RENTRER DANS FOR EACH
         balls.forEach((ball, i) => {
-          
+          console.log("ball", ball);
+
           function toFinish() {
             // TO FINISH FOR LEVELS ? ?
             // let speed = 3;
@@ -238,9 +234,6 @@ class GameArea extends Component {
           }
 
           ball.draw(p5);
-          if (ball.y === 50) {
-            this.speed = 3 + this.score / 500;
-          }
           ball.y = ball.y + this.speed;
           if (crashWith(ball, handLeft)) {
             balls.splice(i, 1);
@@ -254,11 +247,6 @@ class GameArea extends Component {
             randomBall();
             this.props.score(this.score);
           }
-          // if (ball.y >= 400) {
-          //   balls.splice(i, 1);
-          //   this.score -= 500;
-          //   balls.push(new Ball());
-          // }
         });
       }
     }
@@ -283,18 +271,42 @@ export default GameArea;
 
 /////// TASK LIST ///////
 
-// SELECT RANDOM BALL
-// ADD IMAGES TO CIRCLES
+//// MARDI 
 
-// API SCORE
+// FULL SCREEN 
+// MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ... 
+// AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS 
+
+
+////  EN COURS 
+// ADD IMAGES TO CIRCLES
 // DEPLOYEMENT
-// TIME OUT FOR COLLISION EFFECTS
-// DETERMINE MOUVMENT
-// ROUTES
-// FULL SCREEN
-// MUSIC ? ? ?
-// GROS CSS CHECK
-// MICROPHONE ??
+// API SCORE
+// BUGS REDIRECTIONS 
+
+
+// MECREDI 
+// GROS CSS 
+// DEBUG ET CHECK 
+
+// JEUDI
+
+// SLIDES 
+
+// VENDREDI 
+// MICROPHONE
+
+
+
+
+
+
+
+
+
+
+
+
 
 // draw(p5) {
 //   this.img = p5.loadImage('/images/logo.png')
@@ -315,4 +327,14 @@ export default GameArea;
 // }
 // if (randomColour > 3) {
 //   p5.fill(0, 255, 0);
+// }
+
+// if (ball.y >= 400) {
+//   balls.splice(i, 1);
+//   this.score -= 500;
+//   balls.push(new Ball());
+// }
+
+// if (ball.y === 50) {
+//   this.speed = 3 + this.score / 500;
 // }

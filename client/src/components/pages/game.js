@@ -18,7 +18,7 @@ export default class Game extends Component {
 
   recoverGameTime = (time) => {
 
-    console.log("time", time)
+    // console.log("time", time)
 
     // let newTime = time
     this.setState({ times: time });
@@ -27,14 +27,14 @@ export default class Game extends Component {
 
   recoverScore = (score) => {
 
-    console.log("score", score)
+    // console.log("score", score)
     this.setState({ scores: score });
   }
 
 
 
   render() {
-    console.log("props", this.props.userInSession);
+    // console.log("props", this.props.userInSession);
 
     if (!this.props.userInSession) {
       if (this.props.userInSession === false) {
@@ -47,7 +47,7 @@ export default class Game extends Component {
 
 
 
-    console.log("yooooo", this.state.scores)
+    // console.log("yooooo", this.state.scores)
     return (
       <div className="globalContainer">
         <div className="first">
