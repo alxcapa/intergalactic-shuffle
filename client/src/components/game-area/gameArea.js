@@ -136,9 +136,25 @@ class GameArea extends Component {
         this.skeleton = poses[0].skeleton;
       }
     });
+
+
+    //Background aléatoire 
+    let backOne = "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
+    let backTwo = "images/test1.gif"
+    let backThree = "images/test2.gif"
+    let backFor = "images/test3.gif"
+    let backFive = "images/test4.gif"
+    let backSix = "images/test5.gif"
+
+    let arrayBack = [backOne, backTwo, backThree, backFor, backFive, backSix];
+
+
+
+    console.log("array", arrayBack)
+
     /// BACKGROUND
     this.bg = p5.loadImage(
-      "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
+      arrayBack[randomNum(0, 5)]
     );
     // this.bg = p5.loadImage('/images/gifTests.gif');
     balls.push(new Ball(p5));
@@ -288,7 +304,7 @@ class GameArea extends Component {
         // this.seconds = 0;
         console.log("game over");
         // SENDING DATA TO API
-      
+
         apiRequests
           .game(this.score, 10, 10, 10)
           .then((response) => {
