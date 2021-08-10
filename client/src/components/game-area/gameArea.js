@@ -4,6 +4,9 @@ import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import apiRequests from "../api-requests";
 
+let windowWidth = 840
+let windowHeight = 580
+let largeScreen = false;
 // FIRST WE ESTABLISH CLASSES
 class Ball {
   constructor() {
@@ -93,10 +96,23 @@ class GameArea extends Component {
   }
   setup = (p5, canvasParentRef) => {
     // WE DEFINE AND CALL THE CANVAS WITH P5
-    let xyz = p5.createCanvas(540, 380).parent(canvasParentRef);
+
+    // 540, 380
+
+    let width = 540
+    let height = 380
+
+
+
+
+    // let widthFull = 840
+    // let heightFull = 580
+
+    let xyz = p5.createCanvas(width, height).parent(canvasParentRef);
     let x = (p5.windowWidth - p5.width) / 2;
     let y = (p5.windowHeight - p5.height) / 2;
     xyz.position(x, y);
+
     // VIDEO SETTINGS
     this.video = p5.createCapture();
     this.video.hide();
@@ -111,14 +127,82 @@ class GameArea extends Component {
     this.bg = p5.loadImage(
       "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
     );
+
+
   };
   drawCanvas = (p5) => {
     // THE DRAW REFRESHES EVERY 16MS
     // WE MIRROR THE CAM HERE
+
     p5.translate(this.video.width, 0);
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
+
+    function windowResized() {
+
+
+      p5.resizeCanvas(windowWidth, windowHeight);
+
+
+    }
+
+    function mouseClicked() {
+
+      document.querySelector(".fullScreen").addEventListener("click", function () {
+        if (largeScreen === false) {
+          windowResized()
+          document.querySelector(".fullScreen").innerText = "LARGER SCREEN ON"
+          document.getElementById("defaultCanvas0").style.left = "437px";
+          document.getElementById("defaultCanvas0").style.top = "202.5px";
+          largeScreen = true;
+
+        }
+        else {
+          p5.resizeCanvas(540, 380);
+
+          document.querySelector(".fullScreen").innerText = "LARGER SCREEN OFF"
+          document.getElementById("defaultCanvas0").style.left = "626px";
+          document.getElementById("defaultCanvas0").style.top = "279.5px";
+          largeScreen = false;
+        }
+
+
+      });
+
+
+
+
+
+
+    }
+    mouseClicked()
+
+    // function mousePressed() {
+    //   if (p5.mouseX > 0 && p5.mouseX < 100 && p5.mouseY > 0 && p5.mouseY < 100) {
+    //     let fs = p5.fullscreen();
+    //     p5.fullscreen(!fs);
+    //   }
+    // }
+
+
+    // function touchStarted() {
+    //   var fs = p5.fullscreen();
+    //   if (!fs) {
+    //     p5.fullscreen(true);
+    //   }
+    // }
+
+    // /* full screening will change the size of the canvas */
+    // function windowResized() {
+    //   p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+    // }
+
+
+
+
+
+    // mousePressed()
 
     // DETECTION DE LA POSE TOUTES LES 16 MS
     if (this.pose) {
@@ -156,6 +240,12 @@ class GameArea extends Component {
     }
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
+
+      // FULL SCREEN 
+
+
+
+
       // END GAME CONDITIONS
       let timeGame = this.timer - this.seconds;
       // console.log(timeGame);
@@ -267,17 +357,23 @@ class GameArea extends Component {
         });
       }
 
-
-
-
-
-
-
     }
+
+
+
+
+
+
     // INCREMENTATION OF THE FRAMES
     this.frame++;
     this.seconds = Math.floor(this.frame / 60);
   };
+
+
+
+
+
+
   // WE RENDER THE GAME CANVAS AND VOIIIILA
   render() {
     return (
@@ -286,7 +382,7 @@ class GameArea extends Component {
           setup={this.setup}
           draw={this.drawCanvas}
           className="defaultCanvas0"
-        />
+          allowfullscreen />
       </div>
     );
   }
@@ -296,10 +392,11 @@ export default GameArea;
 /////// TASK LIST ///////
 
 ////// MARDI 
-// FULL SCREEN 
+// FULL SCREEN -> 
+
 // MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ... 
 // AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS 
-// CUSTOMISATION SQUELETTE 
+// CUSTOMISATION SQUELETTE -- 
 
 //////  EN COURS 
 // ADD IMAGES TO CIRCLES

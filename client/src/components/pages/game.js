@@ -6,6 +6,7 @@ import Assistant from "../assistant/assistant";
 import Menu from "../menu/menu";
 import GameEvents from "../game-events/game-events";
 import Logout from "../logout-btn";
+import BtnFullScreen from "../game-area/btnFullScreen"
 
 
 ///  TIME THING 
@@ -73,7 +74,9 @@ export default class Game extends Component {
         </div>
 
         <div className="third">
-          <Assistant />
+          {/* <Assistant /> */}
+          <BtnFullScreen />
+
         </div>
       </div>
     );

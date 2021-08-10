@@ -326,6 +326,8 @@ td {
 
 .third {
   margin-top: -200px;
+  display: flex;
+  align-items: center;
 }
 
 /* CSS ADAM  */
@@ -456,4 +458,12 @@ td {
   margin-left: auto;
   font-size: 30px;
   color: white;
+}
+
+/* //FULLSCREEN */
+
+.fullScreen {
+  margin-top: 108px;
+  margin-left: 26px;
+  cursor: pointer;
 }
