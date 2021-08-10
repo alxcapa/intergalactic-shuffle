@@ -13,7 +13,10 @@ export default class Game extends Component {
 
   state = {
     times: 0,
-    scores: 0
+    scores: 0,
+    objectOne: 0,
+    objectTwo: 0,
+    objectThree: 0
   }
 
   recoverGameTime = (time) => {
@@ -31,6 +34,15 @@ export default class Game extends Component {
     this.setState({ scores: score });
   }
 
+  recoverObjects = (one, two, three) => {
+
+    // console.log("score", score)
+    this.setState({
+      objectOne: one,
+      objectTwo: two,
+      objectThree: three
+    });
+  }
 
 
   render() {
@@ -56,7 +68,7 @@ export default class Game extends Component {
         </div>
         <div className="second">
           <Menu />
-          <GameArea gameTime={this.recoverGameTime} score={this.recoverScore} />
+          <GameArea object={this.recoverObjects} gameTime={this.recoverGameTime} score={this.recoverScore} />
           <GameEvents time={this.state.times} scorePlayer={this.state.scores} />
         </div>
 

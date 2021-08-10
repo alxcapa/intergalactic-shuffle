@@ -39,6 +39,17 @@ export default {
         console.error("Error connecting to mongo", err);
       });
   },
+  game(high_score, object_one, object_two, object_three, user_ref) {
+    return this.service.post('/game', {
+      high_score,
+      object_one,
+      object_two,
+      object_three,
+      user_ref
+
+    })
+      .then(response => response.data)
+  },
 
 
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
+import apiRequests from "../api-requests";
 
 // FIRST WE ESTABLISH CLASSES
 class Ball {
@@ -126,13 +127,13 @@ class GameArea extends Component {
       let eyeL = this.pose.leftEye;
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
       // NOSE IS HERE
-      p5.fill(255, 0, 0);
+      p5.fill(191, 195, 198);
       p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
       // AND THE OTHER BODY POINTS
       for (let i = 0; i < this.pose.keypoints.length; i++) {
         let x = this.pose.keypoints[i].position.x;
         let y = this.pose.keypoints[i].position.y;
-        p5.fill(0, 255, 0);
+        p5.fill(154, 216, 233);
         p5.ellipse(x, y, 16, 16);
       }
       // THE EDGES OF THE SKELETON ARE DRAWN
@@ -160,6 +161,21 @@ class GameArea extends Component {
       // console.log(timeGame);
       if (timeGame <= 0) {
         this.gameStart = false;
+
+
+        console.log("game over")
+
+        apiRequests.game(this.score, 10, 10, 10)
+          .then(response => {
+
+            console.log("api reponse", response)
+
+
+          })
+          .catch(err => this.setState({ error: err.response }))
+          ;
+
+
         timeGame = 60;
       }
       // RECOVER TIME
@@ -233,6 +249,7 @@ class GameArea extends Component {
             // ball.x = ball.x + speed;
           }
 
+
           ball.draw(p5);
           ball.y = ball.y + this.speed;
           if (crashWith(ball, handLeft)) {
@@ -249,6 +266,13 @@ class GameArea extends Component {
           }
         });
       }
+
+
+
+
+
+
+
     }
     // INCREMENTATION OF THE FRAMES
     this.frame++;
