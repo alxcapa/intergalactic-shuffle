@@ -11,7 +11,7 @@ export default function Model(props) {
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
-    console.log(actions);
+    // console.log(actions);
 
     actions.danceRobot.play();
   });
