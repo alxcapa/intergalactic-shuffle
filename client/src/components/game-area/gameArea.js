@@ -8,6 +8,7 @@ import p5 from "p5";
 let windowWidth = 840
 let windowHeight = 580
 let largeScreen = false;
+
 // FIRST WE ESTABLISH CLASSES
 class Ball {
   constructor(p5, type = "ballOne") {
@@ -114,8 +115,6 @@ class GameArea extends Component {
     let height = 380
 
 
-
-
     // let widthFull = 840
     // let heightFull = 580
 
@@ -187,11 +186,6 @@ class GameArea extends Component {
 
 
       });
-
-
-
-
-
 
     }
     mouseClicked()
