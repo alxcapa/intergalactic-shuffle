@@ -4,11 +4,12 @@ import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import apiRequests from "../api-requests";
 import p5 from "p5";
-
-let windowWidth = 840
-let windowHeight = 580
+let windowWidth = 840;
+let windowHeight = 580;
 let largeScreen = false;
-
+let ballOneScore = 0;
+let ballTwoScore = 0;
+let ballThreeScore = 0;
 // FIRST WE ESTABLISH CLASSES
 class Ball {
   constructor(p5, type = "ballOne") {
@@ -16,9 +17,10 @@ class Ball {
     this.y = randomNum(50, 300);
     this.w = 50;
     this.h = 50;
+    this.type = type;
     let imgPath;
-    switch(type){
-      case "ballOne": 
+    switch (type) {
+      case "ballOne":
         imgPath = "images/lune.png";
         break;
       case "ballTwo":
@@ -39,15 +41,13 @@ class Ball {
     p5.image(this.img, this.x, this.y, this.w, this.h);
   }
 }
-
 // CREATE ARRAY FOR THE OBJECTS
 const balls = [];
-
 // GENERATE RANDOM BALL
 function randomBall(p5) {
   let selector = randomNum(0, 5);
   if (selector === 0) {
-  balls.push(new Ball(p5, "ballOne"));
+    balls.push(new Ball(p5, "ballOne"));
   }
   if (selector >= 1 && selector <= 3) {
     balls.push(new Ball(p5, "ballTwo"));
@@ -56,7 +56,6 @@ function randomBall(p5) {
     balls.push(new Ball(p5, "ballThree"));
   }
 }
-
 class Hand {
   constructor(x, y, w, h) {
     this.x = x;
@@ -68,23 +67,32 @@ class Hand {
     p5.ellipse(this.x, this.y, this.w, this.h);
   }
 }
-
 ///// FUNCTIONS ////
-
 // CRASH WITH FUNCTION
 function crashWith(a, b) {
   return (
     a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
   );
 }
-
 // GENERATE RANDOM COORDINATES
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don’t want it to be an integer
 }
 
-/////// GAME AREA //////
+////
+function getObjectScore(ball) {
+  if (ball.type === "ballOne") {
+    ballOneScore += 1;
+  }
+  if (ball.type === "ballTwo") {
+    ballTwoScore += 1;
+  }
+  if (ball.type === "ballThree") {
+    ballThreeScore += 1;
+  }
+}
 
+/////// GAME AREA //////
 // THEN INITIATE THE GAME AREA
 class GameArea extends Component {
   constructor(props) {
@@ -104,26 +112,19 @@ class GameArea extends Component {
     this.score = 0;
     this.speed = 0;
   }
-
   /// SETUP FUNCTION
   setup = (p5, canvasParentRef) => {
     // WE DEFINE AND CALL THE CANVAS WITH P5
-
     // 540, 380
-
-    let width = 540
-    let height = 380
-
-
+    let width = 540;
+    let height = 380;
     // let widthFull = 840
     // let heightFull = 580
-
     let xyz = p5.createCanvas(width, height).parent(canvasParentRef);
     let x = (p5.windowWidth - p5.width) / 2;
     let y = (p5.windowHeight - p5.height) / 2;
     this.dim = p5.width / 2;
     xyz.position(x, y);
-
     // VIDEO SETTINGS
     this.video = p5.createCapture();
     this.video.hide();
@@ -139,82 +140,44 @@ class GameArea extends Component {
     this.bg = p5.loadImage(
       "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
     );
-
-    // this.bg = p5.loadImage("/images/gifTests.gif");
-    balls.push(new Ball(p5))
+    // this.bg = p5.loadImage('/images/gifTests.gif');
+    balls.push(new Ball(p5));
   };
-
   // DRAW CANVAS FUNCTION
   drawCanvas = (p5) => {
     let timeGame = 60;
     this.props.gameTime(timeGame);
     // THE DRAW REFRESHES EVERY 16MS
     // WE MIRROR THE CAM HERE
-
     p5.translate(this.video.width, 0);
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
-
     function windowResized() {
-
-
       p5.resizeCanvas(windowWidth, windowHeight);
-
-
     }
-
     function mouseClicked() {
-
-      document.querySelector(".fullScreen").addEventListener("click", function () {
-        if (largeScreen === false) {
-          windowResized()
-          document.querySelector(".fullScreen").innerText = "LARGER SCREEN ON"
-          document.getElementById("defaultCanvas0").style.left = "437px";
-          document.getElementById("defaultCanvas0").style.top = "202.5px";
-          largeScreen = true;
-
-        }
-        else {
-          p5.resizeCanvas(540, 380);
-
-          document.querySelector(".fullScreen").innerText = "LARGER SCREEN OFF"
-          document.getElementById("defaultCanvas0").style.left = "626px";
-          document.getElementById("defaultCanvas0").style.top = "279.5px";
-          largeScreen = false;
-        }
-
-
-      });
-
+      document
+        .querySelector(".fullScreen")
+        .addEventListener("click", function () {
+          if (largeScreen === false) {
+            windowResized();
+            document.querySelector(".fullScreen").innerText =
+              "LARGER SCREEN ON";
+            document.getElementById("defaultCanvas0").style.left = "437px";
+            document.getElementById("defaultCanvas0").style.top = "202.5px";
+            largeScreen = true;
+          } else {
+            p5.resizeCanvas(540, 380);
+            document.querySelector(".fullScreen").innerText =
+              "LARGER SCREEN OFF";
+            document.getElementById("defaultCanvas0").style.left = "626px";
+            document.getElementById("defaultCanvas0").style.top = "279.5px";
+            largeScreen = false;
+          }
+        });
     }
-    mouseClicked()
-
-    // function mousePressed() {
-    //   if (p5.mouseX > 0 && p5.mouseX < 100 && p5.mouseY > 0 && p5.mouseY < 100) {
-    //     let fs = p5.fullscreen();
-    //     p5.fullscreen(!fs);
-    //   }
-    // }
-
-
-    // function touchStarted() {
-    //   var fs = p5.fullscreen();
-    //   if (!fs) {
-    //     p5.fullscreen(true);
-    //   }
-    // }
-
-    // /* full screening will change the size of the canvas */
-    // function windowResized() {
-    //   p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
-    // }
-
-
-
-
-
-    // mousePressed()
+    mouseClicked();
 
     // DETECTION DE LA POSE TOUTES LES 16 MS
     if (this.pose) {
@@ -250,13 +213,11 @@ class GameArea extends Component {
         this.gameStart = true;
       }
     }
-
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-      // console.log("seconds", this.seconds);
+      // console.log('seconds', this.seconds);
       let randomColour = randomNum(0, 4);
       // console.log(randomColour);
-
       if (randomColour < 2) {
         p5.fill(0, 0, 255);
       }
@@ -280,24 +241,32 @@ class GameArea extends Component {
       );
       handRight.draw(p5);
       handLeft.draw(p5);
-
       // GAME STARTS AFTER THREE SECONDS !!!
       if (this.seconds > 2) {
         // WE ITERATE THROUGH THE SECONDS
         // AT 3 SECONDS WE CREATE THE BALL
         // RENTRER DANS FOR EACH
         balls.forEach((ball, i) => {
-          // console.log("ball", ball);
+          // console.log('ball', ball);
           ball.draw(p5);
           ball.y = ball.y + this.speed;
           if (crashWith(ball, handLeft)) {
             balls.splice(i, 1);
+            console.log(ball.type);
+            getObjectScore(ball);
+            console.log(ballOneScore, ballTwoScore, ballThreeScore);
+            collisionSound.play();
             this.score += 100;
             randomBall(p5);
+
             this.props.score(this.score);
           }
           if (crashWith(ball, handRight)) {
             balls.splice(i, 1);
+            getObjectScore(ball);
+            console.log(ball.type);
+            console.log(ballOneScore, ballTwoScore, ballThreeScore);
+            collisionSound.play();
             this.score += 100;
             randomBall(p5);
             this.props.score(this.score);
@@ -308,19 +277,18 @@ class GameArea extends Component {
       // TIMER !!!!!
       timeGame = 60 - this.seconds;
       this.props.gameTime(timeGame);
-
-      // console.log("timeGame", timeGame)
-      // console.log("timer", this.timer)
+      // console.log('timeGame', timeGame)
+      // console.log('timer', this.timer)
       console.log("seconds", this.seconds);
-
+      this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
       //END GAME CONDITIONS
       if (timeGame === 0) {
         this.gameStart = false;
         timeGame = 60;
         // this.seconds = 0;
         console.log("game over");
-
         // SENDING DATA TO API
+      
         apiRequests
           .game(this.score, 10, 10, 10)
           .then((response) => {
@@ -333,12 +301,6 @@ class GameArea extends Component {
     this.frame++;
     this.seconds = Math.floor(this.frame / 60);
   };
-
-
-
-
-
-
   // WE RENDER THE GAME CANVAS AND VOIIIILA
   render() {
     return (
@@ -347,71 +309,69 @@ class GameArea extends Component {
           setup={this.setup}
           draw={this.drawCanvas}
           className="defaultCanvas0"
-          allowfullscreen />
+          allowfullscreen
+        />
       </div>
     );
   }
 }
+
+let collisionSound = new Audio("images/collisionsound.wav");
 export default GameArea;
 
 /////// TASK LIST ///////
 
 ////// MARDI
 
-// MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
-// BUGS REDIRECTIONS
-// AJOUT OBJETS SCORE
-
 //////  EN COURS
-// ADD IMAGES TO CIRCLES
-// DEPLOYEMENT
-// API SCORE
+// MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
+
+// MUSIQUE
 
 ///// MECREDI
-// AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS
+// API SCORE
+// BUGS REDIRECTIONS
 
+// AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS
+// AJOUT ANNONCER AVEC MESSAGE ASSISTANT
+// RETAFFER STORY
+
+//// JEUDI
 // GROS CSS
 // DEBUG ET CHECK
 
-//// JEUDI
 // SLIDES
 // DERNIERES TOUCHES
 
 //// VENDREDI
 // MICROPHONE
 
-// draw(p5) {
-//   this.img = p5.loadImage('/images/logo.png')
-//   p5.image(this.img, this.x, this.y, this.w, this.h);
-// }
-
-// let img = p5.loadImage(‘images/venus.png’);
-// p5.ellipse(this.x, this.y, this.w, this.h);
-
-// let randomColour = randomNum(0, 4);
-// console.log(randomColour);
-
-// if (randomColour < 2) {
-//
-// }
-// if (randomColour > 2 && randomColour < 4) {
-//   p5.fill(0, 255, 0);
-// }
-// if (randomColour > 3) {
-//   p5.fill(0, 255, 0);
-// }
-
-// if (ball.y >= 400) {
-//   balls.splice(i, 1);
-//   this.score -= 500;
-//   balls.push(new Ball());
-// }
-
-// if (ball.y === 50) {
-//   this.speed = 3 + this.score / 500;
-// }
-
 function toFinish() {
+  // draw(p5) {
+  //   this.img = p5.loadImage('/images/logo.png')
+  //   p5.image(this.img, this.x, this.y, this.w, this.h);
+  // }
+  // let img = p5.loadImage(‘images/venus.png’);
+  // p5.ellipse(this.x, this.y, this.w, this.h);
+  // let randomColour = randomNum(0, 4);
+  // console.log(randomColour);
+  // if (randomColour < 2) {
+  //
+  // }
+  // if (randomColour > 2 && randomColour < 4) {
+  //   p5.fill(0, 255, 0);
+  // }
+  // if (randomColour > 3) {
+  //   p5.fill(0, 255, 0);
+  // }
+  // if (ball.y >= 400) {
+  //   balls.splice(i, 1);
+  //   this.score -= 500;
+  //   balls.push(new Ball());
+  // }
+  // if (ball.y === 50) {
+  //   this.speed = 3 + this.score / 500;
+  // }
   // TO FINISH FOR LEVELS ? ?
   // let speed = 3;
   // if (ball.x === 140) {

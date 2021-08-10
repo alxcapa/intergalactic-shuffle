@@ -70,7 +70,7 @@ export default class Game extends Component {
         <div className="second">
           <Menu />
           <GameArea object={this.recoverObjects} gameTime={this.recoverGameTime} score={this.recoverScore} />
-          <GameEvents time={this.state.times} scorePlayer={this.state.scores} />
+          <GameEvents time={this.state.times} scorePlayer={this.state.scores} one={this.state.objectOne} two={this.state.objectTwo} three={this.state.objectThree} />
         </div>
 
         <div className="third">
