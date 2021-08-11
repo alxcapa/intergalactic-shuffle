@@ -237,7 +237,7 @@ class GameArea extends Component {
     }
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-      console.log("seconds are here",this.seconds)
+      console.log("seconds are here", this.seconds)
       // console.log('seconds', this.seconds);
       let randomColour = randomNum(0, 4);
       // console.log(randomColour);
@@ -359,12 +359,18 @@ export default GameArea;
 
 ///// MECREDI
 
-// RETAFFER STORY
-// BUGS REDIRECTIONS
+// RETAFFER STORY + BDD  
 
-// API SCORE
+// BUGS REDIRECTIONS + Select list countries 
+// Timer
 
-// TAILLE FULL SCREEN
+
+// ADD player + sound design + ASSISTANT
+// Selection de son et ambiances 
+
+
+
+
 
 //
 // AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS

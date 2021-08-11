@@ -11,14 +11,14 @@ export default class Profile extends Component {
   state = { data: null };
 
   getData() {
-    setTimeout(() => {
-      console.log("timed");
-      apiRequests.profile().then((response) => {
-        this.setState({ data: response });
-        console.log("data-prof", response);
-        console.log("state", this.state.data);
-      }, 1000);
+
+
+    apiRequests.profile().then((response) => {
+      this.setState({ data: response });
+      console.log("data-prof", response);
+      console.log("state", this.state.data);
     });
+
   }
 
   componentDidMount() {

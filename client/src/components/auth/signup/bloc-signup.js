@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Link } from "react-router-dom"
 import authService from '../auth-service'
 
 export default class BlocSignup extends Component {
@@ -35,8 +36,8 @@ export default class BlocSignup extends Component {
   }
   render() {
     return (
-      <div className="bloc-login">
-        <form onSubmit={this.handleSubmit} className="login-form">
+      <div className="bloc-signup">
+        <form onSubmit={this.handleSubmit} className="signup-form">
 
           <label>
             USERNAME
@@ -46,7 +47,7 @@ export default class BlocSignup extends Component {
           <label>
             EMAIL
         </label>
-          <input type="text" name="email" value={this.state.email} onChange={this.handleChange}></input>
+          <input type="email" name="email" value={this.state.email} onChange={this.handleChange}></input>
 
           <label>
             LOCATION
@@ -58,7 +59,8 @@ export default class BlocSignup extends Component {
         </label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
 
-          <div className="btn-form" onClick={this.handleSubmit}>  <span>SIGNUP</span></div>
+          <Link to="/login" onClick={this.handleSubmit}><div className="btn-form"><span>SIGNUP</span></div></Link>
+
         </form>
       </div>
     )

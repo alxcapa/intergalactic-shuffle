@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Link } from "react-router-dom"
 
 import authService from '../auth-service'
 
@@ -24,8 +25,8 @@ export default class BlocLogin extends Component {
     authService.login(this.state.email, this.state.password)
       .then(response => {
         this.setState({ error: "" });
-        console.log("api reponse", response)
 
+        console.log(response)
         this.props.history.push('/');
       })
       .catch(err => this.setState({ error: err.response }))
@@ -51,8 +52,9 @@ export default class BlocLogin extends Component {
             PASSWORD
         </label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
-          <div className="btn-form" onClick={this.handleSubmit}> <span>LOGIN</span></div>
-          <div className="btn-form"> <span>SIGNUP</span></div>
+          <Link to="login" onClick={this.handleSubmit}>  <div className="btn-form" > <span>LOGIN</span></div></Link>
+          <Link to="/signup"> <div className="btn-form"> <span>SIGNUP</span></div></Link>
+
         </form>
       </div>
     )
