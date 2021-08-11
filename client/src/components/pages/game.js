@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import Banner from "../banner/banner";
 import GameArea from "../game-area/gameArea";
 import Assistant from "../assistant/assistant";
@@ -9,71 +9,58 @@ import Logout from "../logout-btn";
 import apiRequests from "../api-requests";
 // import BtnFullScreen from "../game-area/btnFullScreen"
 
-
-///  TIME THING 
+///  TIME THING
 export default class Game extends Component {
-
   state = {
     times: 0,
     scores: 0,
     objectOne: 0,
     objectTwo: 0,
-    objectThree: 0
-  }
-
+    objectThree: 0,
+  };
 
   handleSubmit = () => {
-
-
     apiRequests
-      .game(this.state.scores, this.state.objectOne, this.state.objectTwo, this.state.objectThree, this.props.userInSession)
+      .game(
+        this.state.scores,
+        this.state.objectOne,
+        this.state.objectTwo,
+        this.state.objectThree,
+        this.props.userInSession
+      )
       .then((response) => {
         console.log("api reponse", response);
       })
       .catch((err) => this.setState({ error: err.response }));
-
-  }
+  };
 
   sendScoreEnd = (gameStart) => {
-
-
-
     if (gameStart === false) {
-
-      this.handleSubmit()
-
+      this.handleSubmit();
+    } else {
     }
-    else { }
-
-
-  }
-
+  };
 
   recoverGameTime = (time) => {
-
     // console.log("time", time)
 
     // let newTime = time
     this.setState({ times: time });
-  }
-
+  };
 
   recoverScore = (score) => {
-
     // console.log("score", score)
     this.setState({ scores: score });
-  }
+  };
 
   recoverObjects = (one, two, three) => {
-
     // console.log("score", score)
     this.setState({
       objectOne: one,
       objectTwo: two,
-      objectThree: three
+      objectThree: three,
     });
-  }
-
+  };
 
   render() {
     // console.log("props", this.props.userInSession);
@@ -86,10 +73,8 @@ export default class Game extends Component {
       }
     }
 
+    console.log("game", this.state.objectOne);
 
-
-
-    // console.log("yooooo", this.state.scores)
     return (
       <div className="globalContainer">
         <div className="first">
@@ -98,8 +83,19 @@ export default class Game extends Component {
         </div>
         <div className="second">
           <Menu />
-          <GameArea object={this.recoverObjects} gameTime={this.recoverGameTime} score={this.recoverScore} scoreEndGame={this.sendScoreEnd} />
-          <GameEvents time={this.state.times} scorePlayer={this.state.scores} objectOne={this.state.objectOne} objectTwo={this.state.objectTwo} objectThree={this.state.objectThree} />
+          <GameArea
+            object={this.recoverObjects}
+            gameTime={this.recoverGameTime}
+            score={this.recoverScore}
+            scoreEndGame={this.sendScoreEnd}
+          />
+          <GameEvents
+            time={this.state.times}
+            scorePlayer={this.state.scores}
+            objectOne={this.state.objectOne}
+            objectTwo={this.state.objectTwo}
+            objectThree={this.state.objectThree}
+          />
         </div>
 
         <div className="third">
@@ -112,7 +108,6 @@ export default class Game extends Component {
             <input type="hidden" value={this.state.objectTwo} />
             <input type="hidden" value={this.state.objectThree} />
           </form>
-
         </div>
       </div>
     );

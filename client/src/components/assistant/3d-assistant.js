@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import Robot from "../assistant/AssistantCharacter"
 import { Canvas, useThree } from "@react-three/fiber"
 import { OrbitControls, Html, useProgress } from "@react-three/drei"
-import { useSpring } from 'react-spring'
 
 function Loader() {
   const { progress } = useProgress()
