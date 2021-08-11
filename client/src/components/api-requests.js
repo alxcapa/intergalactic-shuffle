@@ -9,6 +9,7 @@ export default {
     return this.service
       .get("/game/profile")
       .then((response) => {
+        console.log(response)
         return response.data;
       })
       .catch((err) => {

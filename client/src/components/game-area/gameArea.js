@@ -348,10 +348,14 @@ export default GameArea;
 
 /////// TASK LIST ///////
 
-// FINIR ENVOIS PROPS
-// TIME THING
 
-////// MARDI
+// TIME THING
+// MODEL SCORE TRUC
+// RETAFFER STORY 
+// BUGS REDIRECTIONS
+
+
+
 
 //////  EN COURS
 // MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
@@ -359,10 +363,9 @@ export default GameArea;
 
 ///// MECREDI
 
-// RETAFFER STORY + BDD  
 
-// BUGS REDIRECTIONS + Select list countries 
-// Timer
+
+
 
 
 // ADD player + sound design + ASSISTANT

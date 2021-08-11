@@ -5,25 +5,21 @@ import Menu from "../menu/menu";
 import Logout from "../logout-btn";
 import BlocProfile from "../profile/bloc-profile";
 import apiRequests from "../api-requests";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 
 export default class Profile extends Component {
   state = { data: null };
 
   getData() {
-
-
     apiRequests.profile().then((response) => {
       this.setState({ data: response });
       console.log("data-prof", response);
       console.log("state", this.state.data);
     });
-
   }
 
   componentDidMount() {
     this.getData();
-
   }
 
   render() {
