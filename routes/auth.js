@@ -78,6 +78,32 @@ router.post("/signup", (req, res, next) => {
             res.status(500).json({ message: "Login after signup went bad." });
             return;
           }
+
+
+          let high_score = 0
+          let object_one = 0
+          let object_two = 0
+          let object_three = 0
+          let user_ref = newUser.id
+
+          console.log("newUser", newUser)
+
+          const newScore = new Score({
+            high_score,
+            object_one,
+            object_two,
+            object_three,
+            user_ref,
+          });
+          newScore
+            .save()
+            .then((scoreFromDB) => {
+
+              res.status(201).json({ user: newUser, score: scoreFromDB });
+            })
+            .catch((err) => next(err));
+
+          // res.status(201).json(newUser);
         });
       })
       .catch((err) => {
