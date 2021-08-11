@@ -6,7 +6,7 @@ import Assistant from "../assistant/assistant";
 import Menu from "../menu/menu";
 import GameEvents from "../game-events/game-events";
 import Logout from "../logout-btn";
-import BtnFullScreen from "../game-area/btnFullScreen"
+// import BtnFullScreen from "../game-area/btnFullScreen"
 
 
 ///  TIME THING 
@@ -70,12 +70,12 @@ export default class Game extends Component {
         <div className="second">
           <Menu />
           <GameArea object={this.recoverObjects} gameTime={this.recoverGameTime} score={this.recoverScore} />
-          <GameEvents time={this.state.times} scorePlayer={this.state.scores} one={this.state.objectOne} two={this.state.objectTwo} three={this.state.objectThree} />
+          <GameEvents time={this.state.times} scorePlayer={this.state.scores} objectOne={this.state.objectOne} objectTwo={this.state.objectTwo} objectThree={this.state.objectThree} />
         </div>
 
         <div className="third">
-          {/* <Assistant /> */}
-          <BtnFullScreen />
+          <Assistant />
+          {/* <BtnFullScreen /> */}
 
         </div>
       </div>

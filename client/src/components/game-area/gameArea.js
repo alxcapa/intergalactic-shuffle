@@ -169,31 +169,31 @@ class GameArea extends Component {
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
-    function windowResized() {
-      p5.resizeCanvas(windowWidth, windowHeight);
-    }
-    function mouseClicked() {
-      document
-        .querySelector(".fullScreen")
-        .addEventListener("click", function () {
-          if (largeScreen === false) {
-            windowResized();
-            document.querySelector(".fullScreen").innerText =
-              "LARGER SCREEN ON";
-            document.getElementById("defaultCanvas0").style.left = "437px";
-            document.getElementById("defaultCanvas0").style.top = "202.5px";
-            largeScreen = true;
-          } else {
-            p5.resizeCanvas(540, 380);
-            document.querySelector(".fullScreen").innerText =
-              "LARGER SCREEN OFF";
-            document.getElementById("defaultCanvas0").style.left = "626px";
-            document.getElementById("defaultCanvas0").style.top = "279.5px";
-            largeScreen = false;
-          }
-        });
-    }
-    mouseClicked();
+    // function windowResized() {
+    //   p5.resizeCanvas(windowWidth, windowHeight);
+    // }
+    // function mouseClicked() {
+    //   document
+    //     .querySelector(".fullScreen")
+    //     .addEventListener("click", function () {
+    //       if (largeScreen === false) {
+    //         windowResized();
+    //         document.querySelector(".fullScreen").innerText =
+    //           "LARGER SCREEN ON";
+    //         document.getElementById("defaultCanvas0").style.left = "437px";
+    //         document.getElementById("defaultCanvas0").style.top = "202.5px";
+    //         largeScreen = true;
+    //       } else {
+    //         p5.resizeCanvas(540, 380);
+    //         document.querySelector(".fullScreen").innerText =
+    //           "LARGER SCREEN OFF";
+    //         document.getElementById("defaultCanvas0").style.left = "626px";
+    //         document.getElementById("defaultCanvas0").style.top = "279.5px";
+    //         largeScreen = false;
+    //       }
+    //     });
+    // }
+    // mouseClicked();
 
     // DETECTION DE LA POSE TOUTES LES 16 MS
     if (this.pose) {
@@ -325,7 +325,7 @@ class GameArea extends Component {
           setup={this.setup}
           draw={this.drawCanvas}
           className="defaultCanvas0"
-          allowfullscreen
+
         />
       </div>
     );
