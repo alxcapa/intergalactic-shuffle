@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
-import apiRequests from "../api-requests";
+
 import p5 from "p5";
-let windowWidth = 840;
-let windowHeight = 580;
-let largeScreen = false;
+// let windowWidth = 840;
+// let windowHeight = 580;
+// let largeScreen = false;
 let ballOneScore = 0;
 let ballTwoScore = 0;
 let ballThreeScore = 0;
@@ -304,13 +304,7 @@ class GameArea extends Component {
         // this.seconds = 0;
         console.log("game over");
         // SENDING DATA TO API
-
-        apiRequests
-          .game(this.score, 10, 10, 10)
-          .then((response) => {
-            console.log("api reponse", response);
-          })
-          .catch((err) => this.setState({ error: err.response }));
+        this.props.scoreEndGame(this.gameStart)
       }
     }
     // INCREMENTATION OF THE FRAMES

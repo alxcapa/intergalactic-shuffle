@@ -10,7 +10,7 @@ import Notice from "../game-events/notice"
 export default class GameEvents extends Component {
   render() {
     // console.log("props", this.props.time)
-    console.log(this.props.one, this.props.two, this.props.three)
+
     // console.log("props score", this.props.score)
     return (
       <div className="game-events">
