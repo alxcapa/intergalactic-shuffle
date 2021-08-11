@@ -114,7 +114,8 @@ router.post("/game", (req, res) => {
   newScore
     .save()
     .then((scoreFromDB) => {
-      console.log(scoreFromDB);
+      console.log("saved")
+      res.status(201).json(scoreFromDB);
     })
     .catch((err) => next(err));
 });

@@ -9,6 +9,7 @@ class PlayerRow extends Component {
       <td>{this.props.position}</td>
       <td>{this.props.username}</td>
       <td>{this.props.score}</td>
+      <td>{this.props.objectOne} | {this.props.objectTwo} | {this.props.objectThree}</td>
     </>)
   }
 }

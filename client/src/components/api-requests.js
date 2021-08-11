@@ -40,7 +40,7 @@ export default {
       });
   },
   game(high_score, object_one, object_two, object_three, user_ref) {
-    return this.service.post('/game', {
+    return this.service.post('/game/game', {
       high_score,
       object_one,
       object_two,

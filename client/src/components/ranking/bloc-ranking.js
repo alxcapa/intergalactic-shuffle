@@ -28,7 +28,7 @@ export default class BlocRanking extends Component {
 
               return (
                 <tr>
-                  <PlayerRow position={i + 1} username={el.user_ref.username} score={el.high_score} />
+                  <PlayerRow position={i + 1} username={el.user_ref.username} score={el.high_score} objectOne={el.object_one} objectTwo={el.object_two} objectThree={el.object_three} />
                 </tr>
               )
             })}
