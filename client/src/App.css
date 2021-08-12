@@ -92,6 +92,8 @@ li {
   font-size: 32px;
   color: white;
   font-family: Orbitron;
+  margin-top: -25px;
+  margin-left: 20px;
 }
 
 .banner > a {
@@ -108,26 +110,32 @@ li {
 
 .character-assistant {
   width: 202px;
-  height: 160px;
+  height: 100px;
   border-radius: 20px;
+  right:500px;
   /* background-color: white; */
-  z-index: 1;
+  /* z-index: -1; */
 }
 
 .talk-area {
   width: 949px;
   margin-top: 107px;
+
   height: 77px;
   border-radius: 20px;
   border: 2px solid white;
-  margin-left: -175px;
+  /* margin-left: -175px; */
   text-align: center;
   font-size: 28px;
   line-height: 75px;
   color: white;
   font-weight: 500;
   background: #779add;
+  z-index: 1
+  
 }
+
+
 
 .talk-area span {
   margin-left: 180px;
@@ -270,6 +278,12 @@ li {
   cursor: pointer;
 }
 
+
+
+
+
+
+
 .bloc-login {
   width: 1034px;
   height: 595px;
@@ -339,9 +353,10 @@ td {
 }
 
 .third {
-  margin-top: -200px;
+  margin-top: -115px;
   display: flex;
   align-items: center;
+
 }
 
 /* CSS ADAM  */
@@ -461,23 +476,69 @@ td {
   align-items: center;
   cursor: pointer;
   z-index: 9999;
+  text-decoration: none;
+  font:400 13.3333px Arial;
+
+
+
+  color: white;
+  text-align: center;
+  line-height: 30px;
+
+
 }
 
 .btn-form:hover {
+  background: #779add;
+  cursor: pointer;
+
+}
+
+.btn-form span{
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+
+
+
+/* .menu li {
+  width: 304px;
+  height: 50px;
   background: linear-gradient(
     180deg,
     #779add -18.05%,
     rgba(0, 87, 255, 0) 100.96%
   );
- 
+  border-radius: 12px;
+  line-height: 52px;
+  text-align: center;
+  margin-top: 34px;
+  border: 2px solid #ffffff;
+  color: white;
+  margin-left: 20px;
+  font-weight: 500;
+  background: #779add;
+}
+
+.menu li:hover {
+  background: linear-gradient(
+    180deg,
+    #779add -18.05%,
+    rgba(0, 87, 255, 0) 100.96%
+  );
 
   cursor: pointer;
 }
 
-.btn-form span {
-  margin-left: auto;
-  margin-right: auto;
-}
+.menu a {
+  text-decoration: none;
+  color: white;
+} */
+
+
+
 
 .bloc-profile {
   width: 1034px;

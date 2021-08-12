@@ -390,14 +390,10 @@ export default GameArea;
 /////// TASK LIST ///////
 
 /// TODAY
-// GROS CSS//
-// BASE DE DONNE
-// BUG REDIRECTION - ROUTES
 
+// GROS CSS
 // SLIDES
 
-
-// AJOUT ANNONCER AVEC MESSAGE ASSISTANT
 
 
 // ALEX

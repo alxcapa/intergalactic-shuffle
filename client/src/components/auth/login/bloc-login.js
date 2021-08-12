@@ -51,7 +51,7 @@ export default class BlocLogin extends Component {
       <div className="bloc-login">
 
         <form onSubmit={this.handleSubmit} className="login-form">
-          <h2>Login</h2>
+          <h2>LOGIN</h2>
           <label>
             EMAIL
         </label>
@@ -62,7 +62,6 @@ export default class BlocLogin extends Component {
         </label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
           <button className="btn-form"><span>LOGIN</span></button>
-
           <Link to="/signup" className="btn-form"> <span>SIGNUP</span></Link>
 
 

@@ -391,10 +391,9 @@ export default class BlocSignup extends Component {
             onChange={this.handleChange}
           ></input>
 
-          <Link onClick={this.handleSubmit} to="/"> <button className="btn-form">
-            <span>SIGNUP</span>
-          </button>
-          </Link>
+        
+        
+          <Link to="/" className="btn-form"> <span>SIGNUP</span></Link>
         </form>
       </div>
     );
