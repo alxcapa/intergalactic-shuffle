@@ -15,7 +15,8 @@ export default class BlocLogin extends Component {
     password: "",
 
 
-    error: ""
+    error: "",
+    logged: false
   }
 
   handleSubmit = (event) => {
@@ -25,9 +26,12 @@ export default class BlocLogin extends Component {
     authService.login(this.state.email, this.state.password)
       .then(response => {
         this.setState({ error: "" });
+        this.setState({ logged: true });
 
-        console.log(response)
-        this.props.history.push('/');
+        this.props.disco(this.state.logged)
+
+        console.log("response", response)
+        // this.props.history.push('/');
       })
       .catch(err => this.setState({ error: err.response }))
       ;
@@ -52,8 +56,9 @@ export default class BlocLogin extends Component {
             PASSWORD
         </label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
-          <Link to="login" onClick={this.handleSubmit}>  <div className="btn-form" > <span>LOGIN</span></div></Link>
-          <Link to="/signup"> <div className="btn-form"> <span>SIGNUP</span></div></Link>
+          <button className="btn-form" onClick={this.handleSubmit}><span>LOGIN</span></button>
+          {/* <Link to="login" onClick={this.handleSubmit}>  <div className="btn-form" > <span>LOGIN</span></div></Link> */}
+          <Link className="btn-form" to="/signup"> <div className="btn-form"> <span>SIGNUP</span></div></Link>
 
         </form>
       </div>

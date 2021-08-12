@@ -64,8 +64,10 @@ export default class BlocSignup extends Component {
             <option value="spider">Spider</option>
             <option value="goldfish">Goldfish</option>
           </select> */}
-          <label>LOCATION</label>
+
           {/* <input type="text" name="location" value={this.state.location} onChange={this.handleChange}></input> */}
+
+          <label>LOCATION</label>
           <select
             name="location"
             // id="location"
@@ -380,8 +382,8 @@ export default class BlocSignup extends Component {
             <option value="Zambia">Zambia</option>
             <option value="Zimbabwe">Zimbabwe</option>
           </select>
-          <label>PASSWORD</label>
 
+          <label>PASSWORD</label>
           <input
             type="password"
             name="password"
@@ -389,8 +391,7 @@ export default class BlocSignup extends Component {
             onChange={this.handleChange}
           ></input>
 
-<Link to="/"> <div className="btn-form" onClick={this.handleSubmit}>
-            {" "}
+          <Link onClick={this.handleSubmit} to="/"> <div className="btn-form" >
             <span>SIGNUP</span>
           </div>
           </Link>

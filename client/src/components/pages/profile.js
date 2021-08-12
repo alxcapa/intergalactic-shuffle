@@ -23,31 +23,31 @@ export default class Profile extends Component {
   }
 
   render() {
-    if (!this.props.userInSession) {
-      if (this.props.userInSession === false) {
-        return <Redirect to="/login" />;
-      } else {
-        return "loading";
-      }
+    if (!this.props.session) {
+
+      return <Redirect to="/login" />;
+
+    } else {
+
+      return (
+        <div className="globalContainer">
+          <div className="first">
+            <Banner />
+            <Logout checkSession={this.props.disco} />
+          </div>
+
+          <div className="second">
+            <Menu />
+            <BlocProfile dataProfile={this.state.data} />
+          </div>
+
+          <div className="third">
+            <Assistant />
+          </div>
+        </div>
+      );
+
     }
 
-    console.log("state===>", this.state.data);
-    return (
-      <div className="globalContainer">
-        <div className="first">
-          <Banner />
-          <Logout />
-        </div>
-
-        <div className="second">
-          <Menu />
-          <BlocProfile dataProfile={this.state.data} />
-        </div>
-
-        <div className="third">
-          <Assistant />
-        </div>
-      </div>
-    );
   }
 }

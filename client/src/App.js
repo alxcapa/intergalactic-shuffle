@@ -14,10 +14,10 @@ import React, { Component } from "react";
 
 
 export default class App extends Component {
-  state = { user: null };
+  state = { user: false };
 
   componentDidMount() {
-    if (!this.state.user) {
+    if (this.state.user === false) {
       authService
         .loggedin()
         .then((data) => {
@@ -41,7 +41,15 @@ export default class App extends Component {
     })
   }
 
+  enfantLoggedInUser = (userObj) => {
 
+    if (!userObj) {
+      this.setState({
+        user: false
+      })
+    }
+    else { }
+  }
 
 
   render() {
@@ -49,13 +57,13 @@ export default class App extends Component {
       <Route render={props => (
         <div className="App" data-route={props.location.pathname}>
           <Switch>
-            <Route exact path="/" render={(props) => <Game userInSession={this.state.user} history={props.history} />} />
-            <Route exact path="/about" render={(props) => <About history={props.history} />} />
-            <Route exact path="/signup" render={(props) => <Signup history={props.history} />} />
-            <Route exact path="/login" render={(props) => <Login history={props.history} />} />
-            <Route exact path="/profile" render={(props) => <Profile userInSession={this.state.user} history={props.history} />} />
-            <Route exact path="/stats" render={(props) => <Stats history={props.history} />} />
-            <Route exact path="/ranking-game" render={(props) => <Ranking userInSession={this.state.user} history={props.history} />} />
+            <Route exact path="/" render={(props) => <Game disco={this.enfantLoggedInUser} session={this.state.user} history={props.history} />} />
+            <Route exact path="/about" render={(props) => <About disco={this.enfantLoggedInUser} history={props.history} />} />
+            <Route exact path="/signup" render={(props) => <Signup session={this.state.user} history={props.history} />} />
+            <Route exact path="/login" render={(props) => <Login disco={this.enfantLoggedInUser} session={this.state.user} history={props.history} />} />
+            <Route exact path="/profile" render={(props) => <Profile disco={this.enfantLoggedInUser} session={this.state.user} history={props.history} />} />
+            <Route exact path="/stats" render={(props) => <Stats disco={this.enfantLoggedInUser} history={props.history} />} />
+            <Route exact path="/ranking-game" render={(props) => <Ranking disco={this.enfantLoggedInUser} history={props.history} />} />
           </Switch>
         </div>
       )} />

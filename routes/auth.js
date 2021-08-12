@@ -24,7 +24,7 @@ router.post("/login", (req, res, next) => {
 
     // save user in session
     req.login(theUser, (err) => {
-      console.log("user",theUser)
+      console.log("user", theUser)
 
 
 
@@ -78,8 +78,6 @@ router.post("/signup", (req, res, next) => {
             res.status(500).json({ message: "Login after signup went bad." });
             return;
           }
-
-
           let high_score = 0
           let object_one = 0
           let object_two = 0

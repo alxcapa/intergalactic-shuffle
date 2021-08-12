@@ -1,6 +1,7 @@
 
 
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom"
 import Banner from "../banner/banner";
 import Assistant from "../assistant/assistant";
 import Menu from "../menu/menu";
@@ -9,23 +10,30 @@ import BlocSignup from "../auth/signup/bloc-signup";
 
 export default class Signup extends Component {
   render() {
-    console.log("props history", this.props.history)
-    return (
-      <div className="globalContainer">
-        <div className="first">
-          <Banner />
-          <Logout />
-        </div>
 
-        <div className="second">
-          <Menu />
-          <BlocSignup history={this.props.history} />
-        </div>
+    if (!this.props.session) {
+      return (
+        <div className="globalContainer">
+          <div className="first">
+            <Banner />
+            <Logout />
+          </div>
 
-        <div className="third">
-          <Assistant />
+          <div className="second">
+            <Menu />
+            <BlocSignup history={this.props.history} />
+          </div>
+
+          <div className="third">
+            <Assistant />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return <Redirect to="/" />;
+    }
+
+
   }
 }

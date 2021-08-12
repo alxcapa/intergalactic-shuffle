@@ -4,6 +4,9 @@ import authService from "../components/auth/auth-service"
 
 export default class Logout extends Component {
 
+  state = {
+    connected: true
+  }
 
   handleLogout = (event) => {
 
@@ -12,7 +15,12 @@ export default class Logout extends Component {
     authService.logout()
       .then(response => {
 
-        console.log("api reponse", response)
+        this.setState({ connected: false })
+
+        this.props.checkSession(this.state.connected)
+        console.log("state logout", this.state.connected)
+
+
 
         // this.props.history.push('/login');
       })
@@ -21,6 +29,7 @@ export default class Logout extends Component {
   }
 
   render() {
+
     return (
       <div className="logout-btn" onClick={this.handleLogout}>Logout</div>
     )
