@@ -2,7 +2,7 @@ import React from 'react';
 
 function Talk() {
 
-  return <div className="talk-area"> <marquee>. . . WELCOME HUMAN . . .       SHOW ME YOUR MOVES ! . . .</marquee>  </div>
+  return <div className="talk-area"> <marquee>. . . WELCOME HUMAN . . .       SHOW ME YOUR MOVES ! . . . THE FATE OF THE WORLD IS IN YOUR HANDS</marquee>  </div>
 
 }
 

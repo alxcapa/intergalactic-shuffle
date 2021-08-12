@@ -392,7 +392,7 @@ export default GameArea;
 /// TODAY
 // GROS CSS//
 // BASE DE DONNE
-// ROUTES
+// BUG REDIRECTION - ROUTES
 
 // SLIDES
 
