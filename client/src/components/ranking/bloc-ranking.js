@@ -10,9 +10,11 @@ export default class BlocRanking extends Component {
 
     return (
       <div className="bloc-login">
-        <br /> <br /> <br />
-        <marquee>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</marquee>
-        <br /> <br />
+        <br />   <br />    <br /> 
+        <div> <h2>HUMAN PERFORMANCE</h2></div>
+
+   
+  
         <table>
           <thead>
             <tr>

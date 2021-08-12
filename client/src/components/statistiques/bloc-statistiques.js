@@ -69,7 +69,9 @@ export default class BlocStats extends PureComponent {
 
     return (
       <div className="bloc-stats">
-        <h2>Users by Countries</h2>
+      <br/>   <br/> <br/>
+        <h2>CHALLENGER LOCATION</h2>
+        <br/>   
         <ResponsiveContainer width="80%" height="77%">
           <LineChart width={500} height={300} data={byCountries}>
             <CartesianGrid strokeDasharray="3 3" />

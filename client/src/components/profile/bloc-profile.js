@@ -21,6 +21,8 @@ export default class BlocProfile extends Component {
     console.log(this.props.dataProfile.user, 'props')
     return (
       <div className="bloc-profile">
+      <br/>
+      <br/><br/>
         <h2>PROFILE</h2>
         <h3>BEST GAMES</h3>
         <ul>

@@ -390,23 +390,69 @@ export default GameArea;
 /////// TASK LIST ///////
 
 /// TODAY
-// GROS CSS
-// RETAFFER STORY
-
-
-// SLIDES
+// GROS CSS//
+// BASE DE DONNE
 // ROUTES
 
-
+// SLIDES
 
 
 // AJOUT ANNONCER AVEC MESSAGE ASSISTANT
-// MICROPHONE
+
+
+// ALEX
 // MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
 // MUSIQUE
 // ADD player + sound design + ASSISTANT
 // Selection de son etgit ambiances
 
+
+// ADAM
+// MICROPHONE
+
+
+
+
+
+
+
+/// STORY
+
+
+
+// TEXT BOX GAME
+
+// How to play: 
+// Get on screen and start to dance
+// Show the Alien your moves and fast
+// Hit the planets and make it groove ! 
+
+// ABOUT 
+
+/*
+<h2>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</h2>
+Join Robo-san on space station shuffle and make enough moves to keep the
+crew and passengers entertained.{" "}
+</div>
+<br />
+<div>
+Grab as many objects as possible in the time limit and avoid the traps.
+</div>
+<br />
+<div>
+Intergalactic Shuffle was developped by <br /> Alexandre Capaldi & Adam
+Ghaoul
+</div>
+<br />
+<div>
+<img src="images/alex-linkedin.jpeg"></img><img src="images/lnkdin.png"></img>
+
+</div>
+<br />
+<div>ありがとうございます</div>
+</div>
+
+*/
 
 
 

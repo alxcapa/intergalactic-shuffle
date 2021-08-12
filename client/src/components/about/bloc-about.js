@@ -7,13 +7,19 @@ function BlocAbout() {
 
 
       <div>
-        <h2>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</h2>
-        Join Robo-san on space station shuffle and make enough moves to keep the
-        crew and passengers entertained.{" "}
+        <h2>WELCOME TO INTERGALACTIC SHUFFLE HUMAN</h2>
+        Join Robo-san on space station shuffle and make enough moves to keep
+        the robot amused !{" "}
       </div>
       <br />
       <div>
-        Grab as many objects as possible in the time limit and avoid the traps.
+      Up to you to save humanity, Robo-san wants to see your best moves or else the earth will be destroyed
+      <br/> <br/>
+       Grab as many planets as possible in the time limit.
+      </div>
+      <br />
+      <div>
+    Check your profile, stats and leaderboard and see, your score, who the best dancer is and where they're from ! 
       </div>
       <br />
       <div>
@@ -26,7 +32,7 @@ function BlocAbout() {
 
       </div>
       <br />
-      <div>ありがとうございます</div>
+      {/* <div>ありがとうございます</div> */}
     </div>
   );
 }
