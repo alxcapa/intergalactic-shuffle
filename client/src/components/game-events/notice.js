@@ -5,7 +5,7 @@ function Notice() {
     <div className="notice">
       {" "}
       <p>
-        How To Play: <br/> Get on screen and start to dance <br/> Show the Alien your moves
+        How To Play: <br/> Get on screen and start to dance <br/> Show Robo-san your moves
         <br/> Hit the planets and make it groove !{" "}
       </p>
     </div>

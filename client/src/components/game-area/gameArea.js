@@ -234,7 +234,7 @@ class GameArea extends Component {
 
     // RESET GAME !!!
     if (this.gameStart === false) {
-      console.log("im false");
+      // console.log("im false");
       this.score = 0;
       ballOneScore = 0;
       ballTwoScore = 0;

@@ -5,7 +5,8 @@ import Talk from './talk-area'
 function Assistant() {
 
   return (<div className="container-assistant">
-    <Character />
+  <div className="test-assistant"><Character /></div>
+    
     <Talk />
   </div>)
 }

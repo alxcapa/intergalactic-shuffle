@@ -14,7 +14,7 @@ function Character() {
 
 
 
-  return (<Canvas camera={{ far: 300 }} style={{ height: 460, width: 200 }} className="character-assistant">
+  return (<Canvas camera={{ far: 200 }} style={{ height: 700, width: 400 }} className="character-assistant">
     <OrbitControls />
     <ambientLight intensity={0.6} />
     <Suspense fallback={<Loader />}>

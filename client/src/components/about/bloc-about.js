@@ -8,12 +8,11 @@ function BlocAbout() {
 
       <div>
         <h2>WELCOME TO INTERGALACTIC SHUFFLE HUMAN</h2>
-        Join Robo-san on space station shuffle and make enough moves to keep
-        the robot amused !{" "}
+        Join Robo-san on space station shuffle !{" "}
       </div>
       <br />
       <div>
-        Up to you to save humanity, Robo-san wants to see your best moves or else the earth will be destroyed
+        It's up to you to save humanity, Robo-san wants to see your best moves or else the earth will be destroyed.
       <br /> <br />
         Grab as many planets as possible in the time limit.
       </div>
