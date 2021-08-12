@@ -1,17 +1,17 @@
+//IMPORTS
 import React, { Component } from "react";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
-
 import p5 from "p5";
-// let windowWidth = 840;
-// let windowHeight = 580;
-// let largeScreen = false;
-let ballOneScore = 0;
-let ballTwoScore = 0;
-let ballThreeScore = 0;
 
-// FIRST WE ESTABLISH CLASSES
+// GLOBAL VARIABLES
+let ballOneScore;
+let ballTwoScore;
+let ballThreeScore;
+let timeGame;
+
+// BUILD PLANETS
 class Ball {
   constructor(p5, type = "ballOne") {
     this.x = randomNum(140, 600);
@@ -45,6 +45,22 @@ class Ball {
 
 // CREATE ARRAY FOR THE OBJECTS
 const balls = [];
+
+// BUILD HANDS
+class Hand {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+  draw(p5) {
+    p5.ellipse(this.x, this.y, this.w, this.h);
+  }
+}
+
+////////////////////////////////////// FUNCTIONS
+
 // GENERATE RANDOM BALL
 function randomBall(p5) {
   let selector = randomNum(0, 5);
@@ -58,18 +74,7 @@ function randomBall(p5) {
     balls.push(new Ball(p5, "ballThree"));
   }
 }
-class Hand {
-  constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-  }
-  draw(p5) {
-    p5.ellipse(this.x, this.y, this.w, this.h);
-  }
-}
-///// FUNCTIONS ////
+
 // CRASH WITH FUNCTION
 function crashWith(a, b) {
   return (
@@ -79,11 +84,11 @@ function crashWith(a, b) {
 
 // GENERATE RANDOM COORDINATES
 function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don’t want it to be an integer
+  return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don't want it to be an integer
 }
 
-// GET THE OBJECT TALLEY
-function getObjectScore(ball) {
+// GET THE AMOUNT OF OBJECTS
+function getObjects(ball) {
   if (ball.type === "ballOne") {
     ballOneScore += 1;
   }
@@ -95,7 +100,24 @@ function getObjectScore(ball) {
   }
 }
 
-/////// GAME AREA //////
+// function getScore(ball, score) {
+//   if (ball.type === "ballOne") {
+//     score += 300;
+//     console.log("score",score)
+//   }
+//   if (ball.type === "ballTwo") {
+//     score += 100;
+//     console.log("score",score)
+//   }
+//   if (ball.type === "ballThree") {
+//     score += 300;
+//     console.log("score",score)
+//   }
+// }
+
+////////////////////////////////////// GAME AREA //////
+
+/// THEN INITIATE THE GAME AREA
 
 /// THEN INITIATE THE GAME AREA
 class GameArea extends Component {
@@ -111,13 +133,13 @@ class GameArea extends Component {
     this.frame = 0;
     this.handLeft = undefined;
     this.handRight = undefined;
+    this.second = 0;
     this.seconds = 0;
-    this.timer = 60;
     this.score = 0;
     this.speed = 0;
   }
 
-  /// SETUP FUNCTION
+  /// SETUP
   setup = (p5, canvasParentRef) => {
     // WE DEFINE AND CALL THE CANVAS WITH P5
     // 540, 380
@@ -142,74 +164,45 @@ class GameArea extends Component {
       }
     });
 
+    //Background aléatoire
+    // let backOne = "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif";
+    // let backTwo = "images/test1.gif";
+    // let backThree = "images/test2.gif";
+    // let backFor = "images/test3.gif";
+    // let backFive = "images/test4.gif";
+    // let backSix = "images/test5.gif";
+    // let arrayBack = [backOne, backTwo, backThree, backFor, backFive, backSix];
 
-    //Background aléatoire 
-    let backOne = "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
-    let backTwo = "images/test1.gif"
-    let backThree = "images/test2.gif"
-    let backFor = "images/test3.gif"
-    let backFive = "images/test4.gif"
-    let backSix = "images/test5.gif"
+    // /// BACKGROUND
+    // this.bg = p5.loadImage(arrayBack[randomNum(0, 5)]);
 
-    let arrayBack = [backOne, backTwo, backThree, backFor, backFive, backSix];
+    this.bg = p5.loadImage("https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif");
 
-
-
-    console.log("array", arrayBack)
-
-    /// BACKGROUND
-    this.bg = p5.loadImage(
-      arrayBack[randomNum(0, 5)]
-    );
-    // this.bg = p5.loadImage('/images/gifTests.gif');
+    // PUSH BALL INTO ARRAY
     balls.push(new Ball(p5));
   };
 
-  // DRAW CANVAS FUNCTION
+  // DRAW CANVAS
   drawCanvas = (p5) => {
-    let timeGame = 60;
-    this.props.gameTime(timeGame);
+    /// GOOOOD
     // THE DRAW REFRESHES EVERY 16MS
     // WE MIRROR THE CAM HERE
     p5.translate(this.video.width, 0);
     p5.scale(-1, 1);
     p5.image(this.video, 0, 0);
     p5.background(this.bg);
-    // function windowResized() {
-    //   p5.resizeCanvas(windowWidth, windowHeight);
-    // }
-    // function mouseClicked() {
-    //   document
-    //     .querySelector(".fullScreen")
-    //     .addEventListener("click", function () {
-    //       if (largeScreen === false) {
-    //         windowResized();
-    //         document.querySelector(".fullScreen").innerText =
-    //           "LARGER SCREEN ON";
-    //         document.getElementById("defaultCanvas0").style.left = "437px";
-    //         document.getElementById("defaultCanvas0").style.top = "202.5px";
-    //         largeScreen = true;
-    //       } else {
-    //         p5.resizeCanvas(540, 380);
-    //         document.querySelector(".fullScreen").innerText =
-    //           "LARGER SCREEN OFF";
-    //         document.getElementById("defaultCanvas0").style.left = "626px";
-    //         document.getElementById("defaultCanvas0").style.top = "279.5px";
-    //         largeScreen = false;
-    //       }
-    //     });
-    // }
-    // mouseClicked();
 
-    // DETECTION DE LA POSE TOUTES LES 16 MS
+    // DETECTION DE LA POSE ET GAME START TOUTES LES 16 MS
     if (this.pose) {
       // WE DEFINE A VARIABLE FOR THE DISTANCE
       let eyeR = this.pose.rightEye;
       let eyeL = this.pose.leftEye;
       let d = p5.dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
+
       // NOSE IS HERE
       p5.fill(191, 195, 198);
       p5.ellipse(this.pose.nose.x, this.pose.nose.y, d);
+
       // AND THE OTHER BODY POINTS
       for (let i = 0; i < this.pose.keypoints.length; i++) {
         let x = this.pose.keypoints[i].position.x;
@@ -217,6 +210,7 @@ class GameArea extends Component {
         p5.fill(154, 216, 233);
         p5.ellipse(x, y, 16, 16);
       }
+
       // THE EDGES OF THE SKELETON ARE DRAWN
       for (let i = 0; i < this.skeleton.length; i++) {
         let a = this.skeleton[i][0];
@@ -225,6 +219,7 @@ class GameArea extends Component {
         p5.stroke(255);
         p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
       }
+
       // WE INITIATE THE START OF THE GAME
       if (
         this.gameStart === false &&
@@ -235,10 +230,26 @@ class GameArea extends Component {
         this.gameStart = true;
       }
     }
+    /// GOOOOD
+
+    // RESET GAME !!!
+    if (this.gameStart === false) {
+      console.log("im false");
+      this.score = 0;
+      ballOneScore = 0;
+      ballTwoScore = 0;
+      ballThreeScore = 0;
+      timeGame = 20;
+      this.second = 0;
+      this.props.gameTime(timeGame);
+      this.props.score(this.score);
+      this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+    }
+
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-      console.log("seconds are here", this.seconds)
-      // console.log('seconds', this.seconds);
+
+      // FLASHY HANDS
       let randomColour = randomNum(0, 4);
       // console.log(randomColour);
       if (randomColour < 2) {
@@ -250,6 +261,7 @@ class GameArea extends Component {
       if (randomColour > 3) {
         p5.fill(0, 0, 0);
       }
+      // DRAW HANDS
       let handRight = new Hand(
         this.pose.rightWrist.x,
         this.pose.rightWrist.y,
@@ -264,66 +276,99 @@ class GameArea extends Component {
       );
       handRight.draw(p5);
       handLeft.draw(p5);
-      // GAME STARTS AFTER THREE SECONDS !!!
 
+      // GOOOOOOD
 
+      // GAME START
 
-      // if (this.seconds <5) {
-      //   console.log('music here', this.seconds)
-      // }
-      if (this.seconds) {
-        console.log("lets do it", this.seconds)
-        // WE ITERATE THROUGH THE SECONDS
-        // AT 3 SECONDS WE CREATE THE BALL
-        // RENTRER DANS FOR EACH
-        balls.forEach((ball, i) => {
-          // console.log('ball', ball);
-          ball.draw(p5);
-          ball.y = ball.y + this.speed;
-          if (crashWith(ball, handLeft)) {
-            balls.splice(i, 1);
-            // console.log(ball.type);
-            getObjectScore(ball);
-            // console.log(ballOneScore, ballTwoScore, ballThreeScore);
-            collisionSound.play();
+      // FOREACH
+      balls.forEach((ball, i) => {
+  
+        // console.log('ball', ball);
+        ball.draw(p5);
+
+        if (crashWith(ball, handLeft)) {
+          collisionSound.play();
+          balls.splice(i, 1);
+          getObjects(ball);
+          if (ball.type === "ballOne") {
+            this.score += 300;
+          }
+          if (ball.type === "ballTwo") {
             this.score += 100;
-            randomBall(p5);
+          }
+          if (ball.type === "ballThree") {
+            this.score += 300;
+          }
+          randomBall(p5);
+          this.props.score(this.score);
+        }
+        if (crashWith(ball, handRight)) {
+          collisionSound.play();
+          balls.splice(i, 1);
+          getObjects(ball);
+          if (ball.type === "ballOne") {
+            this.score += 300;
+          }
+          if (ball.type === "ballTwo") {
+            this.score += 100;
+          }
+          if (ball.type === "ballThree") {
+            this.score += 300;
+          }
+          randomBall(p5);
+          this.props.score(this.score);
+        }
 
+        if (timeGame <= 10) {
+          // console.log("oi");
+          // console.log(ball.y)
+          let speed = this.score / 1500;
+          ball.y = ball.y + speed;
+
+          if (ball.y >= 400) {
+            balls.splice(i, 1);
+            if (ball.type === "ballOne") {
+              this.score -= 300;
+            }
+            if (ball.type === "ballTwo") {
+              this.score -= 100;
+            }
+            if (ball.type === "ballThree") {
+              this.score -= 300;
+            }
+            randomBall(p5);
             this.props.score(this.score);
           }
-          if (crashWith(ball, handRight)) {
-            balls.splice(i, 1);
-            getObjectScore(ball);
-            // console.log(ball.type);
-            // console.log(ballOneScore, ballTwoScore, ballThreeScore);
-            collisionSound.play();
-            this.score += 100;
-            randomBall(p5);
-            this.props.score(this.score);
-          }
-        });
-      }
+        }
 
-      // TIMER !!!!!
-      timeGame = 60 - this.seconds;
+        
+      });
+
+      // FOREACH
+
+      // TIMER DURING GAME TIME
+      timeGame = 20 - this.seconds;
+
+      // SEND OBJETS AS PROPS
       this.props.gameTime(timeGame);
-      // console.log('timeGame', timeGame)
-      // console.log('timer', this.timer)
-      // console.log("seconds", this.seconds);
       this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
       //END GAME CONDITIONS
       if (timeGame === 0) {
+        this.props.scoreEndGame(this.gameStart);
         this.gameStart = false;
-        timeGame = 60;
-        // this.seconds = 0;
         console.log("game over");
-        // SENDING DATA TO API
-        this.props.scoreEndGame(this.gameStart)
       }
+      // this.seconds =  Math.floor(this.seconds +1/ 60);
+      this.second++;
+      this.seconds = Math.floor(this.second / 60);
+
+      // console.log("seconds", this.seconds)
     }
+
     // INCREMENTATION OF THE FRAMES
     this.frame++;
-    this.seconds = Math.floor(this.frame / 60);
   };
   // WE RENDER THE GAME CANVAS AND VOIIIILA
   render() {
@@ -333,7 +378,6 @@ class GameArea extends Component {
           setup={this.setup}
           draw={this.drawCanvas}
           className="defaultCanvas0"
-
         />
       </div>
     );
@@ -343,53 +387,32 @@ class GameArea extends Component {
 let collisionSound = new Audio("images/collisionsound.wav");
 export default GameArea;
 
-
-
-
 /////// TASK LIST ///////
 
-
-// TIME THING
-// MODEL SCORE TRUC
-// RETAFFER STORY 
-// BUGS REDIRECTIONS
-
-
-
-
-//////  EN COURS
-// MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
-// MUSIQUE
-
-///// MECREDI
-
-
-
-
-
-
-// ADD player + sound design + ASSISTANT
-// Selection de son et ambiances 
-
-
-
-
-
-//
-// AJUSTEMENT DES REGLES (AJUSTEMENT SPEED, TEMPS MORTS COLLISION ET MOUVEMENTS) ET ANIMATIONS
-// AJOUT ANNONCER AVEC MESSAGE ASSISTANT
-
-//// JEUDI
+/// TODAY
 // GROS CSS
-// DEBUG ET CHECK
+// RETAFFER STORY
+
 
 // SLIDES
-// DERNIERES TOUCHES
+// ROUTES
 
-//// VENDREDI
+
+
+
+// AJOUT ANNONCER AVEC MESSAGE ASSISTANT
 // MICROPHONE
+// MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
+// MUSIQUE
+// ADD player + sound design + ASSISTANT
+// Selection de son etgit ambiances
+
+
+
+
 
 function toFinish() {
+  //       ball.y = ball.y + this.speed;
   // draw(p5) {
   //   this.img = p5.loadImage('/images/logo.png')
   //   p5.image(this.img, this.x, this.y, this.w, this.h);
