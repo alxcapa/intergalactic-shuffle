@@ -19,7 +19,7 @@ export default class Login extends Component {
 
           <div className="second">
             <Menu />
-            <BlocLogin disco={this.props.enfantLoggedInUser} history={this.props.history} />
+            <BlocLogin updateUser={this.props.updateUser} history={this.props.history} />
           </div>
 
           <div className="third">

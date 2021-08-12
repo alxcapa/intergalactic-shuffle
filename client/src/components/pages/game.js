@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Banner from "../banner/banner";
 import GameArea from "../game-area/gameArea";
 import Assistant from "../assistant/assistant";
@@ -74,7 +74,7 @@ export default class Game extends Component {
 
 
     if (!this.props.session) {
-      return <Redirect to="/login" />;
+      return <p>You need to be logged to access the game <Link to="/login">LOGIN NOW !</Link> </p>
     } else {
       return (
         <div className="globalContainer">

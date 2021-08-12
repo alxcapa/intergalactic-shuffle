@@ -20,7 +20,7 @@ export default class BlocLogin extends Component {
   }
 
   handleSubmit = (event) => {
-
+    console.log("on y passe")
     event.preventDefault();
 
     authService.login(this.state.email, this.state.password)
@@ -28,12 +28,16 @@ export default class BlocLogin extends Component {
         this.setState({ error: "" });
         this.setState({ logged: true });
 
-        this.props.disco(this.state.logged)
+        this.props.updateUser(response)
 
         console.log("response", response)
-        // this.props.history.push('/');
+        console.log("history", this.props.history)
+        this.props.history.push('/');
       })
-      .catch(err => this.setState({ error: err.response }))
+      .catch(err => {
+        this.setState({ error: err.response });
+        console.log("erreur", err)
+      })
       ;
   }
 
@@ -42,6 +46,7 @@ export default class BlocLogin extends Component {
     this.setState({ [name]: value });
   }
   render() {
+
     return (
       <div className="bloc-login">
 
@@ -56,11 +61,13 @@ export default class BlocLogin extends Component {
             PASSWORD
         </label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
-          <button className="btn-form" onClick={this.handleSubmit}><span>LOGIN</span></button>
-          {/* <Link to="login" onClick={this.handleSubmit}>  <div className="btn-form" > <span>LOGIN</span></div></Link> */}
-          <Link className="btn-form" to="/signup"> <div className="btn-form"> <span>SIGNUP</span></div></Link>
+          <button className="btn-form"><span>LOGIN</span></button>
+
+          <Link to="/signup" className="btn-form"> <span>SIGNUP</span></Link>
+
 
         </form>
+
       </div>
     )
   }
