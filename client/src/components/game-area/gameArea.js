@@ -104,73 +104,73 @@ function getObjects(ball) {
 
 function getTunes(score, type) {
   if (score % 1000 === 0) {
-    console.log("modulo plus ou moins de 1000");
+    // console.log("modulo plus ou moins de 1000");
     explo1Sound.play();
     seeMoves.play();
   }
 
   if (score % 1000 === 100) {
-    console.log("modulo plus ou moins de 1000");
+    // console.log("modulo plus ou moins de 1000");
     explo1Sound.play();
     wow.play();
   }
   if (score % 1000 === 300) {
-    console.log("modulo plus ou moins de 1000");
+    // console.log("modulo plus ou moins de 1000");
     explo1Sound.play();
     callThat.play();
   }
   if (score >= 500 && score <= 999) {
     explo2Sound.play();
-    console.log("500");
+    // console.log("500");
     callThat.play();
   }
   if (score >= 1000 && score <= 1500) {
-    console.log("1000");
+    // console.log("1000");
     hitSound.play();
   }
   if (score >= 2000 && score <= 2500) {
     wow.play();
-    console.log("2000");
+    // console.log("2000");
     power2Sound.play();
   }
   if (score >= 3000 && score <= 3500) {
-    console.log("3000");
+    // console.log("3000");
     go.play();
-    collisionSound.play()
+    collisionSound.play();
   }
   if (type === "ballOne") {
-    console.log(" hit ballOneeee");
+    // console.log(" hit ballOneeee");
     laser1Sound.play();
   }
   if (type === "ballTwo") {
-    console.log(" hit ballTwooooo");
+    // console.log(" hit ballTwooooo");
     power1Sound.play();
   }
   if (type === "ballThree") {
     laser2Sound.play();
-    console.log(" hit ballThreee");
+    // console.log(" hit ballThreee");
   }
 }
 
 /// VOCAL OU SON DE FIN ???
 function getFinalScore(score) {
   if (score <= 1000) {
-    console.log("The world is doomed");
+    // console.log("The world is doomed");
     // world.play();
   }
   if (score <= 1001 && score >= 1999) {
-    console.log("You call that dancing ?");
+    // console.log("You call that dancing ?");
     // callThat.play();
   }
   if (score <= 2000 && score >= 2999) {
-    console.log("Not bad");
+    // console.log("Not bad");
   }
   if (score <= 3000 && score >= 3999) {
-    console.log("Good job");
+    // console.log("Good job");
     wow.play();
   }
   if (score >= 4001) {
-    console.log("Wow great moves");
+    // console.log("Wow great moves");
     greatMoves.play();
   }
 }
@@ -312,7 +312,7 @@ class GameArea extends Component {
       ballOneScore = 0;
       ballTwoScore = 0;
       ballThreeScore = 0;
-      timeGame = 20;
+      timeGame = 60;
       this.second = 0;
       this.othersecond = 0;
       this.props.gameTime(timeGame);
@@ -322,131 +322,147 @@ class GameArea extends Component {
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-      console.log('here',this.othersecond)
-      this.othersecond++
+      if (this.otherseconds === 1) {
+        ready.play();
+      }
+      if (this.otherseconds === 2) {
+        go.play();
+      }
+
+     
+      if (this.otherseconds >= 2) {
+        
+        demoTune.play();
+
+        // FLASHY HANDS
+        let randomColour = randomNum(0, 4);
+        // console.log(randomColour);
+        if (randomColour < 2) {
+          p5.fill(0, 0, 255);
+        }
+        if (randomColour > 2 && randomColour < 4) {
+          p5.fill(0, 255, 0);
+        }
+        if (randomColour > 3) {
+          p5.fill(0, 0, 0);
+        }
+        // DRAW HANDS
+        let handRight = new Hand(
+          this.pose.rightWrist.x,
+          this.pose.rightWrist.y,
+          70,
+          70
+        );
+        let handLeft = new Hand(
+          this.pose.leftWrist.x,
+          this.pose.leftWrist.y,
+          70,
+          70
+        );
+        handRight.draw(p5);
+        handLeft.draw(p5);
+
+        // GOOOOOOD
+
+        // GAME START
+
+        // FOREACH
+        balls.forEach((ball, i) => {
+          // console.log('ball', ball);
+          ball.draw(p5);
+
+          if (crashWith(ball, handLeft)) {
+            hitSound.play();
+
+            balls.splice(i, 1);
+            getObjects(ball);
+            if (ball.type === "ballOne") {
+              this.score += 300;
+            }
+            if (ball.type === "ballTwo") {
+              this.score += 100;
+            }
+            if (ball.type === "ballThree") {
+              this.score += 300;
+            }
+            randomBall(p5);
+            this.props.score(this.score);
+            getTunes(this.score, ball.type);
+          }
+          if (crashWith(ball, handRight)) {
+            hitSound.play();
+
+            balls.splice(i, 1);
+            getObjects(ball);
+            if (ball.type === "ballOne") {
+              this.score += 300;
+            }
+            if (ball.type === "ballTwo") {
+              this.score += 100;
+            }
+            if (ball.type === "ballThree") {
+              this.score += 300;
+            }
+            randomBall(p5);
+            this.props.score(this.score);
+            getTunes(this.score);
+          }
+
+          if (timeGame <= 30) {
+            // console.log("oi");
+            // console.log(ball.y)
+            let speed = this.score / 1500;
+            ball.y = ball.y + speed;
+
+            if (ball.y >= 400) {
+              balls.splice(i, 1);
+              if (ball.type === "ballOne") {
+                this.score -= 300;
+              }
+              if (ball.type === "ballTwo") {
+                this.score -= 100;
+              }
+              if (ball.type === "ballThree") {
+                this.score -= 300;
+              }
+              randomBall(p5);
+              this.props.score(this.score);
+            }
+          }
+        });
+
+        // FOREACH
+
+        // TIMER DURING GAME TIME
+        timeGame = 60 - this.seconds;
+
+        // SEND OBJETS AS PROPS
+        this.props.gameTime(timeGame);
+        this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
+        //END GAME CONDITIONS
+        if (timeGame === 0) {
+          getFinalScore(this.score);
+
+          this.props.scoreEndGame(this.gameStart);
+          this.gameStart = false;
+          console.log("game over");
+        }
+        // this.seconds =  Math.floor(this.seconds +1/ 60);
+        this.second++;
+        this.seconds = Math.floor(this.second / 30);
+        console.log("secs", this.seconds);
+      }
 
       // collisionSound.play()
       // this.audio = new Audio("images/son.mp3");
       // audio.play()
 
-      // FLASHY HANDS
-      let randomColour = randomNum(0, 4);
-      // console.log(randomColour);
-      if (randomColour < 2) {
-        p5.fill(0, 0, 255);
-      }
-      if (randomColour > 2 && randomColour < 4) {
-        p5.fill(0, 255, 0);
-      }
-      if (randomColour > 3) {
-        p5.fill(0, 0, 0);
-      }
-      // DRAW HANDS
-      let handRight = new Hand(
-        this.pose.rightWrist.x,
-        this.pose.rightWrist.y,
-        70,
-        70
-      );
-      let handLeft = new Hand(
-        this.pose.leftWrist.x,
-        this.pose.leftWrist.y,
-        70,
-        70
-      );
-      handRight.draw(p5);
-      handLeft.draw(p5);
+      this.othersecond++;
+      this.otherseconds = Math.floor(this.othersecond / 30);
 
-      // GOOOOOOD
-
-      // GAME START
-
-      // FOREACH
-      balls.forEach((ball, i) => {
-        // console.log('ball', ball);
-        ball.draw(p5);
-
-        if (crashWith(ball, handLeft)) {
-          hitSound.play();
-
-          balls.splice(i, 1);
-          getObjects(ball);
-          if (ball.type === "ballOne") {
-            this.score += 300;
-          }
-          if (ball.type === "ballTwo") {
-            this.score += 100;
-          }
-          if (ball.type === "ballThree") {
-            this.score += 300;
-          }
-          randomBall(p5);
-          this.props.score(this.score);
-          getTunes(this.score, ball.type);
-        }
-        if (crashWith(ball, handRight)) {
-          hitSound.play();
-
-          balls.splice(i, 1);
-          getObjects(ball);
-          if (ball.type === "ballOne") {
-            this.score += 300;
-          }
-          if (ball.type === "ballTwo") {
-            this.score += 100;
-          }
-          if (ball.type === "ballThree") {
-            this.score += 300;
-          }
-          randomBall(p5);
-          this.props.score(this.score);
-          getTunes(this.score);
-        }
-
-        if (timeGame <= 10) {
-          // console.log("oi");
-          // console.log(ball.y)
-          let speed = this.score / 1500;
-          ball.y = ball.y + speed;
-
-          if (ball.y >= 400) {
-            balls.splice(i, 1);
-            if (ball.type === "ballOne") {
-              this.score -= 300;
-            }
-            if (ball.type === "ballTwo") {
-              this.score -= 100;
-            }
-            if (ball.type === "ballThree") {
-              this.score -= 300;
-            }
-            randomBall(p5);
-            this.props.score(this.score);
-          }
-        }
-      });
-
-      // FOREACH
-
-      // TIMER DURING GAME TIME
-      timeGame = 20 - this.seconds;
-
-      // SEND OBJETS AS PROPS
-      this.props.gameTime(timeGame);
-      this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
-
-      //END GAME CONDITIONS
-      if (timeGame === 0) {
-        getFinalScore(this.score);
-
-        this.props.scoreEndGame(this.gameStart);
-        this.gameStart = false;
-        console.log("game over");
-      }
-      // this.seconds =  Math.floor(this.seconds +1/ 60);
-      this.second++;
-      this.seconds = Math.floor(this.second / 60);
-
+      console.log("other",this.otherseconds);
+     
       // console.log("seconds", this.seconds)
     }
 
@@ -488,8 +504,6 @@ export default GameArea;
 /////// TASK LIST ///////
 
 // SLIDES//
-
-// TIMER CONDITIONS
 
 // ALEX
 // MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...

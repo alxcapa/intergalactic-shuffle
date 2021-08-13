@@ -60,7 +60,7 @@ export default class App extends Component {
 
 
   render() {
-    demoTune.play()
+    // demoTune.play()
  
     return (
       <Route render={props => (
