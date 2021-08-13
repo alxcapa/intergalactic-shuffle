@@ -60,13 +60,13 @@ export default class App extends Component {
       <Route render={props => (
         <div className="App" data-route={props.location.pathname}>
           <Switch>
-            <Route exact path="/" render={(props) => <Game disco={this.enfantLoggedInUser} session={this.state.user} history={props.history} />} />
-            <Route path="/about" render={(props) => <About disco={this.enfantLoggedInUser} history={props.history} />} />
-            <Route exact path="/signup" render={(props) => <Signup session={this.state.user} history={props.history} />} />
+            <Route exact path="/" render={(props) => <Game updateUser={this.updateLoggedInUser} session={this.state.user} history={props.history} />} />
+            <Route path="/about" render={(props) => <About updateUser={this.updateLoggedInUser} history={props.history} />} />
+            <Route exact path="/signup" render={(props) => <Signup updateUser={this.updateLoggedInUser} history={props.history} />} />
             <Route exact path="/login" render={(props) => <Login updateUser={this.updateLoggedInUser} session={this.state.user} history={props.history} />} />
-            <Route exact path="/profile" render={(props) => <Profile disco={this.enfantLoggedInUser} session={this.state.user} history={props.history} />} />
-            <Route exact path="/stats" render={(props) => <Stats disco={this.enfantLoggedInUser} history={props.history} />} />
-            <Route exact path="/ranking-game" render={(props) => <Ranking disco={this.enfantLoggedInUser} history={props.history} />} />
+            <Route exact path="/profile" render={(props) => <Profile updateUser={this.updateLoggedInUser} session={this.state.user} history={props.history} />} />
+            <Route exact path="/stats" render={(props) => <Stats updateUser={this.updateLoggedInUser} history={props.history} />} />
+            <Route exact path="/ranking-game" render={(props) => <Ranking updateUser={this.updateLoggedInUser} history={props.history} />} />
           </Switch>
         </div>
       )} />

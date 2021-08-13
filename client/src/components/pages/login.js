@@ -14,7 +14,7 @@ export default class Login extends Component {
         <div className="globalContainer">
           <div className="first">
             <Banner />
-            <Logout />
+            <Logout updateUser={this.props.updateUser} />
           </div>
 
           <div className="second">

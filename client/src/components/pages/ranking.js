@@ -30,7 +30,7 @@ export default class Ranking extends Component {
       <div className="globalContainer">
         <div className="first">
           <Banner />
-          <Logout checkSession={this.props.disco} />
+          <Logout updateUser={this.props.updateUser} />
         </div>
         <div className="second">
           <Menu />

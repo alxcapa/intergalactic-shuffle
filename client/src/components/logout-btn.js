@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import authService from "../components/auth/auth-service"
 import { Link } from 'react-router-dom'
 
@@ -16,9 +15,12 @@ export default class Logout extends Component {
     authService.logout()
       .then(response => {
 
-        this.setState({ connected: false })
+        // console.log("response", response)
+        // this.setState({ connected: false })
 
-        this.props.checkSession(this.state.connected)
+        this.props.updateUser(response)
+
+
         console.log("state logout", this.state.connected)
 
 
@@ -32,7 +34,7 @@ export default class Logout extends Component {
   render() {
 
     return (
-      <div className="logout-btn" onClick={this.handleLogout}>Logout</div>
+      <Link to="/login"><div className="logout-btn" onClick={this.handleLogout}>Logout</div></Link>
     )
   }
 }
