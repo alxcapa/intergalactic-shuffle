@@ -41,18 +41,7 @@ export default class App extends Component {
 
   updateLoggedInUser = (userObj) => {
     title.play()
-    if (typeof demoTune.loop == 'boolean')
-    {
-      demoTune.loop = true;
-    }
-    else
-    {
-      demoTune.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        }, false);
-    }
-    demoTune.play();
+  
     this.setState({
       user: userObj
     
@@ -71,6 +60,8 @@ export default class App extends Component {
 
 
   render() {
+    demoTune.play()
+ 
     return (
       <Route render={props => (
         <div className="App" data-route={props.location.pathname}>
