@@ -446,12 +446,12 @@ class GameArea extends Component {
 
           this.props.scoreEndGame(this.gameStart);
           this.gameStart = false;
-          console.log("game over");
+          // console.log("game over");
         }
         // this.seconds =  Math.floor(this.seconds +1/ 60);
         this.second++;
         this.seconds = Math.floor(this.second / 30);
-        console.log("secs", this.seconds);
+        // console.log("secs", this.seconds);
       }
 
       // collisionSound.play()
@@ -461,7 +461,7 @@ class GameArea extends Component {
       this.othersecond++;
       this.otherseconds = Math.floor(this.othersecond / 30);
 
-      console.log("other",this.otherseconds);
+      // console.log("other",this.otherseconds);
      
       // console.log("seconds", this.seconds)
     }
