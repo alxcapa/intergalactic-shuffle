@@ -4,7 +4,6 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import p5 from "p5";
-let audio = new Audio("images/son.mp3")
 
 // GLOBAL VARIABLES
 let ballOneScore;
@@ -101,20 +100,80 @@ function getObjects(ball) {
   }
 }
 
-// function getScore(ball, score) {
-//   if (ball.type === "ballOne") {
-//     score += 300;
-//     console.log("score",score)
-//   }
-//   if (ball.type === "ballTwo") {
-//     score += 100;
-//     console.log("score",score)
-//   }
-//   if (ball.type === "ballThree") {
-//     score += 300;
-//     console.log("score",score)
-//   }
-// }
+// ENTRY POINT FOR SOUND HERE ====>>>><
+
+function getTunes(score, type) {
+  if (score % 1000 === 0) {
+    console.log("modulo plus ou moins de 1000");
+    explo1Sound.play();
+    seeMoves.play();
+  }
+
+  if (score % 1000 === 100) {
+    console.log("modulo plus ou moins de 1000");
+    explo1Sound.play();
+    wow.play();
+  }
+  if (score % 1000 === 300) {
+    console.log("modulo plus ou moins de 1000");
+    explo1Sound.play();
+    callThat.play();
+  }
+  if (score >= 500 && score <= 999) {
+    explo2Sound.play();
+    console.log("500");
+    callThat.play();
+  }
+  if (score >= 1000 && score <= 1500) {
+    console.log("1000");
+    hitSound.play();
+  }
+  if (score >= 2000 && score <= 2500) {
+    wow.play();
+    console.log("2000");
+    power2Sound.play();
+  }
+  if (score >= 3000 && score <= 3500) {
+    console.log("3000");
+    go.play();
+    collisionSound.play()
+  }
+  if (type === "ballOne") {
+    console.log(" hit ballOneeee");
+    laser1Sound.play();
+  }
+  if (type === "ballTwo") {
+    console.log(" hit ballTwooooo");
+    power1Sound.play();
+  }
+  if (type === "ballThree") {
+    laser2Sound.play();
+    console.log(" hit ballThreee");
+  }
+}
+
+/// VOCAL OU SON DE FIN ???
+function getFinalScore(score) {
+  if (score <= 1000) {
+    console.log("The world is doomed");
+    world.play();
+  }
+  if (score <= 2000) {
+    console.log("You call that dancing ?");
+    callThat.play();
+  }
+  if (score <= 3000) {
+    console.log("Not bad");
+  }
+  if (score <= 4000) {
+    console.log("Good job");
+    wow.play();
+  }
+  if (score >= 4001) {
+    console.log("Wow great moves");
+    greatMoves.play();
+  }
+}
 
 ////////////////////////////////////// GAME AREA //////
 
@@ -126,6 +185,7 @@ class GameArea extends Component {
     // WE DEFINE THE GLOBAL VARIABLES HERE
     super(props);
     this.video = undefined;
+    this.mic = undefined;
     this.poseNet = undefined;
     this.pose = undefined;
     this.skeleton = undefined;
@@ -135,11 +195,12 @@ class GameArea extends Component {
     this.handLeft = undefined;
     this.handRight = undefined;
     this.second = 0;
+    this.othersecond = 0;
+    this.otherseconds = 0;
     this.seconds = 0;
     this.score = 0;
     this.speed = 0;
     // this.audio = new Audio("images/son.mp3");
-
   }
 
   /// SETUP
@@ -166,6 +227,12 @@ class GameArea extends Component {
         this.skeleton = poses[0].skeleton;
       }
     });
+    // p5.getAudioContext().suspend();
+
+    // CUT MICROPHONE
+    // this.mic = p5.AudioIn();
+    // this.mic.stop();
+    // console.log('mic',this.mic)
 
     //Background aléatoire
     // let backOne = "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif";
@@ -179,7 +246,9 @@ class GameArea extends Component {
     // /// BACKGROUND
     // this.bg = p5.loadImage(arrayBack[randomNum(0, 5)]);
 
-    this.bg = p5.loadImage("https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif");
+    this.bg = p5.loadImage(
+      "https://media.giphy.com/media/l2QEj7ksEKw8Ten6M/giphy.gif"
+    );
 
     // PUSH BALL INTO ARRAY
     balls.push(new Ball(p5));
@@ -244,16 +313,17 @@ class GameArea extends Component {
       ballThreeScore = 0;
       timeGame = 20;
       this.second = 0;
+      this.othersecond = 0;
       this.props.gameTime(timeGame);
       this.props.score(this.score);
       this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
-
     }
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
+      demoTune.play();
 
-
+      // collisionSound.play()
       // this.audio = new Audio("images/son.mp3");
       // audio.play()
 
@@ -291,12 +361,12 @@ class GameArea extends Component {
 
       // FOREACH
       balls.forEach((ball, i) => {
-
         // console.log('ball', ball);
         ball.draw(p5);
 
         if (crashWith(ball, handLeft)) {
-          collisionSound.play();
+          hitSound.play();
+
           balls.splice(i, 1);
           getObjects(ball);
           if (ball.type === "ballOne") {
@@ -310,9 +380,11 @@ class GameArea extends Component {
           }
           randomBall(p5);
           this.props.score(this.score);
+          getTunes(this.score, ball.type);
         }
         if (crashWith(ball, handRight)) {
-          collisionSound.play();
+          hitSound.play();
+
           balls.splice(i, 1);
           getObjects(ball);
           if (ball.type === "ballOne") {
@@ -326,6 +398,7 @@ class GameArea extends Component {
           }
           randomBall(p5);
           this.props.score(this.score);
+          getTunes(this.score);
         }
 
         if (timeGame <= 10) {
@@ -349,8 +422,6 @@ class GameArea extends Component {
             this.props.score(this.score);
           }
         }
-
-
       });
 
       // FOREACH
@@ -364,6 +435,8 @@ class GameArea extends Component {
 
       //END GAME CONDITIONS
       if (timeGame === 0) {
+        getFinalScore(this.score);
+
         this.props.scoreEndGame(this.gameStart);
         this.gameStart = false;
         console.log("game over");
@@ -391,144 +464,33 @@ class GameArea extends Component {
     );
   }
 }
-
+let demoTune = new Audio("images/demoTune.wav");
 let collisionSound = new Audio("images/collisionsound.wav");
+let explo1Sound = new Audio("images/explo.wav");
+let explo2Sound = new Audio("images/explo1.wav");
+let hitSound = new Audio("images/hit.wav");
+let laser1Sound = new Audio("images/laser1.wav");
+let laser2Sound = new Audio("images/laser3.wav");
+let power1Sound = new Audio("images/power1.wav");
+let power2Sound = new Audio("images/power2.wav");
+let seeMoves = new Audio("images/SeeMoves.wav");
+let callThat = new Audio("images/CallThat.wav");
+let go = new Audio("images/Go.wav");
+let ready = new Audio("images/Ready.wav");
+let greatMoves = new Audio("images/GreatMoves.wav");
+let world = new Audio("images/World.wav");
+let wow = new Audio("images/Wow.wav");
+
 export default GameArea;
 
 /////// TASK LIST ///////
 
-/// TODAY
+// SLIDES//
 
-// GROS CSS
-// SLIDES
-
-
+// TIMER CONDITIONS
 
 // ALEX
 // MUSIQUE ==> UN SON A DEUX ET SONS VALIDATIONS, EFFETS ...
 // MUSIQUE
 // ADD player + sound design + ASSISTANT
 // Selection de son etgit ambiances
-
-
-// ADAM
-// MICROPHONE
-
-
-
-
-
-
-
-/// STORY
-
-
-
-// TEXT BOX GAME
-
-// How to play: 
-// Get on screen and start to dance
-// Show the Alien your moves and fast
-// Hit the planets and make it groove ! 
-
-// ABOUT 
-
-/*
-<h2>...WELCOME TO INTERGALACTIC SHUFFLE HUMAN...</h2>
-Join Robo-san on space station shuffle and make enough moves to keep the
-crew and passengers entertained.{" "}
-</div>
-<br />
-<div>
-Grab as many objects as possible in the time limit and avoid the traps.
-</div>
-<br />
-<div>
-Intergalactic Shuffle was developped by <br /> Alexandre Capaldi & Adam
-Ghaoul
-</div>
-<br />
-<div>
-<img src="images/alex-linkedin.jpeg"></img><img src="images/lnkdin.png"></img>
-
-</div>
-<br />
-<div>ありがとうございます</div>
-</div>
-
-*/
-
-
-
-
-function toFinish() {
-  //       ball.y = ball.y + this.speed;
-  // draw(p5) {
-  //   this.img = p5.loadImage('/images/logo.png')
-  //   p5.image(this.img, this.x, this.y, this.w, this.h);
-  // }
-  // let img = p5.loadImage(‘images/venus.png’);
-  // p5.ellipse(this.x, this.y, this.w, this.h);
-  // let randomColour = randomNum(0, 4);
-  // console.log(randomColour);
-  // if (randomColour < 2) {
-  //
-  // }
-  // if (randomColour > 2 && randomColour < 4) {
-  //   p5.fill(0, 255, 0);
-  // }
-  // if (randomColour > 3) {
-  //   p5.fill(0, 255, 0);
-  // }
-  // if (ball.y >= 400) {
-  //   balls.splice(i, 1);
-  //   this.score -= 500;
-  //   balls.push(new Ball());
-  // }
-  // if (ball.y === 50) {
-  //   this.speed = 3 + this.score / 500;
-  // }
-  // TO FINISH FOR LEVELS ? ?
-  // let speed = 3;
-  // if (ball.x === 140) {
-  //   speed = 3;
-  // }
-  // ball.x = ball.x + speed;
-  // if (ball.x >= 700) {
-  //   setTimeout(function () {
-  //     balls.splice(i, 1);
-  //     balls.push(new Ball());
-  //   }, 1000);
-  //   // LOSE POINTS
-  // }
-  // //   if (ball.x === 140) {
-  // //     speed = randomNum(3,7);
-  // //   }
-  // //   ball.x = ball.x + speed;
-  // if (ball.y >= 400) {
-  //   balls.splice(i, 1);
-  //   balls.push(new Ball());
-  // }
-  // const randomXorY = randomNum(0,2)
-  // console.log(randomXorY)
-  // if(randomXorY === 1){
-  //   let speed = randomNum(3,7);
-  //   if (ball.x === 140) {
-  //     speed = randomNum(3,7);
-  //   }
-  //   ball.x = ball.x + speed;
-  // } else {
-  //   let speed = randomNum(3,7);
-  //   if (ball.y === 50) {
-  //     speed = randomNum(3,7);
-  //   }
-  //   ball.y = ball.y + speed;
-  // }
-  // MATH RANDOM
-  // SI ON EST < 0,5 ALTERER AXE X ET A L’INVERSE AXE DES Y
-  // let speed = randomNum(3,7);
-  // if (ball.x === 140) {
-  //   speed = randomNum(3,7);
-  // }
-  // ball.x = ball.x + speed;
-}
