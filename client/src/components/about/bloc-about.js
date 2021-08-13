@@ -27,7 +27,10 @@ function BlocAbout() {
       </div>
       <br />
       <div>
-        <img src="images/alex-linkedin.jpeg"></img><img src="images/lnkdin.png"></img><img src="images/adam-profil.jpg"></img>
+
+        <a target="_blank" href="https://www.linkedin.com/in/alexandre-capaldi-101690b8/">  <img src="images/alex-linkedin.jpeg"></img></a>
+
+        <img src="images/lnkdin.png"></img>  <a target="_blank" href="https://us04web.zoom.us/j/74313373958?pwd=dFB1YkZSZ1hNWGZFWWlhL292V1UzUT09"><img src="images/adam-profil.jpg"></img></a>
 
       </div>
       <br />

@@ -7,6 +7,7 @@ import Menu from "../menu/menu";
 import GameEvents from "../game-events/game-events";
 import Logout from "../logout-btn";
 import apiRequests from "../api-requests";
+
 // import BtnFullScreen from "../game-area/btnFullScreen"
 
 ///  TIME THING
@@ -80,6 +81,7 @@ export default class Game extends Component {
         <div className="globalContainer">
           <div className="first">
             <Banner />
+
             <Logout checkSession={this.props.disco} />
           </div>
           <div className="second">

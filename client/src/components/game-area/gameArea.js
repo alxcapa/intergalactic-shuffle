@@ -4,6 +4,7 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import p5 from "p5";
+let audio = new Audio("images/son.mp3")
 
 // GLOBAL VARIABLES
 let ballOneScore;
@@ -137,6 +138,8 @@ class GameArea extends Component {
     this.seconds = 0;
     this.score = 0;
     this.speed = 0;
+    // this.audio = new Audio("images/son.mp3");
+
   }
 
   /// SETUP
@@ -249,6 +252,10 @@ class GameArea extends Component {
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
 
+
+      // this.audio = new Audio("images/son.mp3");
+      // audio.play()
+
       // FLASHY HANDS
       let randomColour = randomNum(0, 4);
       // console.log(randomColour);
@@ -283,7 +290,7 @@ class GameArea extends Component {
 
       // FOREACH
       balls.forEach((ball, i) => {
-  
+
         // console.log('ball', ball);
         ball.draw(p5);
 
@@ -342,7 +349,7 @@ class GameArea extends Component {
           }
         }
 
-        
+
       });
 
       // FOREACH
