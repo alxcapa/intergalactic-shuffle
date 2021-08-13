@@ -156,16 +156,16 @@ function getTunes(score, type) {
 function getFinalScore(score) {
   if (score <= 1000) {
     console.log("The world is doomed");
-    world.play();
+    // world.play();
   }
-  if (score <= 2000) {
+  if (score <= 1001 && score >= 1999) {
     console.log("You call that dancing ?");
-    callThat.play();
+    // callThat.play();
   }
-  if (score <= 3000) {
+  if (score <= 2000 && score >= 2999) {
     console.log("Not bad");
   }
-  if (score <= 4000) {
+  if (score <= 3000 && score >= 3999) {
     console.log("Good job");
     wow.play();
   }
@@ -256,6 +256,7 @@ class GameArea extends Component {
 
   // DRAW CANVAS
   drawCanvas = (p5) => {
+    // demoTune.play();
     /// GOOOOD
     // THE DRAW REFRESHES EVERY 16MS
     // WE MIRROR THE CAM HERE
@@ -321,7 +322,8 @@ class GameArea extends Component {
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true) {
-      demoTune.play();
+      console.log('here',this.othersecond)
+      this.othersecond++
 
       // collisionSound.play()
       // this.audio = new Audio("images/son.mp3");
