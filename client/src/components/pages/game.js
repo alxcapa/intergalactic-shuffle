@@ -35,8 +35,15 @@ export default class Game extends Component {
       .catch((err) => this.setState({ error: err.response }));
   };
 
+  // sendScoreEnd = (gameStart) => {
+  //   if (gameStart === false) {
+  //     this.handleSubmit();
+  //   } else {
+  //   }
+  // };
+
   sendScoreEnd = (gameStart) => {
-    if (gameStart === false) {
+    if (!gameStart) {
       this.handleSubmit();
     } else {
     }

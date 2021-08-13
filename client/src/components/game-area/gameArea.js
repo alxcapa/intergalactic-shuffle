@@ -247,6 +247,7 @@ class GameArea extends Component {
       this.props.gameTime(timeGame);
       this.props.score(this.score);
       this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
     }
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
