@@ -11,10 +11,7 @@ export default class BlocLogin extends Component {
 
   state = {
     email: "",
-
     password: "",
-
-
     error: "",
     logged: false
   }

@@ -308,6 +308,11 @@ class GameArea extends Component {
     // RESET GAME !!!
     if (this.gameStart === false) {
       // console.log("im false");
+
+      // this.props.gameTime(timeGame);
+      // this.props.score(this.score);
+      // this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
       this.score = 0;
       ballOneScore = 0;
       ballTwoScore = 0;
@@ -315,9 +320,7 @@ class GameArea extends Component {
       timeGame = 60;
       this.second = 0;
       this.othersecond = 0;
-      this.props.gameTime(timeGame);
-      this.props.score(this.score);
-      this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
     }
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
@@ -329,9 +332,9 @@ class GameArea extends Component {
         go.play();
       }
 
-     
+
       if (this.otherseconds >= 2) {
-        
+
         demoTune.play();
 
         // FLASHY HANDS
@@ -442,10 +445,17 @@ class GameArea extends Component {
 
         //END GAME CONDITIONS
         if (timeGame === 0) {
-          getFinalScore(this.score);
+          // getFinalScore(this.score);
 
-          this.props.scoreEndGame(this.gameStart);
+          // RECUPERATION TEMPS/ SCORE / OBJETS
+          this.props.gameTime(timeGame);
+          this.props.score(this.score);
+          this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
+
+          // ENVOI DU SCORE
           this.gameStart = false;
+          this.props.scoreEndGame(this.gameStart);
+
           // console.log("game over");
         }
         // this.seconds =  Math.floor(this.seconds +1/ 60);
@@ -462,7 +472,7 @@ class GameArea extends Component {
       this.otherseconds = Math.floor(this.othersecond / 30);
 
       // console.log("other",this.otherseconds);
-     
+
       // console.log("seconds", this.seconds)
     }
 
