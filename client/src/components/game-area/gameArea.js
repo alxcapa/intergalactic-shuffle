@@ -368,7 +368,7 @@ class GameArea extends Component {
       }
 
       if (this.otherseconds >= 2) {
-        // demoTune.play();
+        demoTune.play();
 
         // FLASHY HANDS
         let randomColour = randomNum(0, 4);
@@ -528,7 +528,7 @@ class GameArea extends Component {
     );
   }
 }
-// let demoTune = new Audio("images/demoTune.wav");
+let demoTune = new Audio("images/demoTune.wav");
 let collisionSound = new Audio("images/collisionsound.wav");
 let explo1Sound = new Audio("images/explo.wav");
 let explo2Sound = new Audio("images/explo1.wav");
