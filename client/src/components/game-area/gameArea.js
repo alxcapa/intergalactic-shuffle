@@ -9,6 +9,7 @@ import p5 from "p5";
 let ballOneScore;
 let ballTwoScore;
 let ballThreeScore;
+let score;
 let timeGame;
 
 // BUILD PLANETS
@@ -175,12 +176,47 @@ function getFinalScore(score) {
   }
 }
 
+function getFinalScorePhrase(score) {
+  if (score > 9999) {
+    return "Test 1";
+  }
+  if (score <= 10000 && score >= 14999) {
+    return "Test 2";
+  }
+  if (score <= 15000 && score >= 19999) {
+    return "Test 3";
+  }
+  if (score <= 20000) {
+    return "Test 4";
+  }
+}
+
+// POP UP WINDOW
+function Modal(props) {
+  return (
+    <div class="modal">
+      <a onClick={props.toggle}></a>
+      {getFinalScore(score)} <br />
+      Your score is {score} <br />
+      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore}
+      Try again Human ! 
+    </div>
+  );
+}
+
 ////////////////////////////////////// GAME AREA //////
 
 /// THEN INITIATE THE GAME AREA
 
 /// THEN INITIATE THE GAME AREA
 class GameArea extends Component {
+  state = {
+    open: false,
+  };
+  toggle = () => {
+    this.setState({ open: !this.state.open });
+  };
+
   constructor(props) {
     // WE DEFINE THE GLOBAL VARIABLES HERE
     super(props);
@@ -320,7 +356,6 @@ class GameArea extends Component {
       timeGame = 60;
       this.second = 0;
       this.othersecond = 0;
-
     }
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
@@ -332,10 +367,8 @@ class GameArea extends Component {
         go.play();
       }
 
-
       if (this.otherseconds >= 2) {
-
-        demoTune.play();
+        // demoTune.play();
 
         // FLASHY HANDS
         let randomColour = randomNum(0, 4);
@@ -445,16 +478,18 @@ class GameArea extends Component {
 
         //END GAME CONDITIONS
         if (timeGame === 0) {
-          // getFinalScore(this.score);
+          getFinalScore(this.score);
 
           // RECUPERATION TEMPS/ SCORE / OBJETS
           this.props.gameTime(timeGame);
           this.props.score(this.score);
+          score = this.score;
           this.props.object(ballOneScore, ballTwoScore, ballThreeScore);
 
           // ENVOI DU SCORE
           this.gameStart = false;
           this.props.scoreEndGame(this.gameStart);
+          this.setState({ open: true });
 
           // console.log("game over");
         }
@@ -488,11 +523,12 @@ class GameArea extends Component {
           draw={this.drawCanvas}
           className="defaultCanvas0"
         />
+        {this.state.open && <Modal toggle={this.toggle} />}
       </div>
     );
   }
 }
-let demoTune = new Audio("images/demoTune.wav");
+// let demoTune = new Audio("images/demoTune.wav");
 let collisionSound = new Audio("images/collisionsound.wav");
 let explo1Sound = new Audio("images/explo.wav");
 let explo2Sound = new Audio("images/explo1.wav");
