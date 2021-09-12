@@ -21,15 +21,18 @@ export default class BlocProfile extends Component {
     console.log(this.props.dataProfile.user, 'props')
     return (
       <div className="bloc-profile">
-      <br/>
-      <br/><br/>
+        <br />
+        <br /><br />
         <h2>PROFILE</h2>
         <h3>BEST GAMES</h3>
         <ul>
           {this.props.dataProfile.scores.map((item) => {
-            return (
-              <li key={item.id}> {formatDate(item.createdAt)} - {item.high_score} - [{item.object_one}, {item.object_two}, {item.object_three} ]</li>
-            )
+            if (item.high_score > 1) {
+              return (
+                <li key={item.id}> {formatDate(item.createdAt)} - {item.high_score} - [{item.object_one}, {item.object_two}, {item.object_three} ]</li>
+              )
+            }
+
           })}
 
         </ul>

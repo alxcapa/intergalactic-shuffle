@@ -198,8 +198,8 @@ function Modal(props) {
       <a onClick={props.toggle}></a>
       {getFinalScore(score)} <br />
       Your score is {score} <br />
-      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore}
-      Try again Human ! 
+      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore} <br />
+      Try again Human !
     </div>
   );
 }
@@ -341,9 +341,9 @@ class GameArea extends Component {
     }
     /// GOOOOD
 
-    // RESET GAME !!!
+    // RESET GAME!!!
     if (this.gameStart === false) {
-      // console.log("im false");
+      console.log("im false");
 
       // this.props.gameTime(timeGame);
       // this.props.score(this.score);
@@ -359,7 +359,9 @@ class GameArea extends Component {
     }
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
-    if (this.gameStart === true) {
+    if (this.gameStart === true && this.state.open === false) {
+
+
       if (this.otherseconds === 1) {
         ready.play();
       }

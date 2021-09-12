@@ -27,12 +27,13 @@ export default class BlocRanking extends Component {
           </thead>
           <tbody>
             {this.props.dataRank.data.map((el, i) => {
-
-              return (
-                <tr>
-                  <PlayerRow position={i + 1} username={el.user_ref.username} score={el.high_score} objectOne={el.object_one} objectTwo={el.object_two} objectThree={el.object_three} />
-                </tr>
-              )
+              if (el.high_score > 1) {
+                return (
+                  <tr>
+                    <PlayerRow position={i + 1} username={el.user_ref.username} score={el.high_score} objectOne={el.object_one} objectTwo={el.object_two} objectThree={el.object_three} />
+                  </tr>
+                )
+              }
             })}
           </tbody>
         </table>
