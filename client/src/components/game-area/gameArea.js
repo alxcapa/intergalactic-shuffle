@@ -343,7 +343,7 @@ class GameArea extends Component {
 
     // RESET GAME!!!
     if (this.gameStart === false) {
-      console.log("im false");
+      // console.log("im false");
 
       // this.props.gameTime(timeGame);
       // this.props.score(this.score);
@@ -450,6 +450,11 @@ class GameArea extends Component {
             // console.log("oi");
             // console.log(ball.y)
             let speed = this.score / 1500;
+
+            if (ball.y <= 80) {
+              ball.y = 80
+            }
+
             ball.y = ball.y + speed;
 
             if (ball.y >= 400) {
