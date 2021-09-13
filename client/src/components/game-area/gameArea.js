@@ -16,7 +16,7 @@ let timeGame;
 class Ball {
   constructor(p5, type = "ballOne") {
     if (timeGame <= 30) {
-      this.y = 50;
+      this.y = 20;
     } else {
       this.y = randomNum(50, 300);
     }
@@ -427,6 +427,7 @@ class GameArea extends Component {
         balls.forEach((ball, i) => {
           // console.log('ball', ball);
           ball.draw(p5);
+         
 
           // console.log( "x", ball.x,  "y", ball.y)
 
@@ -445,6 +446,8 @@ class GameArea extends Component {
               this.score += 300;
             }
             randomBall(p5);
+          
+         
             this.props.score(this.score);
             getTunes(this.score, ball.type);
           }
@@ -463,6 +466,7 @@ class GameArea extends Component {
               this.score += 300;
             }
             randomBall(p5);
+     
             this.props.score(this.score);
             getTunes(this.score);
           }
@@ -490,6 +494,7 @@ class GameArea extends Component {
                 this.score -= 300;
               }
               randomBall(p5);
+         
 
               this.props.score(this.score);
             }
