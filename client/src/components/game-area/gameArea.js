@@ -15,7 +15,7 @@ let timeGame;
 // BUILD PLANETS
 class Ball {
   constructor(p5, type = "ballOne") {
-    if(timeGame <= 30) {
+    if (timeGame <= 30) {
       this.y = 50;
     } else {
       this.y = randomNum(50, 300);
@@ -198,16 +198,25 @@ function getFinalScorePhrase(score) {
 
 // POP UP WINDOW
 function Modal(props) {
-  return (
-    <div class="modal">
-      <a onClick={props.toggle}></a>
-      {getFinalScorePhrase(score)} <br />
-      Your score is {score} <br />
-      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore}{" "}
-      <br />
-      Try again Human !
-    </div>
-  );
+  if (score === 0) {
+    return (
+      <div class="modal">
+        <a onClick={props.toggle}></a>
+        Wanna play again ?
+      </div>
+    );
+  } else {
+    return (
+      <div class="modal">
+        <a onClick={props.toggle}></a>
+        {getFinalScorePhrase(score)} <br />
+        Your score is {score} <br />
+        Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore}{" "}
+        <br />
+        Try again Human !
+      </div>
+    );
+  }
 }
 
 ////////////////////////////////////// GAME AREA //////
@@ -374,7 +383,9 @@ class GameArea extends Component {
       }
 
       if (this.otherseconds >= 2) {
-        demoTune.play();
+        if (!demoTune.play()) {
+          demoTune.play();
+        }
 
         // FLASHY HANDS
         let randomColour = randomNum(0, 4);
@@ -408,11 +419,16 @@ class GameArea extends Component {
 
         // GAME START
 
+        // if(!demoTune.play()){
+        //   demoTune.play();
+        // }
+
         // FOREACH
         balls.forEach((ball, i) => {
           // console.log('ball', ball);
           ball.draw(p5);
-          console.log( "x", ball.x,  "y", ball.y)
+
+          // console.log( "x", ball.x,  "y", ball.y)
 
           if (crashWith(ball, handLeft)) {
             hitSound.play();
@@ -459,7 +475,7 @@ class GameArea extends Component {
             // if (ball.y <= 80) {
             //   ball.y = 80
             // }
-           
+
             ball.y = ball.y + speed;
 
             if (ball.y >= 400) {
@@ -474,6 +490,7 @@ class GameArea extends Component {
                 this.score -= 300;
               }
               randomBall(p5);
+
               this.props.score(this.score);
             }
           }
