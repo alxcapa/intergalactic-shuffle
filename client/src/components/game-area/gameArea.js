@@ -15,8 +15,13 @@ let timeGame;
 // BUILD PLANETS
 class Ball {
   constructor(p5, type = "ballOne") {
+    if(timeGame <= 30) {
+      this.y = 50;
+    } else {
+      this.y = randomNum(50, 300);
+    }
     this.x = randomNum(140, 600);
-    this.y = randomNum(50, 300);
+    // this.y = randomNum(50, 300);
     this.w = 50;
     this.h = 50;
     this.type = type;
@@ -177,17 +182,17 @@ function getFinalScore(score) {
 }
 
 function getFinalScorePhrase(score) {
-  if (score > 9999) {
-    return "Test 1";
+  if (score < 9999) {
+    return "The world is doomed !";
   }
-  if (score <= 10000 && score >= 14999) {
-    return "Test 2";
+  if (score >= 10000 && score <= 14999) {
+    return "You call that dancing ?";
   }
-  if (score <= 15000 && score >= 19999) {
-    return "Test 3";
+  if (score >= 15000 && score <= 19999) {
+    return "Humans know how to move eh ?";
   }
-  if (score <= 20000) {
-    return "Test 4";
+  if (score >= 20000) {
+    return "You may survive another day ..";
   }
 }
 
@@ -196,9 +201,10 @@ function Modal(props) {
   return (
     <div class="modal">
       <a onClick={props.toggle}></a>
-      {getFinalScore(score)} <br />
+      {getFinalScorePhrase(score)} <br />
       Your score is {score} <br />
-      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore} <br />
+      Number of objects {ballOneScore} | {ballTwoScore} | {ballThreeScore}{" "}
+      <br />
       Try again Human !
     </div>
   );
@@ -360,8 +366,6 @@ class GameArea extends Component {
 
     // WHEN THE GAME STARTS THE USER GETS THE GLOVES
     if (this.gameStart === true && this.state.open === false) {
-
-
       if (this.otherseconds === 1) {
         ready.play();
       }
@@ -408,6 +412,7 @@ class GameArea extends Component {
         balls.forEach((ball, i) => {
           // console.log('ball', ball);
           ball.draw(p5);
+          console.log( "x", ball.x,  "y", ball.y)
 
           if (crashWith(ball, handLeft)) {
             hitSound.play();
@@ -451,10 +456,10 @@ class GameArea extends Component {
             // console.log(ball.y)
             let speed = this.score / 1500;
 
-            if (ball.y <= 80) {
-              ball.y = 80
-            }
-
+            // if (ball.y <= 80) {
+            //   ball.y = 80
+            // }
+           
             ball.y = ball.y + speed;
 
             if (ball.y >= 400) {

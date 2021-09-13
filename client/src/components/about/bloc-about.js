@@ -30,7 +30,7 @@ function BlocAbout() {
 
         <a target="_blank" href="https://www.linkedin.com/in/alexandre-capaldi-101690b8/">  <img src="images/alex-linkedin.jpeg"></img></a>
 
-        <img src="images/lnkdin.png"></img>  <a target="_blank" href="https://us04web.zoom.us/j/74313373958?pwd=dFB1YkZSZ1hNWGZFWWlhL292V1UzUT09"><img src="images/adam-profil.jpg"></img></a>
+        <img src="images/lnkdin.png"></img>  <a target="_blank" href="https://www.linkedin.com/in/adam-ghaoul/"><img src="images/T02CQ4EN4-U01A1Q4LJBW-2e447ceb2d5a-512.jpg"></img></a>
 
       </div>
       <br />
@@ -40,3 +40,6 @@ function BlocAbout() {
 }
 
 export default BlocAbout;
+
+
+
