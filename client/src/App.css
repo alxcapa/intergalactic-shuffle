@@ -611,20 +611,24 @@ td {
 /* //FULLSCREEN */
 
 .btn-container {
+  /* background-color: red; */
+  margin-top: 400px;
 
-  margin-top: 500px;
+  /* margin-top: 500px; */
 }
 
 .btn-fullscreen {
 
-  margin-top: 500px;
+  /* margin-top: 500px; */
+  /* z-index: 9999; */
 
   /* cursor: pointer; */
 }
 
 .btn-screen {
 
-  margin-top: 500px;
+  /* margin-top: 500px;
+  z-index: 9999; */
   /* cursor: pointer; */
 }
 

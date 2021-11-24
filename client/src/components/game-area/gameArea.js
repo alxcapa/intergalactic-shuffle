@@ -4,7 +4,7 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import p5 from "p5";
-import ReactFullscreen from 'react-easyfullscreen';
+import ReactFullscreen from "react-easyfullscreen";
 
 // GLOBAL VARIABLES
 let ballOneScore;
@@ -429,7 +429,6 @@ class GameArea extends Component {
           // console.log('ball', ball);
           ball.draw(p5);
 
-
           // console.log( "x", ball.x,  "y", ball.y)
 
           if (crashWith(ball, handLeft)) {
@@ -447,7 +446,6 @@ class GameArea extends Component {
               this.score += 300;
             }
             randomBall(p5);
-
 
             this.props.score(this.score);
             getTunes(this.score, ball.type);
@@ -495,7 +493,6 @@ class GameArea extends Component {
                 this.score -= 300;
               }
               randomBall(p5);
-
 
               this.props.score(this.score);
             }
@@ -555,17 +552,20 @@ class GameArea extends Component {
       <ReactFullscreen>
         {({ ref, onRequest, onExit }) => (
           <div>
-
             <Sketch
               setup={this.setup}
               draw={this.drawCanvas}
               className="defaultCanvas0"
             />
             {this.state.open && <Modal toggle={this.toggle} />}
-
-            <button onClick={() => onRequest()} className="btn-fullscreen">FullScreen</button>
-            <button onClick={() => onExit()} className="btn-screen">Screen</button>
-
+            <div className="btn-container">
+              <button onClick={() => onRequest()} className="btn-fullscreen">
+                FullScreen
+              </button>
+              <button onClick={() => onExit()} className="btn-screen">
+                Screen
+              </button>
+            </div>
           </div>
         )}
       </ReactFullscreen>
