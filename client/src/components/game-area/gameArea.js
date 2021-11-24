@@ -4,6 +4,7 @@ import P5Wrapper from "react-p5-wrapper";
 import Sketch from "react-p5";
 import * as ml5 from "ml5";
 import p5 from "p5";
+import ReactFullscreen from 'react-easyfullscreen';
 
 // GLOBAL VARIABLES
 let ballOneScore;
@@ -427,7 +428,7 @@ class GameArea extends Component {
         balls.forEach((ball, i) => {
           // console.log('ball', ball);
           ball.draw(p5);
-         
+
 
           // console.log( "x", ball.x,  "y", ball.y)
 
@@ -446,8 +447,8 @@ class GameArea extends Component {
               this.score += 300;
             }
             randomBall(p5);
-          
-         
+
+
             this.props.score(this.score);
             getTunes(this.score, ball.type);
           }
@@ -466,7 +467,7 @@ class GameArea extends Component {
               this.score += 300;
             }
             randomBall(p5);
-     
+
             this.props.score(this.score);
             getTunes(this.score);
           }
@@ -494,7 +495,7 @@ class GameArea extends Component {
                 this.score -= 300;
               }
               randomBall(p5);
-         
+
 
               this.props.score(this.score);
             }
@@ -551,14 +552,23 @@ class GameArea extends Component {
   // WE RENDER THE GAME CANVAS AND VOIIIILA
   render() {
     return (
-      <div>
-        <Sketch
-          setup={this.setup}
-          draw={this.drawCanvas}
-          className="defaultCanvas0"
-        />
-        {this.state.open && <Modal toggle={this.toggle} />}
-      </div>
+      <ReactFullscreen>
+        {({ ref, onRequest, onExit }) => (
+          <div>
+
+            <Sketch
+              setup={this.setup}
+              draw={this.drawCanvas}
+              className="defaultCanvas0"
+            />
+            {this.state.open && <Modal toggle={this.toggle} />}
+
+            <button onClick={() => onRequest()} className="btn-fullscreen">FullScreen</button>
+            <button onClick={() => onExit()} className="btn-screen">Screen</button>
+
+          </div>
+        )}
+      </ReactFullscreen>
     );
   }
 }
